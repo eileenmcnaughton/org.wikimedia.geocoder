@@ -4,6 +4,7 @@
         "geocoder-php/cache-provider": "^4.0",
         "php-http/guzzle6-adapter": "^1.1",
         "geocoder-php/free-geoip-provider": "^4.0",
-        "php-http/message": "^1.6"
+        "php-http/message": "^1.6",
+        "geocoder-php/nominatim-provider": "^4.0"
     }
 }

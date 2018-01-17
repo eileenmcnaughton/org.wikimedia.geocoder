@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -73,7 +71,7 @@ final class Bounds
      *
      * @return float
      */
-    public function getSouth(): float
+    public function getSouth()
     {
         return $this->south;
     }
@@ -83,7 +81,7 @@ final class Bounds
      *
      * @return float
      */
-    public function getWest(): float
+    public function getWest()
     {
         return $this->west;
     }
@@ -93,7 +91,7 @@ final class Bounds
      *
      * @return float
      */
-    public function getNorth(): float
+    public function getNorth()
     {
         return $this->north;
     }
@@ -103,7 +101,7 @@ final class Bounds
      *
      * @return float
      */
-    public function getEast(): float
+    public function getEast()
     {
         return $this->east;
     }
@@ -113,7 +111,7 @@ final class Bounds
      *
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         return [
             'south' => $this->getSouth(),

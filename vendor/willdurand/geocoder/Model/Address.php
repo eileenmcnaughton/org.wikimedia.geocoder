@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -88,17 +86,17 @@ class Address implements Location
      * @param string|null          $timezone
      */
     public function __construct(
-        string $providedBy,
+        $providedBy,
         AdminLevelCollection $adminLevels,
         Coordinates $coordinates = null,
         Bounds $bounds = null,
-        string $streetNumber = null,
-        string $streetName = null,
-        string $postalCode = null,
-        string $locality = null,
-        string $subLocality = null,
+        $streetNumber = null,
+        $streetName = null,
+        $postalCode = null,
+        $locality = null,
+        $subLocality = null,
         Country $country = null,
-        string $timezone = null
+        $timezone = null
     ) {
         $this->providedBy = $providedBy;
         $this->adminLevels = $adminLevels;
@@ -116,7 +114,7 @@ class Address implements Location
     /**
      * @return string
      */
-    public function getProvidedBy(): string
+    public function getProvidedBy()
     {
         return $this->providedBy;
     }
@@ -180,7 +178,7 @@ class Address implements Location
     /**
      * {@inheritdoc}
      */
-    public function getAdminLevels(): AdminLevelCollection
+    public function getAdminLevels()
     {
         return $this->adminLevels;
     }
@@ -239,12 +237,12 @@ class Address implements Location
                 continue;
             }
 
-            $name = $adminLevel['name'] ?? $adminLevel['code'] ?? null;
+            $name = isset($adminLevel['name']) ? $adminLevel['name'] : (isset($adminLevel['code']) ? $adminLevel['code'] : null);
             if (empty($name)) {
                 continue;
             }
 
-            $adminLevels[] = new AdminLevel($adminLevel['level'], $name, $adminLevel['code'] ?? null);
+            $adminLevels[] = new AdminLevel($adminLevel['level'], $name, isset($adminLevel['code']) ? $adminLevel['code'] : null);
         }
 
         return new static(
@@ -319,7 +317,7 @@ class Address implements Location
     /**
      * {@inheritdoc}
      */
-    public function toArray(): array
+    public function toArray()
     {
         $adminLevels = [];
         foreach ($this->adminLevels as $adminLevel) {

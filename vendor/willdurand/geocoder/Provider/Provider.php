@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -31,7 +29,7 @@ interface Provider
      *
      * @throws \Geocoder\Exception\Exception
      */
-    public function geocodeQuery(GeocodeQuery $query): Collection;
+    public function geocodeQuery(GeocodeQuery $query);
 
     /**
      * @param ReverseQuery $query
@@ -40,12 +38,12 @@ interface Provider
      *
      * @throws \Geocoder\Exception\Exception
      */
-    public function reverseQuery(ReverseQuery $query): Collection;
+    public function reverseQuery(ReverseQuery $query);
 
     /**
      * Returns the provider's name.
      *
      * @return string
      */
-    public function getName(): string;
+    public function getName();
 }

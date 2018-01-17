@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -46,7 +44,7 @@ final class StatefulGeocoder implements Geocoder
      * @param Provider $provider
      * @param string   $locale
      */
-    public function __construct(Provider $provider, string $locale = null)
+    public function __construct(Provider $provider, $locale = null)
     {
         $this->provider = $provider;
         $this->locale = $locale;
@@ -56,7 +54,7 @@ final class StatefulGeocoder implements Geocoder
     /**
      * {@inheritdoc}
      */
-    public function geocode(string $value): Collection
+    public function geocode($value)
     {
         $query = GeocodeQuery::create($value)
             ->withLimit($this->limit);
@@ -75,7 +73,7 @@ final class StatefulGeocoder implements Geocoder
     /**
      * {@inheritdoc}
      */
-    public function reverse(float $latitude, float $longitude): Collection
+    public function reverse($latitude, $longitude)
     {
         $query = ReverseQuery::fromCoordinates($latitude, $longitude)
             ->withLimit($this->limit);
@@ -90,7 +88,7 @@ final class StatefulGeocoder implements Geocoder
     /**
      * {@inheritdoc}
      */
-    public function geocodeQuery(GeocodeQuery $query): Collection
+    public function geocodeQuery(GeocodeQuery $query)
     {
         $locale = $query->getLocale();
         if (empty($locale) && null !== $this->locale) {
@@ -108,7 +106,7 @@ final class StatefulGeocoder implements Geocoder
     /**
      * {@inheritdoc}
      */
-    public function reverseQuery(ReverseQuery $query): Collection
+    public function reverseQuery(ReverseQuery $query)
     {
         $locale = $query->getLocale();
         if (empty($locale) && null !== $this->locale) {
@@ -123,7 +121,7 @@ final class StatefulGeocoder implements Geocoder
      *
      * @return StatefulGeocoder
      */
-    public function setLocale(string $locale): self
+    public function setLocale($locale)
     {
         $this->locale = $locale;
 
@@ -135,7 +133,7 @@ final class StatefulGeocoder implements Geocoder
      *
      * @return StatefulGeocoder
      */
-    public function setBounds(Bounds $bounds): self
+    public function setBounds(Bounds $bounds)
     {
         $this->bounds = $bounds;
 
@@ -147,7 +145,7 @@ final class StatefulGeocoder implements Geocoder
      *
      * @return StatefulGeocoder
      */
-    public function setLimit(int $limit): self
+    public function setLimit($limit)
     {
         $this->limit = $limit;
 
@@ -157,7 +155,7 @@ final class StatefulGeocoder implements Geocoder
     /**
      * {@inheritdoc}
      */
-    public function getName(): string
+    public function getName()
     {
         return 'stateful_geocoder';
     }

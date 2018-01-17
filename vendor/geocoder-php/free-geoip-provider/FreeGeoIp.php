@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -36,7 +34,7 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
      * @param HttpClient $client
      * @param string     $baseUrl
      */
-    public function __construct(HttpClient $client, string $baseUrl = 'https://freegeoip.net/json/%s')
+    public function __construct(HttpClient $client, $baseUrl = 'https://freegeoip.net/json/%s')
     {
         parent::__construct($client);
 
@@ -46,7 +44,7 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function geocodeQuery(GeocodeQuery $query): Collection
+    public function geocodeQuery(GeocodeQuery $query)
     {
         $address = $query->getText();
         if (!filter_var($address, FILTER_VALIDATE_IP)) {
@@ -62,11 +60,11 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
         $builder = new AddressBuilder($this->getName());
 
         if (!empty($data['region_name'])) {
-            $builder->addAdminLevel(1, $data['region_name'], $data['region_code'] ?? null);
+            $builder->addAdminLevel(1, $data['region_name'], isset($data['region_code']) ? $data['region_code'] : null);
         }
 
         if ($data['latitude'] !== 0 || $data['longitude'] !== 0) {
-            $builder->setCoordinates($data['latitude'] ?? null, $data['longitude'] ?? null);
+            $builder->setCoordinates(isset($data['latitude']) ? $data['latitude'] : null, isset($data['longitude']) ? $data['longitude'] : null);
         }
         $builder->setLocality(empty($data['city']) ? null : $data['city']);
         $builder->setPostalCode(empty($data['zip_code']) ? null : $data['zip_code']);
@@ -80,7 +78,7 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function reverseQuery(ReverseQuery $query): Collection
+    public function reverseQuery(ReverseQuery $query)
     {
         throw new UnsupportedOperation('The FreeGeoIp provider is not able to do reverse geocoding.');
     }
@@ -88,7 +86,7 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function getName(): string
+    public function getName()
     {
         return 'free_geo_ip';
     }

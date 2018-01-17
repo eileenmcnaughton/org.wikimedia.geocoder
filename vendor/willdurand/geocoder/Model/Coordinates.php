@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -53,7 +51,7 @@ final class Coordinates
      *
      * @return float
      */
-    public function getLatitude(): float
+    public function getLatitude()
     {
         return $this->latitude;
     }
@@ -63,7 +61,7 @@ final class Coordinates
      *
      * @return float
      */
-    public function getLongitude(): float
+    public function getLongitude()
     {
         return $this->longitude;
     }

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -37,7 +35,7 @@ final class AdminLevel
      * @param string      $name
      * @param string|null $code
      */
-    public function __construct(int $level, string $name, string $code = null)
+    public function __construct($level, $name, $code = null)
     {
         $this->level = $level;
         $this->name = $name;
@@ -49,7 +47,7 @@ final class AdminLevel
      *
      * @return int Level number [1,5]
      */
-    public function getLevel(): int
+    public function getLevel()
     {
         return $this->level;
     }
@@ -59,7 +57,7 @@ final class AdminLevel
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -79,7 +77,7 @@ final class AdminLevel
      *
      * @return string
      */
-    public function __toString(): string
+    public function __toString()
     {
         return $this->getName();
     }

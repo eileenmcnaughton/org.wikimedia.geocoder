@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -39,7 +37,7 @@ interface Geocoder extends Provider
      *
      * @throws \Geocoder\Exception\Exception
      */
-    public function geocode(string $value): Collection;
+    public function geocode($value);
 
     /**
      * Reverses geocode given latitude and longitude values.
@@ -51,5 +49,5 @@ interface Geocoder extends Provider
      *
      * @throws \Geocoder\Exception\Exception
      */
-    public function reverse(float $latitude, float $longitude): Collection;
+    public function reverse($latitude, $longitude);
 }

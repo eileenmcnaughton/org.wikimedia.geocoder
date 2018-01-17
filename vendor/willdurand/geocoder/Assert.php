@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -20,7 +18,7 @@ class Assert
      * @param float  $value
      * @param string $message
      */
-    public static function latitude($value, string $message = '')
+    public static function latitude($value, $message = '')
     {
         self::float($value, $message);
         if ($value < -90 || $value > 90) {
@@ -32,7 +30,7 @@ class Assert
      * @param float  $value
      * @param string $message
      */
-    public static function longitude($value, string $message = '')
+    public static function longitude($value, $message = '')
     {
         self::float($value, $message);
         if ($value < -180 || $value > 180) {
@@ -44,14 +42,14 @@ class Assert
      * @param mixed  $value
      * @param string $message
      */
-    public static function notNull($value, string $message = '')
+    public static function notNull($value, $message = '')
     {
         if (null === $value) {
             throw new InvalidArgument(sprintf($message ?: 'Value cannot be null'));
         }
     }
 
-    private static function typeToString($value): string
+    private static function typeToString($value)
     {
         return is_object($value) ? get_class($value) : gettype($value);
     }
@@ -60,7 +58,7 @@ class Assert
      * @param $value
      * @param $message
      */
-    private static function float($value, string $message)
+    private static function float($value, $message)
     {
         if (!is_float($value)) {
             throw new InvalidArgument(

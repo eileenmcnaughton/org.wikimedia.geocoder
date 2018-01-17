@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -28,32 +26,32 @@ interface Collection extends \IteratorAggregate, \Countable
      *
      * @throws CollectionIsEmpty
      */
-    public function first(): Location;
+    public function first();
 
     /**
      * @return bool
      */
-    public function isEmpty(): bool;
+    public function isEmpty();
 
     /**
      * @return Location[]
      */
-    public function slice(int $offset, int $length = null);
+    public function slice($offset, $length = null);
 
     /**
      * @return bool
      */
-    public function has(int $index): bool;
+    public function has($index);
 
     /**
      * @return Location
      *
      * @throws OutOfBounds
      */
-    public function get(int $index): Location;
+    public function get($index);
 
     /**
      * @return Location[]
      */
-    public function all(): array;
+    public function all();
 }

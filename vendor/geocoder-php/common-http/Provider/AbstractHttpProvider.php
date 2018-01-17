@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -55,7 +53,7 @@ abstract class AbstractHttpProvider extends AbstractProvider
      *
      * @throws InvalidServerResponse
      */
-    protected function getUrlContents(string $url): string
+    protected function getUrlContents($url)
     {
         $request = $this->getMessageFactory()->createRequest('GET', $url);
         $response = $this->getHttpClient()->sendRequest($request);
@@ -82,7 +80,7 @@ abstract class AbstractHttpProvider extends AbstractProvider
      *
      * @return HttpClient
      */
-    protected function getHttpClient(): HttpClient
+    protected function getHttpClient()
     {
         return $this->client;
     }
@@ -90,7 +88,7 @@ abstract class AbstractHttpProvider extends AbstractProvider
     /**
      * @return MessageFactory
      */
-    protected function getMessageFactory(): MessageFactory
+    protected function getMessageFactory()
     {
         return $this->messageFactory;
     }

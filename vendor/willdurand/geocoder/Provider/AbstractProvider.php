@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +23,7 @@ abstract class AbstractProvider implements Provider
      *
      * @return Location
      */
-    protected function getLocationForLocalhost(): Location
+    protected function getLocationForLocalhost()
     {
         return Address::createFromArray([
             'providedBy' => $this->getName(),

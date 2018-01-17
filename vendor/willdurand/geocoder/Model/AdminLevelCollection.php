@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -71,7 +69,7 @@ final class AdminLevelCollection implements \IteratorAggregate, \Countable
      *
      * @throws CollectionIsEmpty
      */
-    public function first(): AdminLevel
+    public function first()
     {
         if (empty($this->adminLevels)) {
             throw new CollectionIsEmpty();
@@ -86,7 +84,7 @@ final class AdminLevelCollection implements \IteratorAggregate, \Countable
      *
      * @return AdminLevel[]
      */
-    public function slice(int $offset, int $length = null): array
+    public function slice($offset, $length = null)
     {
         return array_slice($this->adminLevels, $offset, $length, true);
     }
@@ -94,7 +92,7 @@ final class AdminLevelCollection implements \IteratorAggregate, \Countable
     /**
      * @return bool
      */
-    public function has(int $level): bool
+    public function has($level)
     {
         return isset($this->adminLevels[$level]);
     }
@@ -105,7 +103,7 @@ final class AdminLevelCollection implements \IteratorAggregate, \Countable
      * @throws \OutOfBoundsException
      * @throws InvalidArgument
      */
-    public function get(int $level): AdminLevel
+    public function get($level)
     {
         $this->checkLevel($level);
 
@@ -119,7 +117,7 @@ final class AdminLevelCollection implements \IteratorAggregate, \Countable
     /**
      * @return AdminLevel[]
      */
-    public function all(): array
+    public function all()
     {
         return $this->adminLevels;
     }
@@ -129,7 +127,7 @@ final class AdminLevelCollection implements \IteratorAggregate, \Countable
      *
      * @throws \OutOfBoundsException
      */
-    private function checkLevel(int $level)
+    private function checkLevel($level)
     {
         if ($level <= 0 || $level > self::MAX_LEVEL_DEPTH) {
             throw new OutOfBounds(

@@ -14,6 +14,8 @@ class CRM_Geocoder_Upgrader extends CRM_Geocoder_Upgrader_Base {
    */
   public function install() {
     $this->executeSqlFile('sql/install.sql');
+    $this->executeSqlFile('sql/install_zip_data_set.sql');
+    civicrm_api3('Setting', 'create', ['geoProvider' => 'Geocoder']);
   }
 
   /**

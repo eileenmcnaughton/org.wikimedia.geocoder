@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -66,7 +64,7 @@ final class MapQuest extends AbstractHttpProvider implements Provider
      * @param string     $apiKey   an API key
      * @param bool       $licensed true to use MapQuest's licensed endpoints, default is false to use the open endpoints (optional)
      */
-    public function __construct(HttpClient $client, string $apiKey, bool $licensed = false)
+    public function __construct(HttpClient $client, $apiKey, $licensed = false)
     {
         if (empty($apiKey)) {
             throw new InvalidCredentials('No API key provided.');
@@ -80,7 +78,7 @@ final class MapQuest extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function geocodeQuery(GeocodeQuery $query): Collection
+    public function geocodeQuery(GeocodeQuery $query)
     {
         $address = $query->getText();
 
@@ -101,7 +99,7 @@ final class MapQuest extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function reverseQuery(ReverseQuery $query): Collection
+    public function reverseQuery(ReverseQuery $query)
     {
         $coordinates = $query->getCoordinates();
         $longitude = $coordinates->getLongitude();
@@ -119,7 +117,7 @@ final class MapQuest extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function getName(): string
+    public function getName()
     {
         return 'map_quest';
     }
@@ -129,7 +127,7 @@ final class MapQuest extends AbstractHttpProvider implements Provider
      *
      * @return AddressCollection
      */
-    private function executeQuery(string $url): AddressCollection
+    private function executeQuery($url)
     {
         $content = $this->getUrlContents($url);
         $json = json_decode($content, true);

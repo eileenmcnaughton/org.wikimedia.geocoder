@@ -129,6 +129,19 @@ function geocoder_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   _geocoder_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
+/**
+ * Implements hook_civicrm_entityTypes.
+ *
+ * @param array $entityTypes
+ *   Registered entity types.
+ */
+function geocoder_civicrm_entityTypes(&$entityTypes) {
+  $entityTypes['CRM_Accountsync_DAO_AccountContact'] = array(
+    'name' => 'Geocoder',
+    'class' => 'CRM_Geocoder_DAO_Geocoder',
+    'table' => 'civicrm_geocoder',
+  );
+}
 // --- Functions below this ship commented out. Uncomment as required. ---
 
 /**

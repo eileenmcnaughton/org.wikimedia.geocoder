@@ -60,35 +60,45 @@ class CRM_Utils_Geocode_Geocoder {
       self::$client = new \Http\Adapter\Guzzle6\Client();
     }
 
-    // @todo these 2 vars need to be retrieved from settings
-    $url = 'https://nominatim.openstreetmap.org/search';
-    $provider = new Geocoder\Provider\Nominatim\Nominatim(self::$client, $url);
-
-
-    $geocoder = new \Geocoder\StatefulGeocoder($provider, 'en');
-    foreach (['county', 'state_province', 'country'] as $locationField) {
-      if (empty($values[$locationField]) && !empty($values[$locationField . '_id'])) {
-        $values[$locationField] = CRM_Core_PseudoConstant::getLabel(
-          'CRM_Core_BAO_Address',
-          $locationField . '_id',
-          $values[$locationField . '_id']
-        );
-      }
-    }
-    $addressFields = [
-      'street_address',
-      'supplemental_address_1',
-      'supplemental_address_2',
-      'supplemental_address_2',
-      'city',
-      'postal_code',
-      'county',
-      'state_province',
-      'country',
-    ];
-    $addressValues = array_intersect_key($values, array_fill_keys($addressFields, 1));
-    $addressValues = array_filter($addressValues);
+    $geocoders = civicrm_api3('Geocoder', 'get', [
+      'sequential' => 1,
+      'is_active' => 1,
+      'options' => ['sort' => 'weight']
+    ]);
+    // @todo GeoCoder library permits a fallback cascade - do that.
+    // (based on is_active + weight)
+    $geocoder = $geocoders['values'][0];
+    $classString = '\\Geocoder\\Provider\\' .  $geocoder['class'];
     try {
+      // @todo just guessing what to pass - define in the metadata!
+      $provider = new $classString(self::$client, CRM_Utils_Array::value('url', $geocoder, CRM_Utils_Array::value('api_key', $geocoder)));
+      //$provider = new Geocoder\Provider\Mapquest\Mapquest()
+
+
+      $geocoder = new \Geocoder\StatefulGeocoder($provider, 'en');
+      foreach (['county', 'state_province', 'country'] as $locationField) {
+        if (empty($values[$locationField]) && !empty($values[$locationField . '_id'])) {
+          $values[$locationField] = CRM_Core_PseudoConstant::getLabel(
+            'CRM_Core_BAO_Address',
+            $locationField . '_id',
+            $values[$locationField . '_id']
+          );
+        }
+      }
+      $addressFields = [
+        'street_address',
+        'supplemental_address_1',
+        'supplemental_address_2',
+        'supplemental_address_2',
+        'city',
+        'postal_code',
+        'county',
+        'state_province',
+        'country',
+      ];
+      $addressValues = array_intersect_key($values, array_fill_keys($addressFields, 1));
+      $addressValues = array_filter($addressValues);
+
       $result = $geocoder->geocodeQuery(GeocodeQuery::create(implode(',', $addressValues)));
       $values['geo_code_1'] = $result->first()->getCoordinates()->getLatitude();
       $values['geo_code_2'] = $result->first()
@@ -98,6 +108,11 @@ class CRM_Utils_Geocode_Geocoder {
     catch (Geocoder\Exception\CollectionIsEmpty $e) {
       if (CRM_Core_Permission::check('access CiviCRM')) {
         CRM_Core_Session::setStatus(ts('Failed to geocode address, no co-ordinates saved'));
+      }
+    }
+    catch (Exception $e) {
+      if (CRM_Core_Permission::check('access CiviCRM')) {
+        CRM_Core_Session::setStatus(ts('Unknown geocoding error :') . $e->getMessage());
       }
     }
   }

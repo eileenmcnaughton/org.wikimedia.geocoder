@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9188030d35aa9c3116c547639434545f",
+    "content-hash": "b89abe68ff8ff63080a461068a22fc8b",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -308,6 +308,63 @@
             "description": "Geocoder FreeGeoIp adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
             "time": "2017-06-30T06:41:22+00:00"
+        },
+        {
+            "name": "geocoder-php/mapquest-provider",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geocoder-php/mapquest-provider.git",
+                "reference": "eb566f23f7dadc99f87ddf40e63c2cfa9b8d6013"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geocoder-php/mapquest-provider/zipball/eb566f23f7dadc99f87ddf40e63c2cfa9b8d6013",
+                "reference": "eb566f23f7dadc99f87ddf40e63c2cfa9b8d6013",
+                "shasum": ""
+            },
+            "require": {
+                "geocoder-php/common-http": "^4.0",
+                "php": "^7.0",
+                "willdurand/geocoder": "^4.0"
+            },
+            "provide": {
+                "geocoder-php/provider-implementation": "1.0"
+            },
+            "require-dev": {
+                "geocoder-php/provider-integration-tests": "^1.0",
+                "nyholm/psr7": "^0.2.2",
+                "php-http/curl-client": "^1.7",
+                "php-http/message": "^1.0",
+                "phpunit/phpunit": "^6.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Geocoder\\Provider\\MapQuest\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com"
+                }
+            ],
+            "description": "Geocoder MapQuest adapter",
+            "homepage": "http://geocoder-php.org/Geocoder/",
+            "time": "2017-06-17T17:15:43+00:00"
         },
         {
             "name": "geocoder-php/nominatim-provider",

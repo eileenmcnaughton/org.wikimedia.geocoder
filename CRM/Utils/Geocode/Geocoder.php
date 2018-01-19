@@ -40,6 +40,11 @@ use Geocoder\Query\ReverseQuery;
 class CRM_Utils_Geocode_Geocoder {
 
   /**
+   * @var \Http\Adapter\Guzzle6\Client
+   */
+  protected static $client;
+
+  /**
    * Function that takes an address object and gets the latitude / longitude for this
    * address. Note that at a later stage, we could make this function also clean up
    * the address into a more valid format
@@ -51,11 +56,50 @@ class CRM_Utils_Geocode_Geocoder {
    *   true if we modified the address, false otherwise
    */
   public static function format(&$values, $stateName = FALSE) {
-    $httpClient = new \Http\Adapter\Guzzle6\Client();
-    $provider = new \Geocoder\Provider\FreeGeoIp\FreeGeoIp;
-    $geocoder = new \Geocoder\StatefulGeocoder($provider, 'en');
-    $result = $geocoder->geocodeQuery(GeocodeQuery::create('Buckingham Palace, London'));
+    if (!self::$client) {
+      self::$client = new \Http\Adapter\Guzzle6\Client();
+    }
 
+    // @todo these 2 vars need to be retrieved from settings
+    $url = 'https://nominatim.openstreetmap.org/search';
+    $provider = new Geocoder\Provider\Nominatim\Nominatim(self::$client, $url);
+
+
+    $geocoder = new \Geocoder\StatefulGeocoder($provider, 'en');
+    foreach (['county', 'state_province', 'country'] as $locationField) {
+      if (empty($values[$locationField]) && !empty($values[$locationField . '_id'])) {
+        $values[$locationField] = CRM_Core_PseudoConstant::getLabel(
+          'CRM_Core_BAO_Address',
+          $locationField . '_id',
+          $values[$locationField . '_id']
+        );
+      }
+    }
+    $addressFields = [
+      'street_address',
+      'supplemental_address_1',
+      'supplemental_address_2',
+      'supplemental_address_2',
+      'city',
+      'postal_code',
+      'county',
+      'state_province',
+      'country',
+    ];
+    $addressValues = array_intersect_key($values, array_fill_keys($addressFields, 1));
+    $addressValues = array_filter($addressValues);
+    try {
+      $result = $geocoder->geocodeQuery(GeocodeQuery::create(implode(',', $addressValues)));
+      $values['geo_code_1'] = $result->first()->getCoordinates()->getLatitude();
+      $values['geo_code_2'] = $result->first()
+        ->getCoordinates()
+        ->getLongitude();
+    }
+    catch (Geocoder\Exception\CollectionIsEmpty $e) {
+      if (CRM_Core_Permission::check('access CiviCRM')) {
+        CRM_Core_Session::setStatus(ts('Failed to geocode address, no co-ordinates saved'));
+      }
+    }
   }
 
 }

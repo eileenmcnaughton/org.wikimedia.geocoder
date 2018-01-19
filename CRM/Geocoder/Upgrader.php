@@ -41,6 +41,7 @@ class CRM_Geocoder_Upgrader extends CRM_Geocoder_Upgrader_Base {
    */
   public function uninstall() {
    $this->executeSqlFile('sql/uninstall.sql');
+    civicrm_api3('Setting', 'create', ['geoProvider' => 'null']);
   }
 
   /**

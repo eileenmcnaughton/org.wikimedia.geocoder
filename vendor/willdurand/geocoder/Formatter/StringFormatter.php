@@ -46,7 +46,7 @@ final class StringFormatter
      *
      * @return string
      */
-    public function format(Location $location, string $format): string
+    public function format(Location $location, $format)
     {
         $countryName = null;
         $code = null;

@@ -159,6 +159,7 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
         'id' => [
           'name' => 'id',
           'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Geocoder ID'),
           'description' => 'Unique Geocoder ID',
           'required' => TRUE,
           'table_name' => 'civicrm_geocoder',
@@ -207,6 +208,7 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
         ],
         'is_active' => [
           'name' => 'is_active',
+          'title' => ts('Enabled'),
           'type' => CRM_Utils_Type::T_BOOLEAN,
           'description' => 'Enabled?',
           'table_name' => 'civicrm_geocoder',

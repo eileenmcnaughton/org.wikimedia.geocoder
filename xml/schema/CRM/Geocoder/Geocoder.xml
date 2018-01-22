@@ -10,6 +10,7 @@
     <field>
         <name>id</name>
         <type>int unsigned</type>
+        <title>Geocoder ID</title>
         <required>true</required>
         <comment>Unique Geocoder ID</comment>
     </field>
@@ -111,5 +112,12 @@
         <length>11</length>
         <comment>Number of queries since counter</comment>
         <default>0</default>
+    </field>
+    <field>
+        <name>valid_countries</name>
+        <type>string</type>
+        <length>255</length>
+        <comment>Countries this geocoder is valid for</comment>
+        <required>false</required>
     </field>
 </table>

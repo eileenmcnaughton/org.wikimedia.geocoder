@@ -35,6 +35,7 @@ class ComposerStaticInit3b8957a3138db11c03012ef52ff8e3e7
             'GuzzleHttp\\' => 11,
             'Geocoder\\Provider\\Nominatim\\' => 28,
             'Geocoder\\Provider\\MapQuest\\' => 27,
+            'Geocoder\\Provider\\GoogleMaps\\' => 29,
             'Geocoder\\Provider\\FreeGeoIp\\' => 28,
             'Geocoder\\Provider\\Cache\\' => 24,
             'Geocoder\\Http\\' => 14,
@@ -95,6 +96,10 @@ class ComposerStaticInit3b8957a3138db11c03012ef52ff8e3e7
         'Geocoder\\Provider\\MapQuest\\' => 
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/mapquest-provider',
+        ),
+        'Geocoder\\Provider\\GoogleMaps\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geocoder-php/google-maps-provider',
         ),
         'Geocoder\\Provider\\FreeGeoIp\\' => 
         array (

@@ -18,6 +18,7 @@ return array(
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
     'Geocoder\\Provider\\Nominatim\\' => array($vendorDir . '/geocoder-php/nominatim-provider'),
     'Geocoder\\Provider\\MapQuest\\' => array($vendorDir . '/geocoder-php/mapquest-provider'),
+    'Geocoder\\Provider\\GoogleMaps\\' => array($vendorDir . '/geocoder-php/google-maps-provider'),
     'Geocoder\\Provider\\FreeGeoIp\\' => array($vendorDir . '/geocoder-php/free-geoip-provider'),
     'Geocoder\\Provider\\Cache\\' => array($vendorDir . '/geocoder-php/cache-provider'),
     'Geocoder\\Http\\' => array($vendorDir . '/geocoder-php/common-http'),

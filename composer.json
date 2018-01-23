@@ -38,6 +38,7 @@
         "php-http/message": "^1.6",
         "geocoder-php/nominatim-provider": "dev-master#ff0c379",
         "geocoder-php/mapquest-provider": "dev-master#782d90f95e4520add",
-        "geocoder-php/common-http":  "dev-master#b909420"
+        "geocoder-php/common-http":  "dev-master#b90942009517719849642a",
+        "geocoder-php/google-maps-provider": "dev-master"
     }
 }

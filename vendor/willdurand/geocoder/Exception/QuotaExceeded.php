@@ -15,6 +15,6 @@ namespace Geocoder\Exception;
  *
  * @author Max V. Kovrigovich <mvk@tut.by>
  */
-final class QuotaExceeded extends \RuntimeException implements Exception
+class QuotaExceeded extends \RuntimeException implements Exception
 {
 }

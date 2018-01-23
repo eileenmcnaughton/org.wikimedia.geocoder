@@ -1,0 +1,6 @@
+vendor/geocoder-php/mapquest-provider/Tests/
+vendor/willdurand/geocoder/.gitattributes
+vendor/willdurand/geocoder/.gitignore
+vendor/willdurand/geocoder/.travis.yml
+vendor/willdurand/geocoder/phpunit.xml.dist
+

@@ -22,7 +22,7 @@ abstract class AbstractArrayDumper
      *
      * @return array
      */
-    protected function getArray(Location $location): array
+    protected function getArray(Location $location)
     {
         $properties = array_filter($location->toArray(), function ($value) {
             return !empty($value);

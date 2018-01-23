@@ -19,7 +19,7 @@ abstract class AbstractDumper
      *
      * @return string
      */
-    protected function formatName(Location $address): string
+    protected function formatName(Location $address)
     {
         $name = [];
         $array = $address->toArray();

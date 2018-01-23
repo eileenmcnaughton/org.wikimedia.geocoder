@@ -20,7 +20,7 @@ final class Kml extends AbstractDumper implements Dumper
     /**
      * {@inheritdoc}
      */
-    public function dump(Location $location): string
+    public function dump(Location $location)
     {
         $name = $this->formatName($location);
         $kml = <<<'KML'

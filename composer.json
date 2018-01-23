@@ -1,5 +1,16 @@
 {
-    "require": {
+
+      "repositories": [
+        {
+          "type": "git",
+          "url":  "git@github.com:eileenmcnaughton/mapquest-provider.git"
+        },
+        {
+          "type": "git",
+          "url":  "git@github.com:eileenmcnaughton/php-common.git"
+        }
+      ],
+      "require": {
         "willdurand/geocoder": "~4",
         "geocoder-php/cache-provider": "^4.0",
         "php-http/guzzle6-adapter": "^1.1",

@@ -20,7 +20,7 @@ final class Wkt implements Dumper
     /**
      * {@inheritdoc}
      */
-    public function dump(Location $location): string
+    public function dump(Location $location)
     {
         $lat = null;
         $lon = null;

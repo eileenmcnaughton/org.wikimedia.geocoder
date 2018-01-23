@@ -20,7 +20,7 @@ final class GeoArray extends AbstractArrayDumper implements Dumper
     /**
      * {@inheritdoc}
      */
-    public function dump(Location $location): array
+    public function dump(Location $location)
     {
         return $this->getArray($location);
     }

@@ -20,22 +20,21 @@ use Geocoder\Query\ReverseQuery;
  */
 trait GeocoderTrait
 {
-    abstract public function geocodeQuery(GeocodeQuery $query): Collection;
+    abstract public function geocodeQuery(GeocodeQuery $query);
 
-    abstract public function reverseQuery(ReverseQuery $query): Collection;
+    abstract public function reverseQuery(ReverseQuery $query);
 
     /**
      * {@inheritdoc}
      */
-    public function geocode(string $value): Collection
-    {
+    public function geocode($value) {
         return $this->geocodeQuery(GeocodeQuery::create($value));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function reverse(float $latitude, float $longitude): Collection
+    public function reverse($latitude,  $longitude)
     {
         return $this->reverseQuery(ReverseQuery::fromCoordinates($latitude, $longitude));
     }

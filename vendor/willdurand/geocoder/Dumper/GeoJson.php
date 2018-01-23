@@ -20,7 +20,7 @@ final class GeoJson extends AbstractArrayDumper
     /**
      * {@inheritdoc}
      */
-    public function dump(Location $location): string
+    public function dump(Location $location)
     {
         return json_encode($this->getArray($location));
     }

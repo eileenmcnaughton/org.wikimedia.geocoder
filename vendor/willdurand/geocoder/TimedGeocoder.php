@@ -43,7 +43,7 @@ final class TimedGeocoder implements Geocoder
     /**
      * {@inheritdoc}
      */
-    public function geocodeQuery(GeocodeQuery $query): Collection
+    public function geocodeQuery(GeocodeQuery $query)
     {
         $this->stopwatch->start('geocode', 'geocoder');
 
@@ -63,7 +63,7 @@ final class TimedGeocoder implements Geocoder
     /**
      * {@inheritdoc}
      */
-    public function reverseQuery(ReverseQuery $query): Collection
+    public function reverseQuery(ReverseQuery $query)
     {
         $this->stopwatch->start('reverse', 'geocoder');
 
@@ -85,7 +85,7 @@ final class TimedGeocoder implements Geocoder
         return call_user_func_array([$this->delegate, $method], $args);
     }
 
-    public function getName(): string
+    public function getName()
     {
         return 'timed_geocoder';
     }

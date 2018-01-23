@@ -1,5 +1,5 @@
 {
-
+      "minimum-stability": "dev",
       "repositories": [
         {
           "type": "git",
@@ -39,6 +39,7 @@
         "geocoder-php/nominatim-provider": "dev-master#ff0c379",
         "geocoder-php/mapquest-provider": "dev-master#782d90f95e4520add",
         "geocoder-php/common-http":  "dev-master#b90942009517719849642a",
-        "geocoder-php/google-maps-provider": "dev-master"
+        "geocoder-php/google-maps-provider": "dev-phpcompat#b9ae8b0e642a99c2ed298a548"
     }
+
 }

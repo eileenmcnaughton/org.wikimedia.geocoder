@@ -766,194 +766,12 @@
         ]
     },
     {
-        "name": "geocoder-php/common-http",
-        "version": "4.0.0",
-        "version_normalized": "4.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/geocoder-php/php-common-http.git",
-            "reference": "a469c06658e4aadf034f793cf6e398d44482491e"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/geocoder-php/php-common-http/zipball/a469c06658e4aadf034f793cf6e398d44482491e",
-            "reference": "a469c06658e4aadf034f793cf6e398d44482491e",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^7.0",
-            "php-http/client-implementation": "^1.0",
-            "php-http/discovery": "^1.0",
-            "php-http/httplug": "^1.0",
-            "php-http/message-factory": "^1.0.2",
-            "psr/http-message": "^1.0",
-            "psr/http-message-implementation": "^1.0",
-            "willdurand/geocoder": "^4.0"
-        },
-        "require-dev": {
-            "nyholm/psr7": "^0.2.2",
-            "php-http/message": "^1.0",
-            "php-http/mock-client": "^1.0",
-            "phpunit/phpunit": "^6.1",
-            "symfony/stopwatch": "~2.5"
-        },
-        "time": "2017-08-01T06:58:52+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "4.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Geocoder\\Http\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Tobias Nyholm",
-                "email": "tobias.nyholm@gmail.com"
-            }
-        ],
-        "description": "Common files for HTTP based Geocoders",
-        "homepage": "http://geocoder-php.org",
-        "keywords": [
-            "http geocoder"
-        ]
-    },
-    {
-        "name": "geocoder-php/free-geoip-provider",
-        "version": "4.0.0",
-        "version_normalized": "4.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/geocoder-php/free-geoip-provider.git",
-            "reference": "a50ffe32bbb280cea7f52828bbfaaa4ea41e92e0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/geocoder-php/free-geoip-provider/zipball/a50ffe32bbb280cea7f52828bbfaaa4ea41e92e0",
-            "reference": "a50ffe32bbb280cea7f52828bbfaaa4ea41e92e0",
-            "shasum": ""
-        },
-        "require": {
-            "geocoder-php/common-http": "^4.0",
-            "php": "^7.0",
-            "willdurand/geocoder": "^4.0"
-        },
-        "provide": {
-            "geocoder-php/provider-implementation": "1.0"
-        },
-        "require-dev": {
-            "geocoder-php/provider-integration-tests": "^1.0",
-            "nyholm/psr7": "^0.2.2",
-            "php-http/curl-client": "^1.7",
-            "php-http/message": "^1.0",
-            "phpunit/phpunit": "^6.1"
-        },
-        "time": "2017-06-30T06:41:22+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "4.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Geocoder\\Provider\\FreeGeoIp\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "William Durand",
-                "email": "william.durand1@gmail.com"
-            }
-        ],
-        "description": "Geocoder FreeGeoIp adapter",
-        "homepage": "http://geocoder-php.org/Geocoder/"
-    },
-    {
-        "name": "geocoder-php/nominatim-provider",
-        "version": "4.0.0",
-        "version_normalized": "4.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/geocoder-php/nominatim-provider.git",
-            "reference": "1cbde121b59cedc8d4108af4e802655fb653a776"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/1cbde121b59cedc8d4108af4e802655fb653a776",
-            "reference": "1cbde121b59cedc8d4108af4e802655fb653a776",
-            "shasum": ""
-        },
-        "require": {
-            "geocoder-php/common-http": "^4.0",
-            "php": "^7.0",
-            "willdurand/geocoder": "^4.0"
-        },
-        "provide": {
-            "geocoder-php/provider-implementation": "1.0"
-        },
-        "require-dev": {
-            "geocoder-php/provider-integration-tests": "^1.0",
-            "nyholm/psr7": "^0.2.2",
-            "php-http/curl-client": "^1.7",
-            "php-http/message": "^1.0",
-            "phpunit/phpunit": "^6.1"
-        },
-        "time": "2017-07-01T11:38:10+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "4.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Geocoder\\Provider\\Nominatim\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "William Durand",
-                "email": "william.durand1@gmail.com"
-            }
-        ],
-        "description": "Geocoder Nominatim adapter",
-        "homepage": "http://geocoder-php.org/Geocoder/"
-    },
-    {
         "name": "geocoder-php/cache-provider",
         "version": "4.0.1",
         "version_normalized": "4.0.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/geocoder-php/cache-provider.git",
+            "url": "git@github.com:eileenmcnaughton/cache-provider.git",
             "reference": "513dd2b90bc44719525509015706ece2b1a2bace"
         },
         "dist": {
@@ -1004,16 +822,22 @@
     },
     {
         "name": "geocoder-php/mapquest-provider",
-        "version": "4.0.0",
-        "version_normalized": "4.0.0.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "git@github.com:eileenmcnaughton/mapquest-provider.git",
-            "reference": "eb566f23f7dadc99f87ddf40e63c2cfa9b8d6013"
+            "reference": "782d90f95e4520add"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geocoder-php/mapquest-provider/zipball/782d90f95e4520add",
+            "reference": "782d90f95e4520add",
+            "shasum": ""
         },
         "require": {
             "geocoder-php/common-http": "^4.0",
-            "php": "^7.0",
+            "php": "^5.5",
             "willdurand/geocoder": "^4.0"
         },
         "provide": {
@@ -1024,9 +848,9 @@
             "nyholm/psr7": "^0.2.2",
             "php-http/curl-client": "^1.7",
             "php-http/message": "^1.0",
-            "phpunit/phpunit": "^6.1"
+            "phpunit/phpunit": "6.3.*"
         },
-        "time": "2017-06-17T17:15:43+00:00",
+        "time": "2017-12-14T10:46:36+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1042,14 +866,7 @@
                 "/Tests/"
             ]
         },
-        "scripts": {
-            "test": [
-                "vendor/bin/phpunit"
-            ],
-            "test-ci": [
-                "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
-            ]
-        },
+        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -1060,6 +877,188 @@
             }
         ],
         "description": "Geocoder MapQuest adapter",
+        "homepage": "http://geocoder-php.org/Geocoder/"
+    },
+    {
+        "name": "geocoder-php/common-http",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "git@github.com:eileenmcnaughton/php-common-http.git",
+            "reference": "b909420"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geocoder-php/php-common-http/zipball/b909420",
+            "reference": "b909420",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.0",
+            "php-http/client-implementation": "^1.0",
+            "php-http/discovery": "^1.0",
+            "php-http/httplug": "^1.0",
+            "php-http/message-factory": "^1.0.2",
+            "psr/http-message": "^1.0",
+            "psr/http-message-implementation": "^1.0",
+            "willdurand/geocoder": "^4.0"
+        },
+        "require-dev": {
+            "nyholm/psr7": "^0.2.2",
+            "php-http/message": "^1.0",
+            "php-http/mock-client": "^1.0",
+            "phpunit/phpunit": "6.3.*",
+            "symfony/stopwatch": "~2.5"
+        },
+        "time": "2017-10-06T13:25:36+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Geocoder\\Http\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Tobias Nyholm",
+                "email": "tobias.nyholm@gmail.com"
+            }
+        ],
+        "description": "Common files for HTTP based Geocoders",
+        "homepage": "http://geocoder-php.org",
+        "keywords": [
+            "http geocoder"
+        ]
+    },
+    {
+        "name": "geocoder-php/free-geoip-provider",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "git@github.com:eileenmcnaughton/free-geoip-provider.git",
+            "reference": "6a5c7d2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geocoder-php/free-geoip-provider/zipball/6a5c7d2",
+            "reference": "6a5c7d2",
+            "shasum": ""
+        },
+        "require": {
+            "geocoder-php/common-http": "^4.0",
+            "php": "^7.0",
+            "willdurand/geocoder": "^4.0"
+        },
+        "provide": {
+            "geocoder-php/provider-implementation": "1.0"
+        },
+        "require-dev": {
+            "geocoder-php/provider-integration-tests": "^1.0",
+            "nyholm/psr7": "^0.2.2",
+            "php-http/curl-client": "^1.7",
+            "php-http/message": "^1.0",
+            "phpunit/phpunit": "6.3.*"
+        },
+        "time": "2017-12-14T10:46:36+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Geocoder\\Provider\\FreeGeoIp\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "William Durand",
+                "email": "william.durand1@gmail.com"
+            }
+        ],
+        "description": "Geocoder FreeGeoIp adapter",
+        "homepage": "http://geocoder-php.org/Geocoder/"
+    },
+    {
+        "name": "geocoder-php/nominatim-provider",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "git@github.com:eileenmcnaughton/nominatim-provider.git",
+            "reference": "ff0c379"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/ff0c379",
+            "reference": "ff0c379",
+            "shasum": ""
+        },
+        "require": {
+            "geocoder-php/common-http": "^4.0",
+            "php": "^7.0",
+            "willdurand/geocoder": "^4.0"
+        },
+        "provide": {
+            "geocoder-php/provider-implementation": "1.0"
+        },
+        "require-dev": {
+            "geocoder-php/provider-integration-tests": "^1.0",
+            "nyholm/psr7": "^0.2.2",
+            "php-http/curl-client": "^1.7",
+            "php-http/message": "^1.0",
+            "phpunit/phpunit": "6.3.*"
+        },
+        "time": "2018-01-06T09:47:28+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Geocoder\\Provider\\Nominatim\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "William Durand",
+                "email": "william.durand1@gmail.com"
+            }
+        ],
+        "description": "Geocoder Nominatim adapter",
         "homepage": "http://geocoder-php.org/Geocoder/"
     }
 ]

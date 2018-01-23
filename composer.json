@@ -8,15 +8,36 @@
         {
           "type": "git",
           "url":  "git@github.com:eileenmcnaughton/php-common.git"
+        },
+        {
+          "type": "git",
+          "url":  "git@github.com:eileenmcnaughton/php-common-http.git"
+        },
+        {
+          "type": "git",
+          "url":  "git@github.com:eileenmcnaughton/free-geoip-provider.git"
+        },
+        {
+          "type": "git",
+          "url":  "git@github.com:eileenmcnaughton/cache-provider.git"
+        },
+        {
+          "type": "git",
+          "url":  "git@github.com:eileenmcnaughton/nominatim-provider.git"
+        },
+        {
+          "type": "git",
+          "url":  "git@github.com:eileenmcnaughton/google-maps-provider.git"
         }
       ],
       "require": {
         "willdurand/geocoder": "~4",
         "geocoder-php/cache-provider": "^4.0",
         "php-http/guzzle6-adapter": "^1.1",
-        "geocoder-php/free-geoip-provider": "^4.0",
+        "geocoder-php/free-geoip-provider": "dev-master#6a5c7d2",
         "php-http/message": "^1.6",
-        "geocoder-php/nominatim-provider": "^4.0",
-        "geocoder-php/mapquest-provider": "^4.0"
+        "geocoder-php/nominatim-provider": "dev-master#ff0c379",
+        "geocoder-php/mapquest-provider": "dev-master#782d90f95e4520add",
+        "geocoder-php/common-http":  "dev-master#b909420"
     }
 }

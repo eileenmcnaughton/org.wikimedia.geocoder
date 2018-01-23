@@ -20,12 +20,14 @@ use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
 use Geocoder\Http\Provider\AbstractHttpProvider;
 use Geocoder\Provider\Provider;
+use Geocoder\Provider\Nominatim\Model\NominatimAddress;
 use Http\Client\HttpClient;
 
 /**
  * @author Niklas Närhinen <niklas@narhinen.net>
+ * @author Jonathan Beliën <jbe@geo6.be>
  */
-final class Nominatim extends AbstractHttpProvider implements Provider
+class Nominatim extends AbstractHttpProvider implements Provider
 {
     /**
      * @var string
@@ -78,6 +80,7 @@ final class Nominatim extends AbstractHttpProvider implements Provider
         }
 
         $searchResult = $doc->getElementsByTagName('searchresults')->item(0);
+        $attribution = $searchResult->getAttribute('attribution');
         $places = $searchResult->getElementsByTagName('place');
 
         if (null === $places || 0 === $places->length) {
@@ -86,7 +89,7 @@ final class Nominatim extends AbstractHttpProvider implements Provider
 
         $results = [];
         foreach ($places as $place) {
-            $results[] = $this->xmlResultToArray($place, $place);
+            $results[] = $this->xmlResultToArray($place, $place, $attribution, false);
         }
 
         return new AddressCollection($results);
@@ -109,10 +112,11 @@ final class Nominatim extends AbstractHttpProvider implements Provider
         }
 
         $searchResult = $doc->getElementsByTagName('reversegeocode')->item(0);
+        $attribution = $searchResult->getAttribute('attribution');
         $addressParts = $searchResult->getElementsByTagName('addressparts')->item(0);
         $result = $searchResult->getElementsByTagName('result')->item(0);
 
-        return new AddressCollection([$this->xmlResultToArray($result, $addressParts)]);
+        return new AddressCollection([$this->xmlResultToArray($result, $addressParts, $attribution, true)]);
     }
 
     /**
@@ -121,7 +125,7 @@ final class Nominatim extends AbstractHttpProvider implements Provider
      *
      * @return Location
      */
-    private function xmlResultToArray(\DOMElement $resultNode, \DOMElement $addressNode)
+    private function xmlResultToArray(\DOMElement $resultNode, \DOMElement $addressNode, $attribution, $reverse)
     {
         $builder = new AddressBuilder($this->getName());
 
@@ -137,28 +141,57 @@ final class Nominatim extends AbstractHttpProvider implements Provider
             $postalCode = current(explode(';', $postalCode));
         }
         $builder->setPostalCode($postalCode);
+
+        $localityFields = ['city', 'town', 'village', 'hamlet'];
+        foreach ($localityFields as $localityField) {
+            $localityFieldContent = $this->getNodeValue($addressNode->getElementsByTagName($localityField));
+            if (!empty($localityFieldContent)) {
+                $builder->setLocality($localityFieldContent);
+
+                break;
+            }
+        }
+
         $builder->setStreetName($this->getNodeValue($addressNode->getElementsByTagName('road')) ?: $this->getNodeValue($addressNode->getElementsByTagName('pedestrian')));
         $builder->setStreetNumber($this->getNodeValue($addressNode->getElementsByTagName('house_number')));
-        $builder->setLocality($this->getNodeValue($addressNode->getElementsByTagName('city')));
         $builder->setSubLocality($this->getNodeValue($addressNode->getElementsByTagName('suburb')));
         $builder->setCountry($this->getNodeValue($addressNode->getElementsByTagName('country')));
-        $builder->setCountryCode(strtoupper($this->getNodeValue($addressNode->getElementsByTagName('country_code'))));
+
+        $countryCode = $this->getNodeValue($addressNode->getElementsByTagName('country_code'));
+        if (!empty($countryCode)) {
+            $countryCode = strtoupper($countryCode);
+        }
+        $builder->setCountryCode($countryCode);
+
         $builder->setCoordinates($resultNode->getAttribute('lat'), $resultNode->getAttribute('lon'));
 
         $boundsAttr = $resultNode->getAttribute('boundingbox');
         if ($boundsAttr) {
             $bounds = [];
             list($bounds['south'], $bounds['north'], $bounds['west'], $bounds['east']) = explode(',', $boundsAttr);
-            $builder->setBounds($bounds['south'], $bounds['north'], $bounds['west'], $bounds['east']);
+            $builder->setBounds($bounds['south'], $bounds['west'], $bounds['north'], $bounds['east']);
         }
 
-        return $builder->build();
+        $location = $builder->build(NominatimAddress::class);
+        $location = $location->withAttribution($attribution);
+        $location = $location->withOSMId(intval($resultNode->getAttribute('osm_id')));
+        $location = $location->withOSMType($resultNode->getAttribute('osm_type'));
+
+        if (false === $reverse) {
+            $location = $location->withClass($resultNode->getAttribute('class'));
+            $location = $location->withDisplayName($resultNode->getAttribute('display_name'));
+            $location = $location->withType($resultNode->getAttribute('type'));
+        } else {
+            $location = $location->withDisplayName($resultNode->nodeValue);
+        }
+
+        return $location;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'nominatim';
     }

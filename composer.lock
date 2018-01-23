@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bcf6ae670d542414f9a33e9abee7ed7",
+    "content-hash": "0da6ac1b6b9f424305695ecb73a00e32",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -63,7 +63,7 @@
             "version": "4.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/geocoder-php/cache-provider.git",
+                "url": "git@github.com:eileenmcnaughton/cache-provider.git",
                 "reference": "513dd2b90bc44719525509015706ece2b1a2bace"
             },
             "dist": {
@@ -113,16 +113,16 @@
         },
         {
             "name": "geocoder-php/common-http",
-            "version": "4.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/geocoder-php/php-common-http.git",
-                "reference": "a469c06658e4aadf034f793cf6e398d44482491e"
+                "url": "git@github.com:eileenmcnaughton/php-common-http.git",
+                "reference": "b909420"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/php-common-http/zipball/a469c06658e4aadf034f793cf6e398d44482491e",
-                "reference": "a469c06658e4aadf034f793cf6e398d44482491e",
+                "url": "https://api.github.com/repos/geocoder-php/php-common-http/zipball/b909420",
+                "reference": "b909420",
                 "shasum": ""
             },
             "require": {
@@ -139,7 +139,7 @@
                 "nyholm/psr7": "^0.2.2",
                 "php-http/message": "^1.0",
                 "php-http/mock-client": "^1.0",
-                "phpunit/phpunit": "^6.1",
+                "phpunit/phpunit": "6.3.*",
                 "symfony/stopwatch": "~2.5"
             },
             "type": "library",
@@ -171,20 +171,20 @@
             "keywords": [
                 "http geocoder"
             ],
-            "time": "2017-08-01T06:58:52+00:00"
+            "time": "2017-10-06T13:25:36+00:00"
         },
         {
             "name": "geocoder-php/free-geoip-provider",
-            "version": "4.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/geocoder-php/free-geoip-provider.git",
-                "reference": "a50ffe32bbb280cea7f52828bbfaaa4ea41e92e0"
+                "url": "git@github.com:eileenmcnaughton/free-geoip-provider.git",
+                "reference": "6a5c7d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/free-geoip-provider/zipball/a50ffe32bbb280cea7f52828bbfaaa4ea41e92e0",
-                "reference": "a50ffe32bbb280cea7f52828bbfaaa4ea41e92e0",
+                "url": "https://api.github.com/repos/geocoder-php/free-geoip-provider/zipball/6a5c7d2",
+                "reference": "6a5c7d2",
                 "shasum": ""
             },
             "require": {
@@ -200,7 +200,7 @@
                 "nyholm/psr7": "^0.2.2",
                 "php-http/curl-client": "^1.7",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^6.1"
+                "phpunit/phpunit": "6.3.*"
             },
             "type": "library",
             "extra": {
@@ -228,19 +228,25 @@
             ],
             "description": "Geocoder FreeGeoIp adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
-            "time": "2017-06-30T06:41:22+00:00"
+            "time": "2017-12-14T10:46:36+00:00"
         },
         {
             "name": "geocoder-php/mapquest-provider",
-            "version": "4.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@github.com:eileenmcnaughton/mapquest-provider.git",
-                "reference": "eb566f23f7dadc99f87ddf40e63c2cfa9b8d6013"
+                "reference": "782d90f95e4520add"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geocoder-php/mapquest-provider/zipball/782d90f95e4520add",
+                "reference": "782d90f95e4520add",
+                "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.0",
-                "php": "^7.0",
+                "php": "^5.5",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -251,7 +257,7 @@
                 "nyholm/psr7": "^0.2.2",
                 "php-http/curl-client": "^1.7",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^6.1"
+                "phpunit/phpunit": "6.3.*"
             },
             "type": "library",
             "extra": {
@@ -267,14 +273,7 @@
                     "/Tests/"
                 ]
             },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpunit"
-                ],
-                "test-ci": [
-                    "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -286,20 +285,20 @@
             ],
             "description": "Geocoder MapQuest adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
-            "time": "2017-06-17T17:15:43+00:00"
+            "time": "2018-01-19 02:21:34"
         },
         {
             "name": "geocoder-php/nominatim-provider",
-            "version": "4.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/geocoder-php/nominatim-provider.git",
-                "reference": "1cbde121b59cedc8d4108af4e802655fb653a776"
+                "url": "git@github.com:eileenmcnaughton/nominatim-provider.git",
+                "reference": "ff0c379"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/1cbde121b59cedc8d4108af4e802655fb653a776",
-                "reference": "1cbde121b59cedc8d4108af4e802655fb653a776",
+                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/ff0c379",
+                "reference": "ff0c379",
                 "shasum": ""
             },
             "require": {
@@ -315,7 +314,7 @@
                 "nyholm/psr7": "^0.2.2",
                 "php-http/curl-client": "^1.7",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^6.1"
+                "phpunit/phpunit": "6.3.*"
             },
             "type": "library",
             "extra": {
@@ -343,7 +342,7 @@
             ],
             "description": "Geocoder Nominatim adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
-            "time": "2017-07-01T11:38:10+00:00"
+            "time": "2018-01-06T09:47:28+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1037,7 +1036,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "geocoder-php/free-geoip-provider": 20,
+        "geocoder-php/nominatim-provider": 20,
+        "geocoder-php/mapquest-provider": 20,
+        "geocoder-php/common-http": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

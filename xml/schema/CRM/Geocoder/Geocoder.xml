@@ -66,7 +66,8 @@
         <name>required_fields</name>
         <type>varchar</type>
         <length>255</length>
-        <comment>json array of fields required for this to parse</comment>
+        <comment>Array of fields required for this to parse</comment>
+        <serialize>JSON</serialize>
     </field>
     <field>
         <name>retained_response_fields</name>
@@ -74,12 +75,21 @@
         <length>255</length>
         <comment>fields to be retained from the response</comment>
         <default>'["geo_code_1","geo_code_2"]'</default>
+        <serialize>JSON</serialize>
+    </field>
+    <field>
+        <name>datafill_response_fields</name>
+        <type>varchar</type>
+        <length>255</length>
+        <comment>fields retained to fill but not overwrite data</comment>
+        <serialize>JSON</serialize>
     </field>
     <field>
         <name>additional_metadata</name>
         <type>varchar</type>
         <length>255</length>
-        <comment>json array of any additional provider specific data</comment>
+        <comment>array of any additional provider specific data</comment>
+        <serialize>JSON</serialize>
     </field>
     <field>
         <name>threshold_standdown</name>
@@ -101,5 +111,6 @@
         <length>255</length>
         <comment>Countries this geocoder is valid for</comment>
         <required>false</required>
+        <serialize>JSON</serialize>
     </field>
 </table>

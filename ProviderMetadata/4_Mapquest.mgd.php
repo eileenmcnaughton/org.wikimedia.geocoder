@@ -14,8 +14,6 @@ return [
       'name' => 'mapquest',
       'title' => 'MapQuest',
       'class' => 'MapQuest\MapQuest',
-      'is_active' => 1,
-      'weight' => 2,
     ],
     'help_text' => ts('api key required - 15000 for free per month - sign up https://developer.mapquest.com/plan_purchase/steps/business_edition/business_edition_free/register')
   ]

@@ -15,8 +15,6 @@ return [
       'name' => 'open_street_maps',
       'title' => 'Nominatim (Open street maps)',
       'class' => 'Nominatim\Nominatim',
-      'is_active' => 1,
-      'weight' => 1,
       'url' => 'https://nominatim.openstreetmap.org/search',
     ],
   ]

@@ -10,7 +10,7 @@ use CRM_Geocoder_ExtensionUtil as E;
  * @see http://wiki.civicrm.org/confluence/display/CRMDOC/API+Architecture+Standards
  */
 function _civicrm_api3_geocoder_create_spec(&$spec) {
-  // $spec['some_parameter']['api.required'] = 1;
+  $spec['is_active']['api.default'] = TRUE;
 }
 
 /**

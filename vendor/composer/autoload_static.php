@@ -37,6 +37,7 @@ class ComposerStaticInit3b8957a3138db11c03012ef52ff8e3e7
             'Geocoder\\Provider\\MapQuest\\' => 27,
             'Geocoder\\Provider\\GoogleMaps\\' => 29,
             'Geocoder\\Provider\\FreeGeoIp\\' => 28,
+            'Geocoder\\Provider\\DataTable\\' => 28,
             'Geocoder\\Provider\\Cache\\' => 24,
             'Geocoder\\Http\\' => 14,
             'Geocoder\\' => 9,
@@ -104,6 +105,10 @@ class ComposerStaticInit3b8957a3138db11c03012ef52ff8e3e7
         'Geocoder\\Provider\\FreeGeoIp\\' => 
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/free-geoip-provider',
+        ),
+        'Geocoder\\Provider\\DataTable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wikimedia/civicrm-data-table-provider',
         ),
         'Geocoder\\Provider\\Cache\\' => 
         array (

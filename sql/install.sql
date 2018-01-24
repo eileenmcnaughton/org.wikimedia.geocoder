@@ -9,6 +9,7 @@ CREATE TABLE `civicrm_geocoder` (
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'URL (if required)',
   `required_fields` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'json array of fields required for this to parse',
   `retained_response_fields` varchar(255) COLLATE utf8_unicode_ci DEFAULT '["geo_code_1","geo_code_2"]' COMMENT 'fields to be retained from the response',
+  `datafill_response_fields` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'fields retained to fill but not overwrite data',
   `additional_metadata` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'json array of any additional provider specific data',
   `threshold_standdown` int(11) NOT NULL DEFAULT '60' COMMENT 'Number of seconds to wait before retrying after hitting threshold. Geocaching disabled in this time',
   `threshold_last_hit` timestamp NULL DEFAULT NULL COMMENT 'Timestamp when the threshold was last hit.',

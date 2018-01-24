@@ -99,6 +99,13 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
   public $retained_response_fields;
 
   /**
+   * Fields retained to fill but not overwrite data
+   *
+   * @var string
+   */
+  public $datafill_response_fields;
+
+  /**
    * json array of any additional provider specific data
    *
    * @var string
@@ -253,6 +260,10 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
           'entity' => 'Geocoder',
           'bao' => 'CRM_Geocoder_DAO_Geocoder',
           'localizable' => 0,
+          'pseudoconstant' => [
+            'callback' => 'CRM_Utils_Geocode_Geocoder::getAddressFields',
+          ],
+          'serialize' => self::SERIALIZE_JSON,
         ],
 
         'retained_response_fields' => [
@@ -267,7 +278,25 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
           'entity' => 'Geocoder',
           'bao' => 'CRM_Geocoder_DAO_Geocoder',
           'localizable' => 0,
+          'serialize' => self::SERIALIZE_JSON,
         ],
+        'datafill_response_fields' => [
+          'name' => 'datafill_response_fields',
+          'type' => CRM_Utils_Type::T_STRING,
+          'title' => ts('Datafill Response Fields'),
+          'description' => 'Fields retained to fill but not overwrite data',
+          'maxlength' => 255,
+          'size' => CRM_Utils_Type::HUGE,
+          'table_name' => 'civicrm_geocoder',
+          'entity' => 'Geocoder',
+          'bao' => 'CRM_Geocoder_DAO_Geocoder',
+          'localizable' => 0,
+          'serialize' => self::SERIALIZE_JSON,
+          'pseudoconstant' => [
+            'callback' => 'CRM_Utils_Geocode_Geocoder::getAddressFields',
+          ],
+        ],
+
         'additional_metadata' => [
           'name' => 'additional_metadata',
           'type' => CRM_Utils_Type::T_STRING,
@@ -279,6 +308,7 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
           'entity' => 'Geocoder',
           'bao' => 'CRM_Geocoder_DAO_Geocoder',
           'localizable' => 0,
+          'serialize' => self::SERIALIZE_JSON,
         ],
         'threshold_standdown' => [
           'name' => 'threshold_standdown',
@@ -310,6 +340,13 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
           'entity' => 'Geocoder',
           'bao' => 'CRM_Geocoder_DAO_Geocoder',
           'localizable' => 0,
+          'serialize' => self::SERIALIZE_JSON,
+          'pseudoconstant' => [
+            'table' => 'civicrm_country',
+            'keyColumn' => 'id',
+            'labelColumn' => 'name',
+            'nameColumn' => 'iso_code',
+          ]
         ],
       ];
       CRM_Core_DAO_AllCoreTables::invoke(__CLASS__, 'fields_callback', Civi::$statics[__CLASS__]['fields']);

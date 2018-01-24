@@ -20,6 +20,7 @@ return array(
     'Geocoder\\Provider\\MapQuest\\' => array($vendorDir . '/geocoder-php/mapquest-provider'),
     'Geocoder\\Provider\\GoogleMaps\\' => array($vendorDir . '/geocoder-php/google-maps-provider'),
     'Geocoder\\Provider\\FreeGeoIp\\' => array($vendorDir . '/geocoder-php/free-geoip-provider'),
+    'Geocoder\\Provider\\DataTable\\' => array($vendorDir . '/wikimedia/civicrm-data-table-provider'),
     'Geocoder\\Provider\\Cache\\' => array($vendorDir . '/geocoder-php/cache-provider'),
     'Geocoder\\Http\\' => array($vendorDir . '/geocoder-php/common-http'),
     'Geocoder\\' => array($vendorDir . '/willdurand/geocoder'),

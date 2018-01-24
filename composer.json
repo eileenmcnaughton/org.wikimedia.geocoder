@@ -28,6 +28,10 @@
         {
           "type": "git",
           "url":  "git@github.com:eileenmcnaughton/google-maps-provider.git"
+        },
+        {
+          "type": "path",
+          "url": "/Users/emcnaughton/buildkit/build/dmaster/sites/default/files/civicrm/ext/org.wikimedia.geocoder/vendor/wikimedia/civicrm-data-table-geocoder"
         }
       ],
       "require": {
@@ -39,7 +43,8 @@
         "geocoder-php/nominatim-provider": "dev-master#ff0c379",
         "geocoder-php/mapquest-provider": "dev-master#782d90f95e4520add",
         "geocoder-php/common-http":  "dev-master#b90942009517719849642a",
-        "geocoder-php/google-maps-provider": "dev-phpcompat#b9ae8b0e642a99c2ed298a548"
+        "geocoder-php/google-maps-provider": "dev-phpcompat#b9ae8b0e642a99c2ed298a548",
+            "wikimedia/civicrm-data-table-provider": "@dev"
     }
 
 }

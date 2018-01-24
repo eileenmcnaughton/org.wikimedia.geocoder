@@ -1121,5 +1121,65 @@
         ],
         "description": "Geocoder GoogleMaps adapter",
         "homepage": "http://geocoder-php.org/Geocoder/"
+    },
+    {
+        "name": "wikimedia/civicrm-data-table-provider",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "dist": {
+            "type": "path",
+            "url": "/Users/emcnaughton/buildkit/build/dmaster/sites/default/files/civicrm/ext/org.wikimedia.geocoder/vendor/wikimedia/civicrm-data-table-geocoder",
+            "reference": "1487404ac89929130ad660b72d04e317ba260c64",
+            "shasum": null
+        },
+        "require": {
+            "geocoder-php/common-http": "^4.0",
+            "php": ">=5.5",
+            "willdurand/geocoder": "^4.0"
+        },
+        "provide": {
+            "geocoder-php/provider-implementation": "1.0"
+        },
+        "require-dev": {
+            "geocoder-php/provider-integration-tests": "^1.0",
+            "nyholm/psr7": "^0.2.2",
+            "php-http/curl-client": "^1.7",
+            "php-http/message": "^1.0",
+            "phpunit/phpunit": "^6.1"
+        },
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Geocoder\\Provider\\DataTable\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "scripts": {
+            "test": [
+                "vendor/bin/phpunit"
+            ],
+            "test-ci": [
+                "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
+            ]
+        },
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Eileen McNaughton",
+                "email": "emcnaughton@wikimedia.org"
+            }
+        ],
+        "description": "CiviCRM datatable geocoder",
+        "homepage": "http://geocoder-php.org/Geocoder/"
     }
 ]

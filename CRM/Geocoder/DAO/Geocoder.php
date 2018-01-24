@@ -106,39 +106,25 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
   public $additional_metadata;
 
   /**
-   * Threshold of queries in period
+   * Number of seconds to wait before retrying after hitting threshold. Geocaching delayed in this time.
    *
    * @var int
    */
-  public $threshold;
+  public $threshold_standdown;
 
   /**
-   * Unit in which threshold is measured
+   * Timestamp when the threshold was last hit
    *
    * @var string
    */
-  public $threshold_unit;
+  public $threshold_last_hit;
 
   /**
-   * Number of units in threshold
+   * Countries this geocoder is valid for.
    *
-   * @var int
+   * @var string
    */
-  public $threshold_number;
-
-  /**
-   * When the counter was last reset'
-   *
-   * @var timestamp
-   */
-  public $counter_start;
-
-  /**
-   * Number of queries since counter'
-   *
-   * @var int
-   */
-  public $counter;
+  public $valid_countries;
 
   /**
    * Class constructor.
@@ -294,60 +280,36 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
           'bao' => 'CRM_Geocoder_DAO_Geocoder',
           'localizable' => 0,
         ],
-        'threshold' => [
-          'name' => 'threshold',
+        'threshold_standdown' => [
+          'name' => 'threshold_standdown',
           'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Threshold'),
-          'description' => 'Threshold of queries in period',
+          'title' => ts('Threshold standdown'),
+          'description' => 'Number of seconds to wait before retrying after hitting threshold. Geocaching disabled in this time',
           'table_name' => 'civicrm_geocoder',
+          'default' => 60,
           'entity' => 'Geocoder',
           'bao' => 'CRM_Geocoder_DAO_Geocoder',
           'localizable' => 0,
         ],
-        'threshold_unit' => [
-          'name' => 'threshold_unit',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Threshold Unit'),
-          'description' => 'Unit in which threshold is measured',
-          'maxlength' => 12,
-          'size' => CRM_Utils_Type::TWELVE,
-          'default' => 'day',
-          'table_name' => 'civicrm_geocoder',
-          'entity' => 'Geocoder',
-          'bao' => 'CRM_Geocoder_DAO_Geocoder',
-          'localizable' => 0,
-        ],
-        'threshold_number' => [
-          'name' => 'threshold_number',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Threshold Number'),
-          'description' => 'Number of units in threshold',
-          'default' => '1',
-          'table_name' => 'civicrm_geocoder',
-          'entity' => 'Geocoder',
-          'bao' => 'CRM_Geocoder_DAO_Geocoder',
-          'localizable' => 0,
-        ],
-        'counter_start' => [
-          'name' => 'counter_start',
+        'threshold_last_hit' => [
+          'name' => 'threshold_last_hit',
           'type' => CRM_Utils_Type::T_TIMESTAMP,
-          'title' => ts('Counter Start'),
-          'description' => 'When the counter was last reset',
+          'title' => ts('Threshold Last Hit'),
+          'description' => 'Timestamp when the threshold was last hit.',
           'table_name' => 'civicrm_geocoder',
           'entity' => 'Geocoder',
           'bao' => 'CRM_Geocoder_DAO_Geocoder',
           'localizable' => 0,
         ],
-        'counter' => [
-          'name' => 'counter',
-          'type' => CRM_Utils_Type::T_INT,
-          'title' => ts('Counter'),
-          'description' => 'Number of queries since counter',
+        'valid_countries' => [
+          'name' => 'valid_countries',
+          'type' => CRM_Utils_Type::T_STRING,
+          'title' => ts('Valid countries'),
+          'description' => 'Countries this geocoder is valid for',
           'table_name' => 'civicrm_geocoder',
           'entity' => 'Geocoder',
           'bao' => 'CRM_Geocoder_DAO_Geocoder',
           'localizable' => 0,
-          'default' => 0,
         ],
       ];
       CRM_Core_DAO_AllCoreTables::invoke(__CLASS__, 'fields_callback', Civi::$statics[__CLASS__]['fields']);

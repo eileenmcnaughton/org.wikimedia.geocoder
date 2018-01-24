@@ -10,12 +10,8 @@ CREATE TABLE `civicrm_geocoder` (
   `required_fields` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'json array of fields required for this to parse',
   `retained_response_fields` varchar(255) COLLATE utf8_unicode_ci DEFAULT '["geo_code_1","geo_code_2"]' COMMENT 'fields to be retained from the response',
   `additional_metadata` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'json array of any additional provider specific data',
-  `threshold` int(11) DEFAULT NULL COMMENT 'Threshold of queries in period',
-  `threshold_unit` varchar(12) COLLATE utf8_unicode_ci DEFAULT 'day' COMMENT 'Unit in which threshold is measured',
-  `threshold_number` int(11) DEFAULT '1' COMMENT 'Number of units in threshold',
-  `counter_start` timestamp NULL DEFAULT NULL COMMENT 'When the counter was last reset',
-  `counter` int(11) NOT NULL DEFAULT 0 COMMENT 'Number of queries since counter',
+  `threshold_standdown` int(11) NOT NULL DEFAULT '60' COMMENT 'Number of seconds to wait before retrying after hitting threshold. Geocaching disabled in this time',
+  `threshold_last_hit` timestamp NULL DEFAULT NULL COMMENT 'Timestamp when the threshold was last hit.',
+  `valid_countries` varchar(255) COLLATE utf8_unicode_ci DEFAULT '0' COMMENT 'Countries this geocoder is valid for',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

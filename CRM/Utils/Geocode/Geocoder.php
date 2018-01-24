@@ -67,7 +67,17 @@ class CRM_Utils_Geocode_Geocoder {
     ]);
     // @todo GeoCoder library permits a fallback cascade - do that.
     // (based on is_active + weight)
-    $geocoder = $geocoders['values'][0];
+    foreach ($geocoders['values'] as $geocoder) {
+      if (self::isUsable($geocoder)) {
+        break;
+      }
+      unset($geocoder);
+    }
+    if (!$geocoder) {
+      self::setMessage(ts('No usable geocoding providers'));
+      return;
+    }
+
     $classString = '\\Geocoder\\Provider\\' .  $geocoder['class'];
     try {
       // @todo just guessing what to pass - define in the metadata!
@@ -75,46 +85,125 @@ class CRM_Utils_Geocode_Geocoder {
       //$provider = new Geocoder\Provider\Mapquest\Mapquest()
 
 
-      $geocoder = new \Geocoder\StatefulGeocoder($provider, 'en');
+      $geocoderObj = new \Geocoder\StatefulGeocoder($provider, 'en');
+
+      $addressValues  = self::getAddressValuesArray($values, $geocoder);
+
       foreach (['county', 'state_province', 'country'] as $locationField) {
-        if (empty($values[$locationField]) && !empty($values[$locationField . '_id'])) {
-          $values[$locationField] = CRM_Core_PseudoConstant::getLabel(
+        if (empty($addressValues[$locationField]) && !empty($addressValues[$locationField . '_id'])) {
+          $addressValues[$locationField] = CRM_Core_PseudoConstant::getLabel(
             'CRM_Core_BAO_Address',
             $locationField . '_id',
             $values[$locationField . '_id']
           );
+          unset($addressValues[$locationField . '_id']);
         }
       }
-      $addressFields = [
-        'street_address',
-        'supplemental_address_1',
-        'supplemental_address_2',
-        'supplemental_address_2',
-        'city',
-        'postal_code',
-        'county',
-        'state_province',
-        'country',
-      ];
-      $addressValues = array_intersect_key($values, array_fill_keys($addressFields, 1));
-      $addressValues = array_filter($addressValues);
 
-      $result = $geocoder->geocodeQuery(GeocodeQuery::create(implode(',', $addressValues)));
+      $result = $geocoderObj->geocodeQuery(GeocodeQuery::create(implode(',', $addressValues)));
       $values['geo_code_1'] = $result->first()->getCoordinates()->getLatitude();
       $values['geo_code_2'] = $result->first()
         ->getCoordinates()
         ->getLongitude();
     }
     catch (Geocoder\Exception\CollectionIsEmpty $e) {
+      $values['geo_code_1'] = 'null';
+      $values['geo_code_2'] = 'null';
       if (CRM_Core_Permission::check('access CiviCRM')) {
         CRM_Core_Session::setStatus(ts('Failed to geocode address, no co-ordinates saved'));
       }
     }
-    catch (Exception $e) {
+    catch (Geocoder\Exception\QuotaExceeded $e) {
+
       if (CRM_Core_Permission::check('access CiviCRM')) {
-        CRM_Core_Session::setStatus(ts('Unknown geocoding error :') . $e->getMessage());
+        CRM_Core_Session::setStatus(ts('Geocoder quota exceeded. No further geocoding attempts will be made for %1 seconds', array($geocoder['threshold_standdown'], 'int')));
       }
+      civicrm_api3('Geocoder', 'create', ['id' => $geocoder['id'], 'threshold_last_hit' => 'now']);
     }
+    catch (Exception $e) {
+      self::setMessage(ts('Unknown geocoding error :') . $e->getMessage());
+    }
+  }
+
+  /**
+   * Check if the geocoder is usable.
+   *
+   * @param string $geocoder
+   *
+   * @return bool
+   */
+  public static function isUsable($geocoder) {
+    if ($geocoder['threshold_last_hit'] === '0000-00-00 00:00:00' || empty($geocoder['threshold_standdown'])) {
+      return TRUE;
+    }
+    $standDownEnds = strtotime('+ ' . $geocoder['threshold_standdown'] . ' seconds', strtotime($geocoder['threshold_last_hit']));
+    if ($standDownEnds <= strtotime('now')) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * Set a message if the geocoding failed.
+   *
+   * @param string $message
+   */
+  public static function  setMessage($message) {
+    if (CRM_Core_Permission::check('access CiviCRM')) {
+      CRM_Core_Session::setStatus($message);
+    }
+  }
+
+  /**
+   * Get address values with additional fields fetched & irrelevant filtered.
+   *
+   * @param array $values
+   * @param array $geocoder
+   *
+   * @return array
+   */
+  protected static function getAddressValuesArray($values, $geocoder) {
+    $addressFields = [
+      'street_address',
+      'supplemental_address_1',
+      'supplemental_address_2',
+      'supplemental_address_2',
+      'city',
+      'postal_code',
+      'county_id',
+      'state_province_id',
+      'country_id',
+    ];
+
+    if (!empty($values['id'])) {
+      if (isset($geocoder['required_fields'])) {
+        $requiredFields = array_fill_keys(json_decode($geocoder['required_fields'], TRUE), 1);
+      }
+      else {
+        $requiredFields = array_fill_keys($addressFields, 1);
+      }
+      $missingFields = array_diff_key($requiredFields, $values);
+      if (!empty($missingFields)) {
+        $existingAddress = civicrm_api3('Address', 'getsingle', [
+          'id' => $values['id'],
+          'return' => array_keys($missingFields)
+        ]);
+      }
+      $addressValues = array_merge($existingAddress, $values);
+    }
+
+    // This merge will do an ordering for us.
+    $addressValues = array_merge(array_fill_keys($addressFields, NULL), $addressValues);
+    // filter out unrelated keys
+    $keysToRetain = array_fill_keys($addressFields, 1);
+    unset($keysToRetain['country_id'], $keysToRetain['state_province_id'], $keysToRetain['county_id']);
+    $keysToRetain['country'] = $keysToRetain['state_province_id'] = $keysToRetain['county'];
+    $addressValues = array_intersect_key($addressValues, $keysToRetain);
+    // filter out empty values.
+    $addressValues = array_filter($addressValues);
+
+    return $addressValues;
   }
 
 }

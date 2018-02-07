@@ -18,7 +18,7 @@
   <version>1.0</version>
   <develStage>stable</develStage>
   <compatibility>
-    <ver>4.7</ver>
+    <ver>5.0</ver>
   </compatibility>
   <comments>Implementation of geocoder library (which itself supports multiple providers). Please be aware that CiviCRM will store data from these providers to the CiviCRM database as addresses are edited (the fields to be stored are somewhat configurable) and when searching by geocode. You are responsible for understanding the geocoder terms of service and ensuring you are working within them.
 

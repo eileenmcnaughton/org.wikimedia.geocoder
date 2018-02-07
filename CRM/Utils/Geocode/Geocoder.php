@@ -150,7 +150,7 @@ class CRM_Utils_Geocode_Geocoder {
    * @return bool
    */
   public static function isUsable($geocoder) {
-    if ($geocoder['threshold_last_hit'] === '0000-00-00 00:00:00' || empty($geocoder['threshold_standdown'])) {
+    if (empty($geocoder['threshold_last_hit']) || $geocoder['threshold_last_hit'] === '0000-00-00 00:00:00' || empty($geocoder['threshold_standdown'])) {
       return TRUE;
     }
     $standDownEnds = strtotime('+ ' . $geocoder['threshold_standdown'] . ' seconds', strtotime($geocoder['threshold_last_hit']));

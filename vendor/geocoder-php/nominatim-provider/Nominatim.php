@@ -191,7 +191,7 @@ class Nominatim extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function getName(): string
+    public function getName()
     {
         return 'nominatim';
     }

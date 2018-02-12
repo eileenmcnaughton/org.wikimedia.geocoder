@@ -275,7 +275,7 @@ class CRM_Utils_Geocode_Geocoder {
     if (empty($geocoder['required_fields'])) {
       $keysToRetain = self::getAddressFields();
       unset($keysToRetain['country_id'], $keysToRetain['state_province_id'], $keysToRetain['county_id']);
-      $keysToRetain['country'] = $keysToRetain['state_province_id'] = $keysToRetain['county'];
+      $keysToRetain['country'] = $keysToRetain['state_province_id'] = $keysToRetain['county'] = 1;
       return array_keys($keysToRetain);
 
     }

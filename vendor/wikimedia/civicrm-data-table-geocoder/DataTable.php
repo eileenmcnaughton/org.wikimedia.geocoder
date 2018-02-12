@@ -20,6 +20,7 @@ use Geocoder\Query\ReverseQuery;
 use Geocoder\Http\Provider\AbstractHttpProvider;
 use Geocoder\Provider\Provider;
 use Http\Client\HttpClient;
+use Geocoder\Exception\CollectionIsEmpty;
 
 /**
  * @author Eileen McNaughton <emcnaughton@wikimedia.org>
@@ -72,7 +73,7 @@ final class DataTable extends AbstractHttpProvider implements Provider
           return new AddressCollection([$builder->build()]);
         }
 
-        throw new Geocoder\Exception\CollectionIsEmpty();
+        throw new CollectionIsEmpty();
     }
 
     /**

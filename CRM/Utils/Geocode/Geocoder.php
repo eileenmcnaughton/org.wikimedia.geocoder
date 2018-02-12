@@ -45,6 +45,24 @@ class CRM_Utils_Geocode_Geocoder {
    */
   protected static $client;
 
+  /**
+   * Get client.
+   *
+   * @return \Http\Adapter\Guzzle6\Client
+   */
+  public static function getClient() {
+    return self::$client;
+  }
+
+  /**
+   * Set client.
+   *
+   * @param \Http\Adapter\Guzzle6\Client $client
+   */
+  public static function setClient($client) {
+    self::$client = $client;
+  }
+
   protected static $geoCoders;
 
   /**
@@ -59,8 +77,8 @@ class CRM_Utils_Geocode_Geocoder {
    *   true if we modified the address, false otherwise
    */
   public static function format(&$values, $stateName = FALSE) {
-    if (!self::$client) {
-      self::$client = new \Http\Adapter\Guzzle6\Client();
+    if (!self::getClient()) {
+      self::setClient(new \Http\Adapter\Guzzle6\Client());
     }
     if (!is_array(self::$geoCoders)) {
       self::$geoCoders = $geocoders = civicrm_api3('Geocoder', 'get', [

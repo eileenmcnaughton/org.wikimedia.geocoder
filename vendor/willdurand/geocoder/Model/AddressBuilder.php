@@ -90,7 +90,7 @@ final class AddressBuilder
     /**
      * @param string $providedBy
      */
-    public function __construct(string $providedBy)
+    public function __construct($providedBy)
     {
         $this->providedBy = $providedBy;
     }

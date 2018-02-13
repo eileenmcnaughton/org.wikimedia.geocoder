@@ -85,13 +85,6 @@
         <serialize>JSON</serialize>
     </field>
     <field>
-        <name>additional_metadata</name>
-        <type>varchar</type>
-        <length>255</length>
-        <comment>array of any additional provider specific data</comment>
-        <serialize>JSON</serialize>
-    </field>
-    <field>
         <name>threshold_standdown</name>
         <type>int</type>
         <length>11</length>

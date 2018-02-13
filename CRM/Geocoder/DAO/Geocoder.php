@@ -106,13 +106,6 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
   public $datafill_response_fields;
 
   /**
-   * json array of any additional provider specific data
-   *
-   * @var string
-   */
-  public $additional_metadata;
-
-  /**
    * Number of seconds to wait before retrying after hitting threshold. Geocaching delayed in this time.
    *
    * @var int
@@ -295,20 +288,6 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
           'pseudoconstant' => [
             'callback' => 'CRM_Utils_Geocode_Geocoder::getAddressFields',
           ],
-        ],
-
-        'additional_metadata' => [
-          'name' => 'additional_metadata',
-          'type' => CRM_Utils_Type::T_STRING,
-          'title' => ts('Additional Metadata'),
-          'description' => 'json array of any additional provider specific data',
-          'maxlength' => 255,
-          'size' => CRM_Utils_Type::HUGE,
-          'table_name' => 'civicrm_geocoder',
-          'entity' => 'Geocoder',
-          'bao' => 'CRM_Geocoder_DAO_Geocoder',
-          'localizable' => 0,
-          'serialize' => self::SERIALIZE_JSON,
         ],
         'threshold_standdown' => [
           'name' => 'threshold_standdown',

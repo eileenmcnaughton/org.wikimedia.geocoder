@@ -82,18 +82,21 @@ class CRM_Utils_Geocode_Geocoder {
       self::setClient(new \Http\Adapter\Guzzle6\Client());
     }
     if (!is_array(self::$geoCoders)) {
-      self::$geoCoders = $geocoders = civicrm_api3('Geocoder', 'get', [
+      $geocoders = civicrm_api3('Geocoder', 'get', [
         'sequential' => 1,
         'is_active' => 1,
         'options' => ['sort' => 'weight'],
       ]);
+      $metadata = self::getEntitiesMetadata();
+      foreach ($geocoders['values'] as $geocoder) {
+        self::$geoCoders[$geocoder['name']] = array_merge($geocoder, $metadata[$geocoder['name']]);
+      }
     }
     // AFAIK only 2 char string accepted - from the examples.
     $locale = substr(CRM_Utils_System::getUFLocale(), 0, 2);
     $messageOnFail = ts('No usable geocoding providers');
 
-  // @todo GeoCoder library permits a fallback cascade - do that.
-    foreach (self::$geoCoders['values'] as $geocoder) {
+    foreach (self::$geoCoders as $geocoder) {
       if (!self::isUsable($geocoder)) {
         continue;
       }
@@ -112,7 +115,7 @@ class CRM_Utils_Geocode_Geocoder {
         // currently starting with obviously likely things & then overwriting if set in metadata.
         $argument = CRM_Utils_Array::value('url', $geocoder, CRM_Utils_Array::value('api_key', $geocoder));
         if (isset($geocoder['additional_metadata'])) {
-          $additionalMetaData = json_decode($geocoder['additional_metadata'], TRUE);
+          $additionalMetaData = $geocoder['additional_metadata'];
           $argumentName = $additionalMetaData['args'][0];
           $argument = $additionalMetaData[$argumentName];
         }
@@ -376,6 +379,22 @@ class CRM_Utils_Geocode_Geocoder {
     }
 
 
+  }
+
+
+  /**
+   * Get metadata about entities.
+   *
+   * @return array
+   */
+  static protected function getEntitiesMetadata() {
+    $entities = array();
+    geocoder_civicrm_managed($entities);
+    $rekeyed = [];
+    foreach ($entities as $entity) {
+      $rekeyed[$entity['name']] = CRM_Utils_Array::value('metadata', $entity, []);
+    }
+    return $rekeyed;
   }
 
 }

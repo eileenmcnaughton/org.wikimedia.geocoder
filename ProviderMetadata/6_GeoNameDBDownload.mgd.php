@@ -18,7 +18,6 @@ return [
       'valid_countries' => ['NZ'],
       'required_fields' => ['postal_code'],
       'retained_response_fields' => ['geo_code_1', 'geo_code_2'],
-      'additional_metadata' => ['args' => ['tableName'], 'tableName' => 'civicrm_geonames_lookup'],
     ],
     'metadata' => [
       'additional_metadata' => ['args' => ['tableName'], 'tableName' => 'civicrm_geonames_lookup'],

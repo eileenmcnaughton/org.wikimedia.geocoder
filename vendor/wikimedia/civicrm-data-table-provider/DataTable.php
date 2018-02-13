@@ -43,7 +43,7 @@ final class DataTable extends AbstractHttpProvider implements Provider
         parent::__construct($client);
 
         if (!\CRM_Utils_Rule::mysqlColumnNameOrAlias($tableName)
-          || !\CRM_Core_DAO::executeQuery("SHOW CREATE TABLE $tableName")) {
+          || !\CRM_Core_DAO::executeQuery("SHOW TABLES LIKE %1", [1=> [$tableName, 'String']])) {
           throw new \Exception('Invalid table');
         }
 

@@ -32,10 +32,12 @@ final class DataTable extends AbstractHttpProvider implements Provider
      */
     private $tableName;
 
-    /**
-     * @param HttpClient $client
-     * @param string $tableName
-     */
+  /**
+   * @param HttpClient $client
+   * @param string $tableName
+   *
+   * @throws \Exception
+   */
     public function __construct(HttpClient $client, $tableName)
     {
         parent::__construct($client);
@@ -71,7 +73,7 @@ final class DataTable extends AbstractHttpProvider implements Provider
           $builder->setCoordinates($result->latitude, $result->longitude);
           $builder->setLocality($result->city);
           $builder->setTimezone($result->timezone);
-          $builder->setAdminLevels([new AdminLevel(1, $result->state)]);
+          $builder->setAdminLevels([new AdminLevel(1, $result->state, $result->state)]);
           return new AddressCollection([$builder->build()]);
         }
 
@@ -83,7 +85,7 @@ final class DataTable extends AbstractHttpProvider implements Provider
      */
     public function reverseQuery(ReverseQuery $query)
     {
-        throw new UnsupportedOperation('The FreeGeoIp provider is not able to do reverse geocoding.');
+        throw new UnsupportedOperation('The data table provider is not able to do reverse geocoding yet.');
     }
 
     /**

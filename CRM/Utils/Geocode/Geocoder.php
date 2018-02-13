@@ -122,7 +122,12 @@ class CRM_Utils_Geocode_Geocoder {
         $result = $geocoderObj->geocodeQuery(GeocodeQuery::create($geocodableAddress));
 
         foreach (json_decode($geocoder['retained_response_fields'], TRUE) as $fieldName) {
-          $values[$fieldName] = self::getValueFromResult($fieldName, $result);
+          $values[$fieldName] = self::getValueFromResult($fieldName, $result, $values);
+        }
+        foreach (json_decode($geocoder['datafill_response_fields'], TRUE) as $fieldName) {
+          if (empty($values[$fieldName]) || $values[$fieldName] ===  'null') {
+            $values[$fieldName] = self::getValueFromResult($fieldName, $result, $values);
+          }
         }
 
       return TRUE;
@@ -325,10 +330,12 @@ class CRM_Utils_Geocode_Geocoder {
    *
    * @param string $fieldName
    * @param AddressCollection $result
+   * @param array $values
+   *   Address values to be saved
    *
    * @return string
    */
-  protected static function getValueFromResult($fieldName, AddressCollection $result) {
+  protected static function getValueFromResult($fieldName, AddressCollection $result, $values) {
     $firstResult = $result->first();
 
     switch ($fieldName) {
@@ -341,9 +348,34 @@ class CRM_Utils_Geocode_Geocoder {
       case 'timezone':
         return $firstResult->getTimezone();
 
-      case 'state_province':
-        //$result->first()->getAdminLevels()->get(1)->getName()
+      case 'city':
+        return $firstResult->getLocality();
+
+      case 'state_province_id':
+        if (empty($values['country_id'])) {
+          // not possible to determine state without the country.
+          return 'null';
+        }
+        $state = $firstResult->getAdminLevels()->get(1)->getCode();
+        if (!isset(\Civi::$statics[__CLASS__]['country_id'][$state])) {
+          try {
+            // Build our own static array as the core pseudoconstant does country limiting in a weird way.
+            \Civi::$statics[__CLASS__]['country_id'][$state] = civicrm_api3('StateProvince', 'getvalue', [
+              'return' => 'id',
+              'abbreviation' => $state,
+              'country_id' => $values['country_id'],
+            ]);
+          }
+          catch (CiviCRM_API3_Exception $e) {
+            // We just won't worry about the state.
+            return 'null';
+          }
+        }
+        return \Civi::$statics[__CLASS__]['country_id'][$state];
+
     }
+
+
   }
 
 }

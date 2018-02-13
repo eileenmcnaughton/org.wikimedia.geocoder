@@ -82,7 +82,7 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
    *
    * Note the lat long are slightly different between the 2 providers & we get timezone.
    */
-  public function testOpenStreetMapsFailsFallsback() {
+  public function testOpenStreetMapsFailsFallsbackToUSLookup() {
     $responses = [];
     $this->getClient($responses);
     $address = $this->callAPISuccess('Address', 'create', [
@@ -95,6 +95,21 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
     $this->assertEquals('34.088808', $address['geo_code_1']);
     $this->assertEquals('-118.40612', $address['geo_code_2']);
     $this->assertEquals('UTC-8', $address['timezone']);
+    $this->assertEquals('Beverly Hills', $address['city']);
+    $this->assertEquals(
+      $this->callAPISuccessGetValue('StateProvince', [
+        'return' => 'id',
+        'name' => 'California',
+      ]),
+      $address['state_province_id']
+    );
+
+  }
+
+  /**
+   * Configure geocoders for testing.
+   */
+  protected function configureGeoCoders() {
 
   }
 

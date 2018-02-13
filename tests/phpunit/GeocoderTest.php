@@ -57,29 +57,54 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
   }
 
   public function testGeocoderStack() {
-    $mock = new MockHandler([]);
-    $handler = HandlerStack::create($mock);
-    CRM_Utils_Geocode_Geocoder::setClient(new Client());
-    $this->callAPISuccess('Address', 'create', [
+
+  }
+
+  /**
+   * Test open street maps geocodes address.
+   */
+  public function testOpenStreetMaps() {
+    $responses = [new Response(200, [], file_get_contents(__DIR__ . '/Responses/OpenStreetMaps.xml'))];
+    $this->getClient($responses);
+    $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 90210,
       'location_type_id' => 'Home',
       'contact_id' => $this->ids['contact'][0],
       'country_id' => 'US',
     ]);
+    $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+    $this->assertEquals('34.0781172375027', $address['geo_code_1']);
+    $this->assertEquals('-118.352999970633', $address['geo_code_2']);
   }
 
   /**
-   * Example: Test that a version is returned.
+   * Test when open street maps fail we fall back on the next one (USZipGeoCoder).
+   *
+   * Note the lat long are slightly different between the 2 providers & we get timezone.
    */
-  public function testWellFormedVersion() {
-    $this->assertRegExp('/^([0-9\.]|alpha|beta)*$/', \CRM_Utils_System::version());
+  public function testOpenStreetMapsFailsFallsback() {
+    $responses = [];
+    $this->getClient($responses);
+    $address = $this->callAPISuccess('Address', 'create', [
+      'postal_code' => 90210,
+      'location_type_id' => 'Home',
+      'contact_id' => $this->ids['contact'][0],
+      'country_id' => 'US',
+    ]);
+    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+    $this->assertEquals('34.088808', $address['geo_code_1']);
+    $this->assertEquals('-118.40612', $address['geo_code_2']);
+    $this->assertEquals('UTC-8', $address['timezone']);
+
   }
 
   /**
-   * Example: Test that we're using a fake CMS.
+   * @param $responses
    */
-  public function testWellFormedUF() {
-    $this->assertEquals('UnitTests', CIVICRM_UF);
+  protected function getClient($responses) {
+    $mock = new MockHandler($responses);
+    $handler = HandlerStack::create($mock);
+    CRM_Utils_Geocode_Geocoder::setClient(Client::createWithConfig(['handler' => $handler]));
   }
 
 }

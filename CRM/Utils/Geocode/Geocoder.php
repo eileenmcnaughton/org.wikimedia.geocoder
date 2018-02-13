@@ -27,6 +27,7 @@
 
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
+use Geocoder\Model\AddressCollection;
 use CRM_Geocoder_ExtensionUtil as E;
 
 /**
@@ -89,7 +90,7 @@ class CRM_Utils_Geocode_Geocoder {
     }
     // AFAIK only 2 char string accepted - from the examples.
     $locale = substr(CRM_Utils_System::getUFLocale(), 0, 2);
-
+    $messageOnFail = ts('No usable geocoding providers');
 
   // @todo GeoCoder library permits a fallback cascade - do that.
     foreach (self::$geoCoders['values'] as $geocoder) {
@@ -119,19 +120,18 @@ class CRM_Utils_Geocode_Geocoder {
 
         $geocoderObj = new \Geocoder\StatefulGeocoder($provider, $locale);
         $result = $geocoderObj->geocodeQuery(GeocodeQuery::create($geocodableAddress));
-        $b = $result->first()->getAdminLevels()->get(1)->getName();
-        $values['geo_code_1'] = $result->first()->getCoordinates()->getLatitude();
-        $values['geo_code_2'] = $result->first()->getCoordinates()->getLongitude();
+
+        foreach (json_decode($geocoder['retained_response_fields'], TRUE) as $fieldName) {
+          $values[$fieldName] = self::getValueFromResult($fieldName, $result);
+        }
 
       return TRUE;
     }
     catch (Geocoder\Exception\CollectionIsEmpty $e) {
         $values['geo_code_1'] = 'null';
         $values['geo_code_2'] = 'null';
-        if (CRM_Core_Permission::check('access CiviCRM')) {
-          CRM_Core_Session::setStatus(ts('Failed to geocode address, no co-ordinates saved'));
-        }
-        return FALSE;
+        $messageOnFail = ts('Failed to geocode address, no co-ordinates saved');
+        continue;
       }
       catch (Geocoder\Exception\QuotaExceeded $e) {
 
@@ -150,13 +150,13 @@ class CRM_Utils_Geocode_Geocoder {
         return FALSE;
       }
       catch (Exception $e) {
-        self::setMessage(ts('Unknown geocoding error :') . $e->getMessage());
-        return FALSE;
+        $messageOnFail = ts('Unknown geocoding error :') . $e->getMessage();
+        continue;
       }
     }
 
     // We went threw all the geocoders & couldn't make it stick :-(.
-    self::setMessage(ts('No usable geocoding providers'));
+    self::setMessage($messageOnFail);
     return FALSE;
   }
 
@@ -318,6 +318,32 @@ class CRM_Utils_Geocode_Geocoder {
     $addressValues = array_intersect_key($addressValues, array_fill_keys($addressFields, 1));
     $geocodableAddress = implode(',', array_filter($addressValues));
     return $geocodableAddress;
+  }
+
+  /**
+   * Get the value for the specified field.
+   *
+   * @param string $fieldName
+   * @param AddressCollection $result
+   *
+   * @return string
+   */
+  protected static function getValueFromResult($fieldName, AddressCollection $result) {
+    $firstResult = $result->first();
+
+    switch ($fieldName) {
+      case 'geo_code_1':
+        return $firstResult->getCoordinates()->getLatitude();
+
+      case 'geo_code_2':
+        return $firstResult->getCoordinates()->getLongitude();
+
+      case 'timezone':
+        return $firstResult->getTimezone();
+
+      case 'state_province':
+        //$result->first()->getAdminLevels()->get(1)->getName()
+    }
   }
 
 }

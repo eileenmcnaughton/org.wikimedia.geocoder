@@ -59,9 +59,9 @@ final class DataTable extends AbstractHttpProvider implements Provider
         $postalCode = substr(trim($query->getText()), 0, 5);
 
         $sql = "
-         SELECT city, state, latitude, longitude, timezone
+         SELECT city, state_code, latitude, longitude, timezone
          FROM {$this->tableName} g
-         WHERE zip = %2";
+         WHERE postal_code = %2";
 
         $result = \CRM_Core_DAO::executeQuery(
           $sql,
@@ -73,7 +73,7 @@ final class DataTable extends AbstractHttpProvider implements Provider
           $builder->setCoordinates($result->latitude, $result->longitude);
           $builder->setLocality($result->city);
           $builder->setTimezone($result->timezone);
-          $builder->setAdminLevels([new AdminLevel(1, $result->state, $result->state)]);
+          $builder->setAdminLevels([new AdminLevel(1, $result->state_code, $result->state_code)]);
           return new AddressCollection([$builder->build()]);
         }
 

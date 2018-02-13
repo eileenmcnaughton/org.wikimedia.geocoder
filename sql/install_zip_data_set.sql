@@ -1,7 +1,7 @@
 CREATE TABLE `civicrm_geocoder_zip_dataset` (
-  `zip` char(5) primary key,
+  `postal_code` char(5) primary key,
   `city` varchar(64),
-  `state` char(2),
+  `state_code` char(2),
   `latitude` decimal(10,6),
   `longitude` decimal(10,6),
   `timezone` varchar(8),

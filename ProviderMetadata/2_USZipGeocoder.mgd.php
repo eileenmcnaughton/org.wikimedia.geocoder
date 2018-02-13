@@ -18,7 +18,9 @@ return [
       'required_fields' => ['postal_code'],
       'retained_response_fields' => '["geo_code_1","geo_code_2", "timezone"]',
       'datafill_response_fields' => ["city", "state_province_id"],
-      'additional_metadata' => ['args' => ['tableName'], 'tableName' => 'civicrm_geocoder_zip_dataset'],
     ],
+    'metadata' => [
+      'additional_metadata' => ['args' => ['tableName'], 'tableName' => 'civicrm_geocoder_zip_dataset'],
+    ]
   ]
 ];

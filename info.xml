@@ -9,9 +9,9 @@
     <email>emcnaughton@wikimedia.org</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">http://FIXME</url>
-    <url desc="Documentation">http://FIXME</url>
-    <url desc="Support">http://FIXME</url>
+    <url desc="Main Extension Page">https://github.com/eileenmcnaughton/org.wikimedia.geocoder/blob/master/README.md</url>
+    <url desc="Documentation">https://github.com/eileenmcnaughton/org.wikimedia.geocoder/blob/master/README.md</url>
+    <url desc="Support">https://github.com/eileenmcnaughton/org.wikimedia.geocoder</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
   <releaseDate>2018-01-17</releaseDate>

@@ -81,19 +81,7 @@ class CRM_Utils_Geocode_Geocoder {
     if (!self::getClient()) {
       self::setClient(new \Http\Adapter\Guzzle6\Client());
     }
-    if (!is_array(self::$geoCoders)) {
-      $geocoders = civicrm_api3('Geocoder', 'get', [
-        'sequential' => 1,
-        'is_active' => 1,
-        'options' => ['sort' => 'weight'],
-      ]);
-      $metadata = self::getEntitiesMetadata();
-      foreach ($geocoders['values'] as $geocoder) {
-        if (self::isGeocoderConfigured($metadata[$geocoder['name']], $geocoder)) {
-          self::$geoCoders[$geocoder['name']] = array_merge($geocoder, $metadata[$geocoder['name']]);
-        }
-      }
-    }
+    self::setGeocoders();
     // AFAIK only 2 char string accepted - from the examples.
     $locale = substr(CRM_Utils_System::getUFLocale(), 0, 2);
     $messageOnFail = NULL;
@@ -158,7 +146,7 @@ class CRM_Utils_Geocode_Geocoder {
         ]);
         // Unset it so we reload next instance & recheck properly.
         self::$geoCoders = NULL;
-        return FALSE;
+        continue;
       }
       catch (Exception $e) {
         $messageOnFail = ts('Unknown geocoding error :') . $e->getMessage();
@@ -170,6 +158,15 @@ class CRM_Utils_Geocode_Geocoder {
     // A message might be a bit aggressive if only geocoding some countries!
     if ($messageOnFail) {
       self::setMessage($messageOnFail);
+    }
+    if (!empty($values['id']) && empty($values['manual_geocode'])
+    ) {
+      // Could not geocode edited address, set to null.
+      // An argument could be made to check whether 'material' fields are
+      // changed, but that is kinda hard to define & adds extra lookups.
+      $values['geo_code_1'] = 'null';
+      $values['geo_code_2'] = 'null';
+      $values['timezone'] = 'null';
     }
     return FALSE;
   }
@@ -463,6 +460,26 @@ class CRM_Utils_Geocode_Geocoder {
     if (strlen($values['postal_code']) < $postalCodeLengths[$countryCode]) {
       $values['postal_code'] = str_pad($values['postal_code'], $postalCodeLengths[$countryCode], 0, STR_PAD_LEFT);
     }
+  }
+
+  /**
+   * @return mixed
+   */
+  protected static function setGeocoders() {
+    if (!is_array(self::$geoCoders)) {
+      $geocoders = civicrm_api3('Geocoder', 'get', [
+        'sequential' => 1,
+        'is_active' => 1,
+        'options' => ['sort' => 'weight'],
+      ]);
+      $metadata = self::getEntitiesMetadata();
+      foreach ($geocoders['values'] as $geocoder) {
+        if (self::isGeocoderConfigured($metadata[$geocoder['name']], $geocoder)) {
+          self::$geoCoders[$geocoder['name']] = array_merge($geocoder, $metadata[$geocoder['name']]);
+        }
+      }
+    }
+    return $geocoder;
   }
 
 }

@@ -12,6 +12,6 @@ CREATE TABLE `civicrm_geocoder` (
   `datafill_response_fields` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'fields retained to fill but not overwrite data',
   `threshold_standdown` int(11) NOT NULL DEFAULT '60' COMMENT 'Number of seconds to wait before retrying after hitting threshold. Geocaching disabled in this time',
   `threshold_last_hit` timestamp NULL DEFAULT NULL COMMENT 'Timestamp when the threshold was last hit.',
-  `valid_countries` varchar(255) COLLATE utf8_unicode_ci DEFAULT '0' COMMENT 'Countries this geocoder is valid for',
+  `valid_countries` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Countries this geocoder is valid for',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

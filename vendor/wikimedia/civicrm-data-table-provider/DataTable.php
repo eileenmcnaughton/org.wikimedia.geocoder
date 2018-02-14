@@ -32,16 +32,21 @@ final class DataTable extends AbstractHttpProvider implements Provider
      */
     private $tableName;
 
+    private $columns;
+
   /**
    * @param HttpClient $client
-   * @param string $tableName
+   * @param array $metadata
    *
    * @throws \Exception
    */
-    public function __construct(HttpClient $client, $tableName)
+    public function __construct(HttpClient $client, $metadata)
     {
         parent::__construct($client);
 
+        $tableName = $metadata['tableName'];
+        $columns = $metadata['columns'];
+        $this->columns = array_intersect($columns, ['city', 'state_code', 'latitude', 'longitude', 'timezone']);
         if (!\CRM_Utils_Rule::mysqlColumnNameOrAlias($tableName)
           || !\CRM_Core_DAO::executeQuery("SHOW TABLES LIKE %1", [1=> [$tableName, 'String']])) {
           throw new \Exception('Invalid table');
@@ -57,9 +62,10 @@ final class DataTable extends AbstractHttpProvider implements Provider
     {
 
         $postalCode = substr(trim($query->getText()), 0, 5);
+        $columnString = implode(', ', $this->columns);
 
         $sql = "
-         SELECT city, state_code, latitude, longitude, timezone
+         SELECT $columnString 
          FROM {$this->tableName} g
          WHERE postal_code = %2";
 
@@ -72,8 +78,12 @@ final class DataTable extends AbstractHttpProvider implements Provider
         if ($result->fetch()) {
           $builder->setCoordinates($result->latitude, $result->longitude);
           $builder->setLocality($result->city);
-          $builder->setTimezone($result->timezone);
-          $builder->setAdminLevels([new AdminLevel(1, $result->state_code, $result->state_code)]);
+          if (in_array('timezone', $this->columns)) {
+            $builder->setTimezone($result->timezone);
+          }
+          if (in_array('state_code', $this->columns)) {
+            $builder->setAdminLevels([new AdminLevel(1, $result->state_code, $result->state_code)]);
+          }
           return new AddressCollection([$builder->build()]);
         }
 

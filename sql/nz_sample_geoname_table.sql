@@ -16,7 +16,7 @@ CREATE TABLE `civicrm_geonames_lookup` (
   `country` varchar(255) DEFAULT NULL,
   `postal_code` varchar(11) NOT NULL DEFAULT '',
   `city` varchar(255) DEFAULT NULL,
-  `lattitude` varchar(255) DEFAULT NULL,
+  `latitude` varchar(255) DEFAULT NULL,
   `longitude` varchar(255) DEFAULT NULL,
   KEY `postal_code` (`postal_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -24,7 +24,7 @@ CREATE TABLE `civicrm_geonames_lookup` (
 LOCK TABLES `civicrm_geonames_lookup` WRITE;
 /*!40000 ALTER TABLE `civicrm_geonames_lookup` DISABLE KEYS */;
 
-INSERT INTO `civicrm_geonames_lookup` (`country`, `postal_code`, `city`, `lattitude`, `longitude`)
+INSERT INTO `civicrm_geonames_lookup` (`country`, `postal_code`, `city`, `latitude`, `longitude`)
 VALUES
   ('NZ','0112','Whau Valley','-35.693','174.3001'),
   ('NZ','0114','Waro','-35.5909','174.2815'),

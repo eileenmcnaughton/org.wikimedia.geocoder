@@ -20,7 +20,10 @@ return [
       'datafill_response_fields' => ["city", "state_province_id"],
     ],
     'metadata' => [
-      'additional_metadata' => ['args' => ['tableName'], 'tableName' => 'civicrm_geocoder_zip_dataset'],
+      'argument' => [
+        'tableName' => 'civicrm_geocoder_zip_dataset',
+        'columns' => ['city', 'state_code', 'latitude', 'longitude', 'timezone'],
+      ],
     ]
   ]
 ];

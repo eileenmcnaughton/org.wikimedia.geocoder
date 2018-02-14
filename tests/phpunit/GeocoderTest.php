@@ -34,6 +34,8 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
     // See: https://github.com/civicrm/org.civicrm.testapalooza/blob/master/civi-test.md
     return \Civi\Test::headless()
       ->installMe(__DIR__)
+      ->sqlFile(__DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
+        . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'nz_sample_geoname_table.sql')
       ->apply();
   }
 
@@ -45,6 +47,7 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
       'last_name' => 'Rabbit',
     ]);
     $this->ids['contact'][] = $contact['id'];
+    $this->callAPISuccess('System', 'flush', []);
   }
 
   public function tearDown() {
@@ -54,10 +57,6 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
       }
     }
     parent::tearDown();
-  }
-
-  public function testGeocoderStack() {
-
   }
 
   /**
@@ -72,9 +71,9 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
       'contact_id' => $this->ids['contact'][0],
       'country_id' => 'US',
     ]);
-    $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
-    $this->assertEquals('34.0781172375027', $address['geo_code_1']);
-    $this->assertEquals('-118.352999970633', $address['geo_code_2']);
+    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+    $this->assertEquals('34.0781172375', $address['geo_code_1']);
+    $this->assertEquals('-118.352999971', $address['geo_code_2']);
   }
 
   /**
@@ -83,8 +82,7 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
    * Note the lat long are slightly different between the 2 providers & we get timezone.
    */
   public function testOpenStreetMapsFailsFallsbackToUSLookup() {
-    $responses = [];
-    $this->getClient($responses);
+    $this->setHttpClientToEmptyMock();
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 90210,
       'location_type_id' => 'Home',
@@ -107,10 +105,54 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
   }
 
   /**
+   * Test that postal codes are prepended with zeros for minimum length.
+   *
+   * This only applies to NZ & US at the moment but as we get validation for
+   * more countries we can extend.
+   */
+  public function testShortPostalCode() {
+    $this->setHttpClientToEmptyMock();
+    $address = $this->callAPISuccess('Address', 'create', [
+      'postal_code' => 624,
+      'location_type_id' => 'Home',
+      'contact_id' => $this->ids['contact'][0],
+      'country_id' => 'US',
+    ]);
+    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+    $this->assertEquals('18.055399', $address['geo_code_1']);
+  }
+
+  /**
+   * Test geoname table option.
+   */
+  public function testGeoName(){
+    $this->setHttpClientToEmptyMock();
+    $address = $this->callAPISuccess('Address', 'create', [
+      'postal_code' => '0951',
+      'location_type_id' => 'Home',
+      'contact_id' => $this->ids['contact'][0],
+      'country_id' => 'NZ',
+    ]);
+    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+    $this->assertEquals('-36.5121', $address['geo_code_1']);
+    $this->assertEquals('174.661', $address['geo_code_2']);
+    $this->assertEquals('Puhoi', $address['city']);
+  }
+
+  /**
    * Configure geocoders for testing.
    */
-  protected function configureGeoCoders() {
-
+  protected function configureGeoCoders($coders) {
+     $geoCoders = $this->callAPISuccess('Geocoder', 'get', []);
+     foreach ($geoCoders as $geoCoder) {
+       if (isset($coders[$geoCoder['name']])) {
+         $params = array_merge(['id' => $geoCoder['id']], $geoCoder['name']);
+       }
+       else {
+         $params = ['id' => $geoCoder['id'], 'is_active' => 0];
+       }
+       $this->callAPISuccess('Geocoder', 'create', $params);
+     }
   }
 
   /**
@@ -120,6 +162,11 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
     $mock = new MockHandler($responses);
     $handler = HandlerStack::create($mock);
     CRM_Utils_Geocode_Geocoder::setClient(Client::createWithConfig(['handler' => $handler]));
+  }
+
+  protected function setHttpClientToEmptyMock() {
+    $responses = [];
+    $this->getClient($responses);
   }
 
 }

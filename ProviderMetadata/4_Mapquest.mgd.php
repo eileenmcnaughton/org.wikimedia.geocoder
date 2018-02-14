@@ -15,6 +15,10 @@ return [
       'title' => 'MapQuest',
       'class' => 'MapQuest\MapQuest',
     ],
-    'help_text' => ts('api key required - 15000 for free per month - sign up https://developer.mapquest.com/plan_purchase/steps/business_edition/business_edition_free/register')
+    'help_text' => ts('api key required - 15000 for free per month - sign up https://developer.mapquest.com/plan_purchase/steps/business_edition/business_edition_free/register'),
+    'metadata' => [
+      'argument' => 'geocoder.api_key',
+      'required_config_fields' => ['api_key'],
+    ],
   ]
 ];

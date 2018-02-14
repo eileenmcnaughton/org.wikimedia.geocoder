@@ -89,12 +89,14 @@ class CRM_Utils_Geocode_Geocoder {
       ]);
       $metadata = self::getEntitiesMetadata();
       foreach ($geocoders['values'] as $geocoder) {
-        self::$geoCoders[$geocoder['name']] = array_merge($geocoder, $metadata[$geocoder['name']]);
+        if (self::isGeocoderConfigured($metadata[$geocoder['name']], $geocoder)) {
+          self::$geoCoders[$geocoder['name']] = array_merge($geocoder, $metadata[$geocoder['name']]);
+        }
       }
     }
     // AFAIK only 2 char string accepted - from the examples.
     $locale = substr(CRM_Utils_System::getUFLocale(), 0, 2);
-    $messageOnFail = ts('No usable geocoding providers');
+    $messageOnFail = NULL;
 
     foreach (self::$geoCoders as $geocoder) {
       if (!self::isUsable($geocoder)) {
@@ -103,22 +105,21 @@ class CRM_Utils_Geocode_Geocoder {
       $classString = '\\Geocoder\\Provider\\' . $geocoder['class'];
       try {
         self::fillMissingAddressData($values, $geocoder);
+        self::padPostalCodeIfRequired($values);
         if (!self::hasRequiredFieldsForGeocoder($values, $geocoder)) {
           continue;
+        }
+        if (!empty($geocoder['valid_countries']) && $values['country_id']) {
+          if (!in_array($values['country_id'], json_decode($geocoder['valid_countries'], TRUE))) {
+            continue;
+          }
         }
         $geocodableAddress = self::getGeocodableAddress($values, $geocoder);
         if (empty($geocodableAddress)) {
           continue;
         }
+        $argument = self::getProviderArgument($geocoder);
 
-        // Sadly not all geocoders take the same argument - what to do what to pass?
-        // currently starting with obviously likely things & then overwriting if set in metadata.
-        $argument = CRM_Utils_Array::value('url', $geocoder, CRM_Utils_Array::value('api_key', $geocoder));
-        if (isset($geocoder['additional_metadata'])) {
-          $additionalMetaData = $geocoder['additional_metadata'];
-          $argumentName = $additionalMetaData['args'][0];
-          $argument = $additionalMetaData[$argumentName];
-        }
         $provider = new $classString(self::$client, $argument);
 
         $geocoderObj = new \Geocoder\StatefulGeocoder($provider, $locale);
@@ -127,9 +128,11 @@ class CRM_Utils_Geocode_Geocoder {
         foreach (json_decode($geocoder['retained_response_fields'], TRUE) as $fieldName) {
           $values[$fieldName] = self::getValueFromResult($fieldName, $result, $values);
         }
-        foreach (json_decode($geocoder['datafill_response_fields'], TRUE) as $fieldName) {
-          if (empty($values[$fieldName]) || $values[$fieldName] ===  'null') {
-            $values[$fieldName] = self::getValueFromResult($fieldName, $result, $values);
+        if (!empty($geocoder['datafill_response_fields'])) {
+          foreach (json_decode($geocoder['datafill_response_fields'], TRUE) as $fieldName) {
+            if (empty($values[$fieldName]) || $values[$fieldName] === 'null') {
+              $values[$fieldName] = self::getValueFromResult($fieldName, $result, $values);
+            }
           }
         }
 
@@ -163,8 +166,11 @@ class CRM_Utils_Geocode_Geocoder {
       }
     }
 
-    // We went threw all the geocoders & couldn't make it stick :-(.
-    self::setMessage($messageOnFail);
+    // We went threw all the geocoders & couldn't geocode the address.
+    // A message might be a bit aggressive if only geocoding some countries!
+    if ($messageOnFail) {
+      self::setMessage($messageOnFail);
+    }
     return FALSE;
   }
 
@@ -377,8 +383,6 @@ class CRM_Utils_Geocode_Geocoder {
         return \Civi::$statics[__CLASS__]['country_id'][$state];
 
     }
-
-
   }
 
 
@@ -395,6 +399,70 @@ class CRM_Utils_Geocode_Geocoder {
       $rekeyed[$entity['name']] = CRM_Utils_Array::value('metadata', $entity, []);
     }
     return $rekeyed;
+  }
+
+  /**
+   * Get the argument for the provider.
+   *
+   * Sadly not all geocoders take the same argument so we need to set it up in our metadata.
+   *
+   * @param $geocoder
+   *
+   * @return string|array
+   */
+  protected static function getProviderArgument($geocoder) {
+    $argument = CRM_Utils_Array::value('argument', $geocoder);
+    if (is_string($argument) && substr($argument, 0, 9) === 'geocoder.') {
+      $split = explode('.', $argument);
+      return $geocoder[$split[1]];
+    }
+    else {
+      return $argument;
+    }
+  }
+
+  /**
+   * Is the geocoder configured with any required fields.
+   *
+   * @param array $metadata
+   * @param array $geocoder
+   *
+   * @return bool
+   */
+  protected static function isGeocoderConfigured($metadata, $geocoder) {
+    if (!empty($metadata['required_config_fields'])) {
+      foreach ($metadata['required_config_fields'] as $fieldName) {
+        if (empty($geocoder[$fieldName])) {
+          return FALSE;
+        }
+      }
+    }
+    return TRUE;
+  }
+
+  /**
+   * Pad the postal code if required.
+   *
+   * Currently just using the 2 known countries. Will think about how to extend.
+   *
+   * @param $values
+   */
+  protected static function padPostalCodeIfRequired(&$values) {
+    if (empty($values['postal_code']) || !is_numeric($values['postal_code'])) {
+      return;
+    }
+    if (empty($values['country_id'])) {
+      return;
+    }
+    $postalCodeLengths = array('NZ' => 4, 'US' => 5);
+    $countryCode = CRM_Core_PseudoConstant::countryIsoCode($values['country_id']);
+    if (!isset($postalCodeLengths[$countryCode])) {
+      return;
+    }
+
+    if (strlen($values['postal_code']) < $postalCodeLengths[$countryCode]) {
+      $values['postal_code'] = str_pad($values['postal_code'], $postalCodeLengths[$countryCode], 0, STR_PAD_LEFT);
+    }
   }
 
 }

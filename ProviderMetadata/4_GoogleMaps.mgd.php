@@ -16,6 +16,10 @@ return [
       'class' => 'GoogleMaps\GoogleMaps',
     ],
     'help_text' => ts('Adhering to Terms of service is your responsibility - https://support.google.com/code/answer/55180?hl=en'),
-    'user_editable_fields' => ['api', 'threshold_standdown']
+    'user_editable_fields' => ['api_key', 'threshold_standdown'],
+    'metadata' => [
+      'argument' => 'geocoder.api_key',
+      'required_config_fields' => ['api'],
+    ],
   ]
 ];

@@ -17,5 +17,9 @@ return [
       'class' => 'Nominatim\Nominatim',
       'url' => 'https://nominatim.openstreetmap.org/search',
     ],
+    'metadata' => [
+      'argument' => 'geocoder.url',
+      'required_config_fields' => ['url'],
+    ],
   ]
 ];

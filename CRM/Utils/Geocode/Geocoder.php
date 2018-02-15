@@ -463,7 +463,7 @@ class CRM_Utils_Geocode_Geocoder {
   }
 
   /**
-   * @return mixed
+   * Set geocoders if not set.
    */
   protected static function setGeocoders() {
     if (!is_array(self::$geoCoders)) {
@@ -480,7 +480,6 @@ class CRM_Utils_Geocode_Geocoder {
         }
       }
     }
-    return $geocoder;
   }
 
 }

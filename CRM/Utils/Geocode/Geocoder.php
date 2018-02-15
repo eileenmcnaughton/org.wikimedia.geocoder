@@ -467,6 +467,7 @@ class CRM_Utils_Geocode_Geocoder {
    */
   protected static function setGeocoders() {
     if (!is_array(self::$geoCoders)) {
+      self::$geoCoders = [];
       $geocoders = civicrm_api3('Geocoder', 'get', [
         'sequential' => 1,
         'is_active' => 1,

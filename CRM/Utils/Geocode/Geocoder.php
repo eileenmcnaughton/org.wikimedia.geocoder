@@ -149,7 +149,7 @@ class CRM_Utils_Geocode_Geocoder {
         continue;
       }
       catch (Exception $e) {
-        $messageOnFail = ts('Unknown geocoding error :') . $e->getMessage();
+        $messageOnFail = ts('Unknown geocoding error on :') . $geocoder['title'] . ":" . $e->getMessage();
         continue;
       }
     }

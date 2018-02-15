@@ -48,7 +48,7 @@ final class DataTable extends AbstractHttpProvider implements Provider
         $columns = $metadata['columns'];
         $this->columns = array_intersect($columns, ['city', 'state_code', 'latitude', 'longitude', 'timezone']);
         if (!\CRM_Utils_Rule::mysqlColumnNameOrAlias($tableName)
-          || !\CRM_Core_DAO::executeQuery("SHOW TABLES LIKE %1", [1=> [$tableName, 'String']])) {
+          || !\CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE %1", [1=> [$tableName, 'String']])) {
           throw new \Exception('Invalid table');
         }
 

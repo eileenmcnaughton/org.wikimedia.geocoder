@@ -29,6 +29,7 @@ use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
 use Geocoder\Model\AddressCollection;
 use CRM_Geocoder_ExtensionUtil as E;
+use Http\Adapter\Guzzle6\Client;
 
 /**
  *

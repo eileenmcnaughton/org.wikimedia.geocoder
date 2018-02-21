@@ -17,7 +17,6 @@ class ComposerStaticInit3b8957a3138db11c03012ef52ff8e3e7
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
-            'Psr\\SimpleCache\\' => 16,
             'Psr\\Http\\Message\\' => 17,
         ),
         'H' => 
@@ -38,7 +37,6 @@ class ComposerStaticInit3b8957a3138db11c03012ef52ff8e3e7
             'Geocoder\\Provider\\GoogleMaps\\' => 29,
             'Geocoder\\Provider\\FreeGeoIp\\' => 28,
             'Geocoder\\Provider\\DataTable\\' => 28,
-            'Geocoder\\Provider\\Cache\\' => 24,
             'Geocoder\\Http\\' => 14,
             'Geocoder\\' => 9,
         ),
@@ -49,10 +47,6 @@ class ComposerStaticInit3b8957a3138db11c03012ef52ff8e3e7
     );
 
     public static $prefixDirsPsr4 = array (
-        'Psr\\SimpleCache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
-        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
@@ -63,8 +57,8 @@ class ComposerStaticInit3b8957a3138db11c03012ef52ff8e3e7
         ),
         'Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
-            1 => __DIR__ . '/..' . '/php-http/message/src',
+            0 => __DIR__ . '/..' . '/php-http/message/src',
+            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
         ),
         'Http\\Discovery\\' => 
         array (
@@ -109,10 +103,6 @@ class ComposerStaticInit3b8957a3138db11c03012ef52ff8e3e7
         'Geocoder\\Provider\\DataTable\\' => 
         array (
             0 => __DIR__ . '/..' . '/wikimedia/civicrm-data-table-provider',
-        ),
-        'Geocoder\\Provider\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/geocoder-php/cache-provider',
         ),
         'Geocoder\\Http\\' => 
         array (

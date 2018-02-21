@@ -6,10 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Http\\Promise\\' => array($vendorDir . '/php-http/promise/src'),
-    'Http\\Message\\' => array($vendorDir . '/php-http/message-factory/src', $vendorDir . '/php-http/message/src'),
+    'Http\\Message\\' => array($vendorDir . '/php-http/message/src', $vendorDir . '/php-http/message-factory/src'),
     'Http\\Discovery\\' => array($vendorDir . '/php-http/discovery/src'),
     'Http\\Client\\' => array($vendorDir . '/php-http/httplug/src'),
     'Http\\Adapter\\Guzzle6\\' => array($vendorDir . '/php-http/guzzle6-adapter/src'),
@@ -21,7 +20,6 @@ return array(
     'Geocoder\\Provider\\GoogleMaps\\' => array($vendorDir . '/geocoder-php/google-maps-provider'),
     'Geocoder\\Provider\\FreeGeoIp\\' => array($vendorDir . '/geocoder-php/free-geoip-provider'),
     'Geocoder\\Provider\\DataTable\\' => array($vendorDir . '/wikimedia/civicrm-data-table-provider'),
-    'Geocoder\\Provider\\Cache\\' => array($vendorDir . '/geocoder-php/cache-provider'),
     'Geocoder\\Http\\' => array($vendorDir . '/geocoder-php/common-http'),
     'Geocoder\\' => array($vendorDir . '/willdurand/geocoder'),
     'Clue\\StreamFilter\\' => array($vendorDir . '/clue/stream-filter/src'),

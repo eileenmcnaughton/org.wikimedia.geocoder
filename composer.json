@@ -3,35 +3,35 @@
       "repositories": [
         {
           "type": "git",
-          "url":  "git@github.com:eileenmcnaughton/mapquest-provider.git"
+          "url":  "https://github.com/eileenmcnaughton/mapquest-provider.git"
         },
         {
           "type": "git",
-          "url":  "git@github.com:eileenmcnaughton/php-common.git"
+          "url":  "https://github.com/eileenmcnaughton/php-common.git"
         },
         {
           "type": "git",
-          "url":  "git@github.com:eileenmcnaughton/php-common-http.git"
+          "url":  "https://github.com/eileenmcnaughton/php-common-http.git"
         },
         {
           "type": "git",
-          "url":  "git@github.com:eileenmcnaughton/free-geoip-provider.git"
+          "url":  "https://github.com/eileenmcnaughton/free-geoip-provider.git"
         },
         {
           "type": "git",
-          "url":  "git@github.com:eileenmcnaughton/cache-provider.git"
+          "url":  "https://github.com/eileenmcnaughton/cache-provider.git"
         },
         {
           "type": "git",
-          "url":  "git@github.com:eileenmcnaughton/nominatim-provider.git"
+          "url":  "https://github.com/eileenmcnaughton/nominatim-provider.git"
         },
         {
           "type": "git",
-          "url":  "git@github.com:eileenmcnaughton/google-maps-provider.git"
+          "url":  "https://github.com/eileenmcnaughton/google-maps-provider.git"
         },
         {
-          "type": "path",
-          "url": "/Users/emcnaughton/buildkit/build/dmaster/sites/default/files/civicrm/ext/org.wikimedia.geocoder/vendor/wikimedia/civicrm-data-table-geocoder"
+          "type": "git",
+          "url": "https://github.com/eileenmcnaughton/civicrm-data-table-provider.git"
         }
       ],
       "require": {
@@ -43,10 +43,7 @@
         "geocoder-php/mapquest-provider": "dev-master#782d90f95e4520add",
         "geocoder-php/common-http":  "dev-master#b90942009517719849642a",
         "geocoder-php/google-maps-provider": "dev-phpcompat#b9ae8b0e642a99c2ed298a548",
-            "wikimedia/civicrm-data-table-provider": "@dev"
-    },
-  "require-dev": {
-    "geocoder-php/provider-integration-tests": "^1.0"
-  }
+        "wikimedia/civicrm-data-table-provider": "@dev"
+    }
 
 }

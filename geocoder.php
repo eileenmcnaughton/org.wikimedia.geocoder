@@ -142,6 +142,21 @@ function geocoder_civicrm_entityTypes(&$entityTypes) {
     'table' => 'civicrm_geocoder',
   );
 }
+
+/**
+ * Implements hook_alterLogTables().
+ *
+ * @param array $logTableSpec
+ */
+function geocoder_civicrm_alterLogTables(&$logTableSpec) {
+  $staticDataTables = ['civicrm_geocoder_zip_dataset', '`civicrm_geonames_lookup'];
+  foreach ($staticDataTables as $staticDataTable) {
+    if (isset($logTableSpec[$staticDataTable])) {
+      unset($logTableSpec[$staticDataTable]);
+    }
+  }
+}
+
 // --- Functions below this ship commented out. Uncomment as required. ---
 
 /**

@@ -19,7 +19,9 @@ return [
     'user_editable_fields' => ['api_key', 'threshold_standdown'],
     'metadata' => [
       'argument' => 'geocoder.api_key',
-      'required_config_fields' => ['api'],
+      'required_config_fields' => ['api_key'],
+      // Not enabled by default, but special handling will enable if api key is already configured.
+      'is_enabled_on_install' => FALSE,
     ],
   ]
 ];

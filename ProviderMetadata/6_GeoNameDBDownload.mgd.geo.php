@@ -22,6 +22,7 @@ return [
     ],
     'metadata' => [
       'argument' => ['tableName' => 'civicrm_geonames_lookup', 'columns' => ['city', 'latitude', 'longitude']],
+      'is_enabled_on_install' => FALSE,
     ]
   ]
 ];

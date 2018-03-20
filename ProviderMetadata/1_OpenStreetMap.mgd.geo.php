@@ -20,6 +20,7 @@ return [
     'metadata' => [
       'argument' => 'geocoder.url',
       'required_config_fields' => ['url'],
+      'is_enabled_on_install' => TRUE,
     ],
   ]
 ];

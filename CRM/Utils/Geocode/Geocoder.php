@@ -391,7 +391,7 @@ class CRM_Utils_Geocode_Geocoder {
    */
   static protected function getEntitiesMetadata() {
     $entities = array();
-    geocoder_civicrm_managed($entities);
+    geocoder_civicrm_geo_managed($entities);
     $rekeyed = [];
     foreach ($entities as $entity) {
       $rekeyed[$entity['name']] = CRM_Utils_Array::value('metadata', $entity, []);
@@ -481,6 +481,13 @@ class CRM_Utils_Geocode_Geocoder {
         }
       }
     }
+  }
+
+  /**
+   * Reset the cached geocoders.
+   */
+  public static function resetGeoCoders() {
+    self::$geoCoders = NULL;
   }
 
 }

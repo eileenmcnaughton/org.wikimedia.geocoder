@@ -19,6 +19,7 @@ return [
     'metadata' => [
       'argument' => 'geocoder.api_key',
       'required_config_fields' => ['api_key'],
+      'is_enabled_on_install' => FALSE,
     ],
   ]
 ];

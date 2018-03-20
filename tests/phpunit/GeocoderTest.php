@@ -27,7 +27,9 @@ use GuzzleHttp\Psr7\Response;
  */
 class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInterface, TransactionalInterface {
 
-  protected $ids = array();
+  protected $ids = [];
+
+  protected $geocoders = [];
 
   public function setUpHeadless() {
     // Civi\Test has many helpers, like install(), uninstall(), sql(), and sqlFile().
@@ -41,6 +43,36 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
 
   public function setUp() {
     parent::setUp();
+    civicrm_initialize();
+    if (!isset($GLOBALS['_PEAR_default_error_mode'])) {
+      // This is simply to protect against e-notices if globals have been reset by phpunit.
+      $GLOBALS['_PEAR_default_error_mode'] = NULL;
+      $GLOBALS['_PEAR_default_error_options'] = NULL;
+    }
+
+    $geocoders = civicrm_api3('Geocoder', 'get', [])['values'];
+    foreach ($geocoders as $geocoder) {
+      $this->geocoders[$geocoder['name']] = $geocoder;
+    }
+
+    $this->configureGeoCoders([
+      'open_street_maps' => [
+        'name' => 'open_street_maps',
+        'is_active' => 1,
+        'weight' => 1,
+      ],
+      'us_zip_geocoder' => [
+        'name' => 'us_zip_geocoder',
+        'is_active' => 1,
+        'weight' => 2,
+      ],
+      'geonames_db_table' => [
+        'name' => 'geonames_db_table',
+        'is_active' => 1,
+        'weight' => 3,
+      ],
+    ]);
+
     $contact = $this->callAPISuccess('Contact', 'create', [
       'contact_type' => 'Individual',
       'first_name' => 'Brer',
@@ -56,6 +88,7 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
         $this->callAPISuccess($entity, 'delete', ['id' => $id]);
       }
     }
+    $this->configureGeoCoders($this->geocoders);
     parent::tearDown();
   }
 
@@ -72,8 +105,9 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
       'country_id' => 'US',
     ]);
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
-    $this->assertEquals('34.0781172375', $address['geo_code_1']);
-    $this->assertEquals('-118.352999971', $address['geo_code_2']);
+    // Different systems seem to vary in their precision so let's round.
+    $this->assertEquals('34.0781172375', round($address['geo_code_1'], 10));
+    $this->assertEquals('-118.352999971', round($address['geo_code_2'], 9));
   }
 
   /**
@@ -127,6 +161,14 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
    */
   public function testGeoName(){
     $this->setHttpClientToEmptyMock();
+    $drop = FALSE;
+    if (!CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE 'civicrm_geonames_lookup'")) {
+      // set up headless doesn't seem to be called in wmf tests ...but I haven't
+      // double checked if we can drop if when running tests in isolation.
+      CRM_Utils_File::sourceSQLFile(NULL, __DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
+        . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'nz_sample_geoname_table.sql');
+      $drop = TRUE;
+    }
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => '0951',
       'location_type_id' => 'Home',
@@ -137,20 +179,33 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
     $this->assertEquals('-36.5121', $address['geo_code_1']);
     $this->assertEquals('174.661', $address['geo_code_2']);
     $this->assertEquals('Puhoi', $address['city']);
+    if ($drop) {
+      CRM_Core_DAO::executeQuery("DROP TABLE civicrm_geonames_lookup");
+    }
   }
 
   /**
    * Configure geocoders for testing.
+   *
+   * @param array $coders
+   *   Array of coders that should be enabled.
    */
   protected function configureGeoCoders($coders) {
-     $geoCoders = $this->callAPISuccess('Geocoder', 'get', []);
-     foreach ($geoCoders as $geoCoder) {
+     foreach ($this->geocoders as $geoCoder) {
        if (isset($coders[$geoCoder['name']])) {
-         $params = array_merge(['id' => $geoCoder['id']], $geoCoder['name']);
+         $params = array_merge(['id' => $geoCoder['id']], $coders[$geoCoder['name']]);
        }
        else {
          $params = ['id' => $geoCoder['id'], 'is_active' => 0];
        }
+       // @todo api should handle these but for now we will.
+       $jsonFields = ['required_fields', 'retained_response_fields', 'datafill_response_fields', 'valid_countries'];
+       foreach ($jsonFields as $jsonField) {
+         if (!empty($params[$jsonField]) && is_string($jsonField)) {
+           $params[$jsonField] = json_decode($params[$jsonField]);
+         }
+       }
+
        $this->callAPISuccess('Geocoder', 'create', $params);
      }
   }

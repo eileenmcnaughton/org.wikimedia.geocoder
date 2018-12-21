@@ -68,6 +68,11 @@ class CRM_Utils_Geocode_Geocoder {
   protected static $geoCoders;
 
   /**
+   * Country name to ID mapping for the address geocoder job.
+   */
+  protected static $countries;
+
+  /**
    * Function that takes an address object and gets the latitude / longitude for this
    * address. Note that at a later stage, we could make this function also clean up
    * the address into a more valid format
@@ -97,6 +102,15 @@ class CRM_Utils_Geocode_Geocoder {
         self::padPostalCodeIfRequired($values);
         if (!self::hasRequiredFieldsForGeocoder($values, $geocoder)) {
           continue;
+        }
+        // Batch address geocoder job does not provide country_id parameter.
+        if (!empty($values['country']) && empty($values['country_id'])) {
+          if (!isset(self::$countries)) {
+            foreach (CRM_Core_DAO::executeQuery("SELECT name, id FROM civicrm_country")->fetchAll() as $country) {
+              self::$countries[$country['name']] = $country['id'];
+            }
+          }
+          $values['country_id'] = self::$countries[$values['country']];
         }
         if (!empty($geocoder['valid_countries']) && $values['country_id']) {
           if (!in_array($values['country_id'], json_decode($geocoder['valid_countries'], TRUE))) {

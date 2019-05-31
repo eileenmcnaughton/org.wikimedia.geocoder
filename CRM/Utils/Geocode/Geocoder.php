@@ -109,7 +109,13 @@ class CRM_Utils_Geocode_Geocoder {
         }
         $argument = self::getProviderArgument($geocoder);
 
-        $provider = new $classString(self::$client, $argument);
+        // At least for mapquest, in addition to the api_key, add a flag to no longer use the open version
+        if (($geocoder['name'] == "mapquest") && (isset($geocoder['api_key']))) {
+           $provider = new $classString(self::$client, $argument, TRUE);
+        }
+        else {
+           $provider = new $classString(self::$client, $argument);
+        }
 
         $geocoderObj = new \Geocoder\StatefulGeocoder($provider, $locale);
         $result = $geocoderObj->geocodeQuery(GeocodeQuery::create($geocodableAddress));

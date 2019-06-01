@@ -45,13 +45,6 @@ class CRM_Geocoder_Upgrader extends CRM_Geocoder_Upgrader_Base {
     }
   }
 
-
-  public function upgrade_1100() {
-    $this->ctx->log->info('Applying update 1100');
-    $this->executeSqlFile('sql/upgrade_1100.sql');
-    return TRUE;
-  }
-
   /**
    * Example: Run an external SQL script when the module is uninstalled.
    */

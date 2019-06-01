@@ -4,4 +4,3 @@ vendor/*/*/.gitignore
 vendor/*/*/.travis.yml
 vendor/*/*/phpunit.xml.dist
 
-*.bak

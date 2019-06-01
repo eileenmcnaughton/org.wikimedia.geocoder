@@ -122,7 +122,7 @@ class CRM_Utils_Geocode_Geocoder {
                 (isset($params->useRoadPosition) && ($params->useRoadPosition >= 1)) ? TRUE : FALSE);
              break;
           default:
-        $provider = new $classString(self::$client, $argument);
+             $provider = new $classString(self::$client, $argument);
         }
 
         $geocoderObj = new \Geocoder\StatefulGeocoder($provider, $locale);

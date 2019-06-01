@@ -6,6 +6,8 @@ CREATE TABLE `civicrm_geocoder` (
   `is_active` tinyint(1) DEFAULT '0' COMMENT 'Enabled?',
   `weight` int(10) unsigned DEFAULT NULL COMMENT 'Weight',
   `api_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'API Key',
+  `is_licensed` tinyint(1) DEFAULT '0' COMMENT 'Use licensed provider ?',
+  `parameters` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'parameters to pass to provider',
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'URL (if required)',
   `required_fields` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'json array of fields required for this to parse',
   `retained_response_fields` varchar(255) COLLATE utf8_unicode_ci DEFAULT '["geo_code_1","geo_code_2"]' COMMENT 'fields to be retained from the response',

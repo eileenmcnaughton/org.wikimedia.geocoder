@@ -109,7 +109,13 @@ class CRM_Utils_Geocode_Geocoder {
         }
         $argument = self::getProviderArgument($geocoder);
 
+        // Check to see if this provider is licensed 
+        if ((isset($geocoder['is_licensed'])) && ($geocoder['is_licensed'] > 0)) {
+           $provider = new $classString(self::$client, $argument, TRUE);
+        }
+        else {
         $provider = new $classString(self::$client, $argument);
+        }
 
         $geocoderObj = new \Geocoder\StatefulGeocoder($provider, $locale);
         $result = $geocoderObj->geocodeQuery(GeocodeQuery::create($geocodableAddress));

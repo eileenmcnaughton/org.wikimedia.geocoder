@@ -108,17 +108,26 @@ class CRM_Utils_Geocode_Geocoder {
           continue;
         }
         $argument = self::getProviderArgument($geocoder);
+        $params = json_decode($geocoder['parameters']); 
 
-        // Check to see if this provider is licensed 
-        if ((isset($geocoder['is_licensed'])) && ($geocoder['is_licensed'] > 0)) {
-           $provider = new $classString(self::$client, $argument, TRUE);
-        }
-        else {
+        Civi::log()->debug("geocoder\n" . print_r($geocoder,TRUE));
+        // Providers constructors don't have the sames parameters....
+        switch ($geocoder['name']) {
+          case 'here':
+             $provider = new $classString(self::$client, $params->appId, $params->appCode);
+             break;
+          case 'mapquest':
+             $provider = new $classString(self::$client, $argument,
+                (isset($params->licensed) && ($params->licensed >= 1)) ? TRUE : FALSE,
+                (isset($params->useRoadPosition) && ($params->useRoadPosition >= 1)) ? TRUE : FALSE);
+             break;
+          default:
         $provider = new $classString(self::$client, $argument);
         }
 
         $geocoderObj = new \Geocoder\StatefulGeocoder($provider, $locale);
         $result = $geocoderObj->geocodeQuery(GeocodeQuery::create($geocodableAddress));
+        Civi::log()->debug("result\n" . print_r($result,TRUE));
 
         foreach (json_decode($geocoder['retained_response_fields'], TRUE) as $fieldName) {
           $values[$fieldName] = self::getValueFromResult($fieldName, $result, $values);
@@ -437,6 +446,7 @@ class CRM_Utils_Geocode_Geocoder {
     if (!empty($metadata['required_config_fields'])) {
       foreach ($metadata['required_config_fields'] as $fieldName) {
         if (empty($geocoder[$fieldName])) {
+          Civi::log()->debug($geocoder['name'] . ' missing required parameter ' . $fieldName);
           return FALSE;
         }
       }

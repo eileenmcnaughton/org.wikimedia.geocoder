@@ -56,12 +56,6 @@
         <length>255</length>
         <comment>API Key</comment>
     </field>
-        <field>
-        <name>is_licensed</name>
-        <type>boolean</type>
-        <comment>Use licensed provider ?</comment>
-        <default>0</default>
-    </field>
     <field>
         <name>parameters</name>
         <type>varchar</type>

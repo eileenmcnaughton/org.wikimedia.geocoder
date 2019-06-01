@@ -43,7 +43,9 @@
         "geocoder-php/mapquest-provider": "dev-master#782d90f95e4520add",
         "geocoder-php/common-http":  "dev-master#b90942009517719849642a",
         "geocoder-php/google-maps-provider": "dev-phpcompat#b9ae8b0e642a99c2ed298a548",
-        "wikimedia/civicrm-data-table-provider": "@dev"
+        "wikimedia/civicrm-data-table-provider": "@dev",
+            "geo6/geocoder-php-addok-provider": "dev-master",
+            "geocoder-php/here-provider": "^1.0@dev"
     }
 
 }

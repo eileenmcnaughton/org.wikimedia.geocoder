@@ -78,13 +78,6 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
   public $api_key;
 
 /**
-   * Use licensed provider ?
-   *
-   * @var string
-   */
-  public $is_licensed;
-
-/**
    * Provider Paramaters
    *
    * @var string
@@ -235,17 +228,6 @@ class CRM_Geocoder_DAO_Geocoder extends CRM_Core_DAO {
           'description' => 'API Key',
           'maxlength' => 255,
           'size' => CRM_Utils_Type::HUGE,
-          'table_name' => 'civicrm_geocoder',
-          'entity' => 'Geocoder',
-          'bao' => 'CRM_Geocoder_DAO_Geocoder',
-          'localizable' => 0,
-        ],
-
-        'is_licensed' => [
-          'name' => 'is_licensed',
-          'title' => ts('Licensed ?'),
-          'type' => CRM_Utils_Type::T_BOOLEAN,
-          'description' => 'Use licensed provider ?',
           'table_name' => 'civicrm_geocoder',
           'entity' => 'Geocoder',
           'bao' => 'CRM_Geocoder_DAO_Geocoder',

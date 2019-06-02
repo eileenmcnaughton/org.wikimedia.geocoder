@@ -45,6 +45,49 @@ class CRM_Geocoder_Upgrader extends CRM_Geocoder_Upgrader_Base {
     }
   }
 
+
+  /**
+   *  Add parameter column in DB
+  */
+  public function upgrade_1100() {
+    $this->ctx->log->info('Applying update 1100');
+    $this->executeSqlFile('sql/upgrade_1100.sql');
+
+    $this->update_providers(['mapquest',]);
+
+    return TRUE;
+  }
+
+  /**
+   * Add new providers
+   * $force_update : optional array. Contains providers name that must be updated
+  */
+  private function update_providers ($force_update = array()) {
+    $geoCoders = [];
+    geocoder_civicrm_geo_managed($geoCoders);
+
+    // get already defined providers
+    $defined = $result = civicrm_api3('Geocoder', 'get', [ 'sequential' => 1, 'return' => ["name", "weight"], 'options' => "sort' => 'weight",
+    ]);
+
+    // get max weight value
+    $max_weight = $defined['values'][count($defined['values']) - 1]['weight'];
+    foreach ($geoCoders as $geoCoder) {
+       $is_defined = array_search($geoCoder['name'], array_column($defined['values'], 'name'));
+       if (in_array( $geoCoder['name'], $force_update)) {
+          $params = ['id' => $defined['values'][$is_defined]['id'] ];
+          civicrm_api3('Geocoder', 'create', array_merge($params, $geoCoder['params']));
+       }
+       elseif (($is_defined === FALSE) || (in_array( $geoCoder['name'], $force_update))) {
+          $params = ['is_active' => $geoCoder['metadata']['is_enabled_on_install'], 'weight' => ++$max_weight];
+          civicrm_api3('Geocoder', 'create', array_merge($params, $geoCoder['params']));
+       }
+
+    }
+
+  return TRUE;
+}
+
   /**
    * Example: Run an external SQL script when the module is uninstalled.
    */

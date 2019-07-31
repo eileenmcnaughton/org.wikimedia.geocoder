@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -20,21 +22,22 @@ use Geocoder\Query\ReverseQuery;
  */
 trait GeocoderTrait
 {
-    abstract public function geocodeQuery(GeocodeQuery $query);
+    abstract public function geocodeQuery(GeocodeQuery $query): Collection;
 
-    abstract public function reverseQuery(ReverseQuery $query);
+    abstract public function reverseQuery(ReverseQuery $query): Collection;
 
     /**
      * {@inheritdoc}
      */
-    public function geocode($value) {
+    public function geocode(string $value): Collection
+    {
         return $this->geocodeQuery(GeocodeQuery::create($value));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function reverse($latitude,  $longitude)
+    public function reverse(float $latitude, float $longitude): Collection
     {
         return $this->reverseQuery(ReverseQuery::fromCoordinates($latitude, $longitude));
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -22,7 +24,7 @@ abstract class AbstractArrayDumper
      *
      * @return array
      */
-    protected function getArray(Location $location)
+    protected function getArray(Location $location): array
     {
         $properties = array_filter($location->toArray(), function ($value) {
             return !empty($value);

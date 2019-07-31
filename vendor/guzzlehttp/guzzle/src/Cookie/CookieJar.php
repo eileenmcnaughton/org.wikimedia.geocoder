@@ -95,11 +95,11 @@ class CookieJar implements CookieJarInterface
     public function getCookieByName($name)
     {
         // don't allow a null name
-        if($name === null) {
+        if ($name === null) {
             return null;
         }
-        foreach($this->cookies as $cookie) {
-            if($cookie->getName() !== null && strcasecmp($cookie->getName(), $name) === 0) {
+        foreach ($this->cookies as $cookie) {
+            if ($cookie->getName() !== null && strcasecmp($cookie->getName(), $name) === 0) {
                 return $cookie;
             }
         }
@@ -120,7 +120,7 @@ class CookieJar implements CookieJarInterface
         } elseif (!$path) {
             $this->cookies = array_filter(
                 $this->cookies,
-                function (SetCookie $cookie) use ($path, $domain) {
+                function (SetCookie $cookie) use ($domain) {
                     return !$cookie->matchesDomain($domain);
                 }
             );

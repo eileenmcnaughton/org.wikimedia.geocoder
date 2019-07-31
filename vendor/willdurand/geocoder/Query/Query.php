@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -20,14 +22,14 @@ interface Query
      *
      * @return Query
      */
-    public function withLocale($locale);
+    public function withLocale(string $locale);
 
     /**
      * @param int $limit
      *
      * @return Query
      */
-    public function withLimit($limit);
+    public function withLimit(int $limit);
 
     /**
      * @param string $name
@@ -35,7 +37,7 @@ interface Query
      *
      * @return Query
      */
-    public function withData($name, $value);
+    public function withData(string $name, $value);
 
     /**
      * @return string|null
@@ -45,7 +47,7 @@ interface Query
     /**
      * @return int
      */
-    public function getLimit();
+    public function getLimit(): int;
 
     /**
      * @param string     $name
@@ -53,12 +55,12 @@ interface Query
      *
      * @return mixed
      */
-    public function getData($name, $default = null);
+    public function getData(string $name, $default = null);
 
     /**
      * @return array
      */
-    public function getAllData();
+    public function getAllData(): array;
 
     /**
      * @return string

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -34,7 +36,7 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
      * @param HttpClient $client
      * @param string     $baseUrl
      */
-    public function __construct(HttpClient $client, $baseUrl = 'https://freegeoip.net/json/%s')
+    public function __construct(HttpClient $client, string $baseUrl = 'https://freegeoip.net/json/%s')
     {
         parent::__construct($client);
 
@@ -44,7 +46,7 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function geocodeQuery(GeocodeQuery $query)
+    public function geocodeQuery(GeocodeQuery $query): Collection
     {
         $address = $query->getText();
         if (!filter_var($address, FILTER_VALIDATE_IP)) {
@@ -55,16 +57,36 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
             return new AddressCollection([$this->getLocationForLocalhost()]);
         }
 
-        $content = $this->getUrlContents(sprintf($this->baseUrl, $address));
-        $data = json_decode($content, true);
+        $request = $this->getRequest(sprintf($this->baseUrl, $address));
+
+        if (null !== $query->getLocale()) {
+            $request = $request->withHeader('Accept-Language', $query->getLocale());
+        }
+
+        $body = $this->getParsedResponse($request);
+        $data = json_decode($body, true);
+
+        // Return empty collection if address was not found
+        if ('' === $data['region_name']
+        && '' === $data['region_code']
+        && 0 === $data['latitude']
+        && 0 === $data['longitude']
+        && '' === $data['city']
+        && '' === $data['zip_code']
+        && '' === $data['country_name']
+        && '' === $data['country_code']
+        && '' === $data['time_zone']) {
+            return new AddressCollection([]);
+        }
+
         $builder = new AddressBuilder($this->getName());
 
         if (!empty($data['region_name'])) {
-            $builder->addAdminLevel(1, $data['region_name'], isset($data['region_code']) ? $data['region_code'] : null);
+            $builder->addAdminLevel(1, $data['region_name'], $data['region_code'] ?? null);
         }
 
-        if ($data['latitude'] !== 0 || $data['longitude'] !== 0) {
-            $builder->setCoordinates(isset($data['latitude']) ? $data['latitude'] : null, isset($data['longitude']) ? $data['longitude'] : null);
+        if (0 !== $data['latitude'] || 0 !== $data['longitude']) {
+            $builder->setCoordinates($data['latitude'] ?? null, $data['longitude'] ?? null);
         }
         $builder->setLocality(empty($data['city']) ? null : $data['city']);
         $builder->setPostalCode(empty($data['zip_code']) ? null : $data['zip_code']);
@@ -78,7 +100,7 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function reverseQuery(ReverseQuery $query)
+    public function reverseQuery(ReverseQuery $query): Collection
     {
         throw new UnsupportedOperation('The FreeGeoIp provider is not able to do reverse geocoding.');
     }
@@ -86,7 +108,7 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'free_geo_ip';
     }

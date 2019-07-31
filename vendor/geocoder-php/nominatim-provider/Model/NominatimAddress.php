@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -25,7 +27,7 @@ final class NominatimAddress extends Address
     /**
      * @var string|null
      */
-    private $class;
+    private $category;
 
     /**
      * @var string|null
@@ -60,7 +62,7 @@ final class NominatimAddress extends Address
      *
      * @return NominatimAddress
      */
-    public function withAttribution($attribution = null)
+    public function withAttribution(string $attribution = null): self
     {
         $new = clone $this;
         $new->attribution = $attribution;
@@ -69,22 +71,44 @@ final class NominatimAddress extends Address
     }
 
     /**
+     * @deprecated
+     *
      * @return null|string
      */
     public function getClass()
     {
-        return $this->class;
+        return $this->getCategory();
     }
 
     /**
-     * @param null|string $class
+     * @deprecated
+     *
+     * @param null|string $category
      *
      * @return NominatimAddress
      */
-    public function withClass($class = null)
+    public function withClass(string $category = null): self
+    {
+        return $this->withCategory($category);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param null|string $category
+     *
+     * @return NominatimAddress
+     */
+    public function withCategory(string $category = null): self
     {
         $new = clone $this;
-        $new->class = $class;
+        $new->category = $category;
 
         return $new;
     }
@@ -102,7 +126,7 @@ final class NominatimAddress extends Address
      *
      * @return NominatimAddress
      */
-    public function withDisplayName($displayName = null)
+    public function withDisplayName(string $displayName = null): self
     {
         $new = clone $this;
         $new->displayName = $displayName;
@@ -123,7 +147,7 @@ final class NominatimAddress extends Address
      *
      * @return NominatimAddress
      */
-    public function withOSMId($osmId = null)
+    public function withOSMId(int $osmId = null): self
     {
         $new = clone $this;
         $new->osmId = $osmId;
@@ -144,7 +168,7 @@ final class NominatimAddress extends Address
      *
      * @return NominatimAddress
      */
-    public function withOSMType($osmType = null)
+    public function withOSMType(string $osmType = null): self
     {
         $new = clone $this;
         $new->osmType = $osmType;
@@ -165,7 +189,7 @@ final class NominatimAddress extends Address
      *
      * @return NominatimAddress
      */
-    public function withType($type = null)
+    public function withType(string $type = null): self
     {
         $new = clone $this;
         $new->type = $type;

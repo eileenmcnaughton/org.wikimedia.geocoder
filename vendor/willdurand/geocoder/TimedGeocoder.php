@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -43,7 +45,7 @@ final class TimedGeocoder implements Geocoder
     /**
      * {@inheritdoc}
      */
-    public function geocodeQuery(GeocodeQuery $query)
+    public function geocodeQuery(GeocodeQuery $query): Collection
     {
         $this->stopwatch->start('geocode', 'geocoder');
 
@@ -63,7 +65,7 @@ final class TimedGeocoder implements Geocoder
     /**
      * {@inheritdoc}
      */
-    public function reverseQuery(ReverseQuery $query)
+    public function reverseQuery(ReverseQuery $query): Collection
     {
         $this->stopwatch->start('reverse', 'geocoder');
 
@@ -85,7 +87,7 @@ final class TimedGeocoder implements Geocoder
         return call_user_func_array([$this->delegate, $method], $args);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'timed_geocoder';
     }

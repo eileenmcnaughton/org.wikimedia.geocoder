@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -77,7 +79,7 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
      *
      * @return GoogleMaps
      */
-    public static function business(HttpClient $client, $clientId, $privateKey = null, $region = null, $apiKey = null, $channel = null)
+    public static function business(HttpClient $client, string $clientId, string $privateKey = null, string $region = null, string $apiKey = null, string $channel = null)
     {
         $provider = new self($client, $region, $apiKey);
         $provider->clientId = $clientId;
@@ -92,7 +94,7 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
      * @param string     $region Region biasing (optional)
      * @param string     $apiKey Google Geocoding API key (optional)
      */
-    public function __construct(HttpClient $client, $region = null, $apiKey = null)
+    public function __construct(HttpClient $client, string $region = null, string $apiKey = null)
     {
         parent::__construct($client);
 
@@ -100,7 +102,7 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
         $this->apiKey = $apiKey;
     }
 
-    public function geocodeQuery(GeocodeQuery $query)
+    public function geocodeQuery(GeocodeQuery $query): Collection
     {
         // Google API returns invalid data if IP address given
         // This API doesn't handle IPs
@@ -113,10 +115,15 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
             $url .= sprintf('&bounds=%s,%s|%s,%s', $bounds->getSouth(), $bounds->getWest(), $bounds->getNorth(), $bounds->getEast());
         }
 
+        if (null !== $components = $query->getData('components')) {
+            $serializedComponents = is_string($components) ? $components : $this->serializeComponents($components);
+            $url .= sprintf('&components=%s', urlencode($serializedComponents));
+        }
+
         return $this->fetchUrl($url, $query->getLocale(), $query->getLimit(), $query->getData('region', $this->region));
     }
 
-    public function reverseQuery(ReverseQuery $query)
+    public function reverseQuery(ReverseQuery $query): Collection
     {
         $coordinate = $query->getCoordinates();
         $url = sprintf(self::REVERSE_ENDPOINT_URL_SSL, $coordinate->getLatitude(), $coordinate->getLongitude());
@@ -135,7 +142,7 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'google_maps';
     }
@@ -146,7 +153,7 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
      *
      * @return string query with extra params
      */
-    private function buildQuery($url, $locale = null, $region = null)
+    private function buildQuery(string $url, string $locale = null, string $region = null): string
     {
         if (null !== $locale) {
             $url = sprintf('%s&language=%s', $url, $locale);
@@ -186,7 +193,7 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
      * @throws InvalidServerResponse
      * @throws InvalidCredentials
      */
-    private function fetchUrl($url, $locale = null, $limit, $region = null)
+    private function fetchUrl(string $url, string $locale = null, int $limit, string $region = null): AddressCollection
     {
         $url = $this->buildQuery($url, $locale, $region);
         $content = $this->getUrlContents($url);
@@ -240,6 +247,7 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
             $address = $address->withPointOfInterest($builder->getValue('point_of_interest'));
             $address = $address->withEstablishment($builder->getValue('establishment'));
             $address = $address->withSubLocalityLevels($builder->getValue('subLocalityLevel', []));
+            $address = $address->withPartialMatch($result->partial_match ?? false);
             $results[] = $address;
 
             if (count($results) >= $limit) {
@@ -257,7 +265,7 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
      * @param string         $type    Component type
      * @param object         $values  The component values
      */
-    private function updateAddressComponent(AddressBuilder $builder, $type, $values)
+    private function updateAddressComponent(AddressBuilder $builder, string $type, $values)
     {
         switch ($type) {
             case 'postal_code':
@@ -346,7 +354,7 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
      *
      * @return string $query query with signature appended
      */
-    private function signQuery($query)
+    private function signQuery(string $query): string
     {
         $url = parse_url($query);
 
@@ -365,6 +373,20 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
     }
 
     /**
+     * Serialize the component query parameter.
+     *
+     * @param array $components
+     *
+     * @return string
+     */
+    private function serializeComponents(array $components): string
+    {
+        return implode('|', array_map(function ($name, $value) {
+            return sprintf('%s:%s', $name, $value);
+        }, array_keys($components), $components));
+    }
+
+    /**
      * Decode the response content and validate it to make sure it does not have any errors.
      *
      * @param string $url
@@ -376,7 +398,7 @@ final class GoogleMaps extends AbstractHttpProvider implements Provider
      * @throws InvalidServerResponse
      * @throws QuotaExceeded
      */
-    private function validateResponse($url, $content)
+    private function validateResponse(string $url, $content)
     {
         // Throw exception if invalid clientID and/or privateKey used with GoogleMapsBusinessProvider
         if (false !== strpos($content, "Provided 'signature' is not valid for the provided client ID")) {

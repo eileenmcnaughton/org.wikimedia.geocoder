@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -46,7 +48,7 @@ final class StringFormatter
      *
      * @return string
      */
-    public function format(Location $location, $format)
+    public function format(Location $location, string $format): string
     {
         $countryName = null;
         $code = null;

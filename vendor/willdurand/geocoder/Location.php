@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -80,7 +82,7 @@ interface Location
      *
      * @return AdminLevelCollection
      */
-    public function getAdminLevels();
+    public function getAdminLevels(): AdminLevelCollection;
 
     /**
      * Returns the country value object.
@@ -103,12 +105,12 @@ interface Location
      *
      * @return array
      */
-    public function toArray();
+    public function toArray(): array;
 
     /**
      * The name of the provider that created this Location.
      *
      * @return string
      */
-    public function getProvidedBy();
+    public function getProvidedBy(): string;
 }

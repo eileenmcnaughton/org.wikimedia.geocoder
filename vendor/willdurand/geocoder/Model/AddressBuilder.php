@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -90,7 +92,7 @@ final class AddressBuilder
     /**
      * @param string $providedBy
      */
-    public function __construct($providedBy)
+    public function __construct(string $providedBy)
     {
         $this->providedBy = $providedBy;
     }
@@ -100,14 +102,14 @@ final class AddressBuilder
      *
      * @return Address
      */
-    public function build($class = Address::class)
+    public function build(string $class = Address::class): Address
     {
         if (!is_a($class, Address::class, true)) {
             throw new LogicException('First parameter to LocationBuilder::build must be a class name extending Geocoder\Model\Address');
         }
 
         $country = null;
-        if (!empty($this->country) || !empty($this->country)) {
+        if (!empty($this->country) || !empty($this->countryCode)) {
             $country = new Country($this->country, $this->countryCode);
         }
 
@@ -134,7 +136,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setBounds($south, $west, $north, $east)
+    public function setBounds($south, $west, $north, $east): self
     {
         try {
             $this->bounds = new Bounds($south, $west, $north, $east);
@@ -151,7 +153,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setCoordinates($latitude, $longitude)
+    public function setCoordinates($latitude, $longitude): self
     {
         try {
             $this->coordinates = new Coordinates($latitude, $longitude);
@@ -169,7 +171,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function addAdminLevel($level, $name, $code = null)
+    public function addAdminLevel(int $level, string $name, string $code = null): self
     {
         $this->adminLevels[] = new AdminLevel($level, $name, $code);
 
@@ -181,7 +183,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setStreetNumber($streetNumber)
+    public function setStreetNumber($streetNumber): self
     {
         $this->streetNumber = $streetNumber;
 
@@ -193,7 +195,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setStreetName($streetName)
+    public function setStreetName($streetName): self
     {
         $this->streetName = $streetName;
 
@@ -205,7 +207,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setLocality($locality)
+    public function setLocality($locality): self
     {
         $this->locality = $locality;
 
@@ -217,7 +219,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setPostalCode($postalCode)
+    public function setPostalCode($postalCode): self
     {
         $this->postalCode = $postalCode;
 
@@ -229,7 +231,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setSubLocality($subLocality)
+    public function setSubLocality($subLocality): self
     {
         $this->subLocality = $subLocality;
 
@@ -241,7 +243,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setAdminLevels($adminLevels)
+    public function setAdminLevels($adminLevels): self
     {
         $this->adminLevels = $adminLevels;
 
@@ -253,7 +255,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setCountry($country)
+    public function setCountry($country): self
     {
         $this->country = $country;
 
@@ -265,7 +267,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setCountryCode($countryCode)
+    public function setCountryCode($countryCode): self
     {
         $this->countryCode = $countryCode;
 
@@ -277,7 +279,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setTimezone($timezone)
+    public function setTimezone($timezone): self
     {
         $this->timezone = $timezone;
 
@@ -290,7 +292,7 @@ final class AddressBuilder
      *
      * @return AddressBuilder
      */
-    public function setValue($name, $value)
+    public function setValue(string $name, $value): self
     {
         $this->data[$name] = $value;
 
@@ -303,7 +305,7 @@ final class AddressBuilder
      *
      * @return mixed
      */
-    public function getValue($name, $default = null)
+    public function getValue(string $name, $default = null)
     {
         if ($this->hasValue($name)) {
             return $this->data[$name];
@@ -317,7 +319,7 @@ final class AddressBuilder
      *
      * @return bool
      */
-    public function hasValue($name)
+    public function hasValue(string $name): bool
     {
         return array_key_exists($name, $this->data);
     }

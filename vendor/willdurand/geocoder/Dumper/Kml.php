@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -20,7 +22,7 @@ final class Kml extends AbstractDumper implements Dumper
     /**
      * {@inheritdoc}
      */
-    public function dump(Location $location)
+    public function dump(Location $location): string
     {
         $name = $this->formatName($location);
         $kml = <<<'KML'

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -49,7 +51,7 @@ final class GeocodeQuery implements Query
     /**
      * @param string $text
      */
-    private function __construct($text)
+    private function __construct(string $text)
     {
         if (empty($text)) {
             throw new InvalidArgument('Geocode query cannot be empty');
@@ -63,7 +65,7 @@ final class GeocodeQuery implements Query
      *
      * @return GeocodeQuery
      */
-    public static function create($text)
+    public static function create(string $text): self
     {
         return new self($text);
     }
@@ -73,7 +75,7 @@ final class GeocodeQuery implements Query
      *
      * @return GeocodeQuery
      */
-    public function withText($text)
+    public function withText(string $text): self
     {
         $new = clone $this;
         $new->text = $text;
@@ -86,7 +88,7 @@ final class GeocodeQuery implements Query
      *
      * @return GeocodeQuery
      */
-    public function withBounds(Bounds $bounds)
+    public function withBounds(Bounds $bounds): self
     {
         $new = clone $this;
         $new->bounds = $bounds;
@@ -99,7 +101,7 @@ final class GeocodeQuery implements Query
      *
      * @return GeocodeQuery
      */
-    public function withLocale($locale)
+    public function withLocale(string $locale): self
     {
         $new = clone $this;
         $new->locale = $locale;
@@ -112,7 +114,7 @@ final class GeocodeQuery implements Query
      *
      * @return GeocodeQuery
      */
-    public function withLimit($limit)
+    public function withLimit(int $limit): self
     {
         $new = clone $this;
         $new->limit = $limit;
@@ -126,7 +128,7 @@ final class GeocodeQuery implements Query
      *
      * @return GeocodeQuery
      */
-    public function withData($name, $value)
+    public function withData(string $name, $value): self
     {
         $new = clone $this;
         $new->data[$name] = $value;
@@ -137,7 +139,7 @@ final class GeocodeQuery implements Query
     /**
      * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
@@ -161,7 +163,7 @@ final class GeocodeQuery implements Query
     /**
      * @return int
      */
-    public function getLimit()
+    public function getLimit(): int
     {
         return $this->limit;
     }
@@ -172,7 +174,7 @@ final class GeocodeQuery implements Query
      *
      * @return mixed
      */
-    public function getData($name, $default = null)
+    public function getData(string $name, $default = null)
     {
         if (!array_key_exists($name, $this->data)) {
             return $default;
@@ -184,7 +186,7 @@ final class GeocodeQuery implements Query
     /**
      * @return array
      */
-    public function getAllData()
+    public function getAllData(): array
     {
         return $this->data;
     }

@@ -1,17 +1,17 @@
 [
     {
         "name": "clue/stream-filter",
-        "version": "v1.4.0",
-        "version_normalized": "1.4.0.0",
+        "version": "v1.4.1",
+        "version_normalized": "1.4.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/clue/php-stream-filter.git",
-            "reference": "d80fdee9b3a7e0d16fc330a22f41f3ad0eeb09d0"
+            "reference": "5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/clue/php-stream-filter/zipball/d80fdee9b3a7e0d16fc330a22f41f3ad0eeb09d0",
-            "reference": "d80fdee9b3a7e0d16fc330a22f41f3ad0eeb09d0",
+            "url": "https://api.github.com/repos/clue/php-stream-filter/zipball/5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71",
+            "reference": "5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71",
             "shasum": ""
         },
         "require": {
@@ -20,7 +20,7 @@
         "require-dev": {
             "phpunit/phpunit": "^5.0 || ^4.8"
         },
-        "time": "2017-08-18T09:54:01+00:00",
+        "time": "2019-04-09T12:31:48+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -28,7 +28,7 @@
                 "Clue\\StreamFilter\\": "src/"
             },
             "files": [
-                "src/functions.php"
+                "src/functions_include.php"
             ]
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -55,24 +55,24 @@
     },
     {
         "name": "geocoder-php/common-http",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "4.2.0",
+        "version_normalized": "4.2.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/eileenmcnaughton/php-common-http.git",
-            "reference": "b90942009517719849642a"
+            "url": "https://github.com/geocoder-php/php-common-http.git",
+            "reference": "8e666f89d0b87121595ec2f5134a9f54bf4b0cd2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/geocoder-php/php-common-http/zipball/b90942009517719849642a",
-            "reference": "b90942009517719849642a",
+            "url": "https://api.github.com/repos/geocoder-php/php-common-http/zipball/8e666f89d0b87121595ec2f5134a9f54bf4b0cd2",
+            "reference": "8e666f89d0b87121595ec2f5134a9f54bf4b0cd2",
             "shasum": ""
         },
         "require": {
-            "php": "^5.5",
+            "php": "^7.0",
             "php-http/client-implementation": "^1.0",
-            "php-http/discovery": "^1.0",
-            "php-http/httplug": "^1.0",
+            "php-http/discovery": "^1.4",
+            "php-http/httplug": "^1.0 || ^2.0",
             "php-http/message-factory": "^1.0.2",
             "psr/http-message": "^1.0",
             "psr/http-message-implementation": "^1.0",
@@ -85,7 +85,7 @@
             "phpunit/phpunit": "6.3.*",
             "symfony/stopwatch": "~2.5"
         },
-        "time": "2017-10-06T13:25:36+00:00",
+        "time": "2018-11-15T22:27:27+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -119,22 +119,22 @@
     },
     {
         "name": "geocoder-php/free-geoip-provider",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "4.1.0",
+        "version_normalized": "4.1.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/eileenmcnaughton/free-geoip-provider.git",
-            "reference": "6a5c7d2"
+            "url": "https://github.com/geocoder-php/free-geoip-provider.git",
+            "reference": "b0798674957d7066010a6f918fa8dea2de6d844f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/geocoder-php/free-geoip-provider/zipball/6a5c7d2",
-            "reference": "6a5c7d2",
+            "url": "https://api.github.com/repos/geocoder-php/free-geoip-provider/zipball/b0798674957d7066010a6f918fa8dea2de6d844f",
+            "reference": "b0798674957d7066010a6f918fa8dea2de6d844f",
             "shasum": ""
         },
         "require": {
-            "geocoder-php/common-http": "^4.0",
-            "php": "^5.5",
+            "geocoder-php/common-http": "^4.1",
+            "php": "^7.0",
             "willdurand/geocoder": "^4.0"
         },
         "provide": {
@@ -147,14 +147,14 @@
             "php-http/message": "^1.0",
             "phpunit/phpunit": "6.3.*"
         },
-        "time": "2017-12-14T10:46:36+00:00",
+        "time": "2018-06-28T14:34:11+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "4.0-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Geocoder\\Provider\\FreeGeoIp\\": ""
@@ -169,7 +169,7 @@
         ],
         "authors": [
             {
-                "name": "William Durand",
+                "name": "William DURAND",
                 "email": "william.durand1@gmail.com"
             }
         ],
@@ -178,16 +178,22 @@
     },
     {
         "name": "geocoder-php/google-maps-provider",
-        "version": "dev-phpcompat",
-        "version_normalized": "dev-phpcompat",
+        "version": "4.4.0",
+        "version_normalized": "4.4.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/eileenmcnaughton/google-maps-provider.git",
-            "reference": "b9ae8b0e642a99c2ed298a548"
+            "url": "https://github.com/geocoder-php/google-maps-provider.git",
+            "reference": "307ca3590b67d23d0658808bb3615f2be3154eee"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geocoder-php/google-maps-provider/zipball/307ca3590b67d23d0658808bb3615f2be3154eee",
+            "reference": "307ca3590b67d23d0658808bb3615f2be3154eee",
+            "shasum": ""
         },
         "require": {
             "geocoder-php/common-http": "^4.0",
-            "php": ">=5.5",
+            "php": "^7.0",
             "willdurand/geocoder": "^4.0"
         },
         "provide": {
@@ -195,12 +201,11 @@
         },
         "require-dev": {
             "geocoder-php/provider-integration-tests": "^1.0",
-            "nyholm/psr7": "^0.2.2",
             "php-http/curl-client": "^1.7",
             "php-http/message": "^1.0",
-            "phpunit/phpunit": "6.3.*"
+            "phpunit/phpunit": "^6.5 || ^7.5"
         },
-        "time": "2018-01-23T03:40:13+00:00",
+        "time": "2019-04-26T20:17:17+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -216,14 +221,7 @@
                 "/Tests/"
             ]
         },
-        "scripts": {
-            "test": [
-                "vendor/bin/phpunit"
-            ],
-            "test-ci": [
-                "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
-            ]
-        },
+        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -242,31 +240,30 @@
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/eileenmcnaughton/mapquest-provider.git",
-            "reference": "782d90f95e4520add"
+            "url": "https://github.com/geocoder-php/mapquest-provider.git",
+            "reference": "92d39fb0e4ab425e37c4f489ecea34168d3b2522"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/geocoder-php/mapquest-provider/zipball/782d90f95e4520add",
-            "reference": "782d90f95e4520add",
+            "url": "https://api.github.com/repos/geocoder-php/mapquest-provider/zipball/92d39fb0e4ab425e37c4f489ecea34168d3b2522",
+            "reference": "92d39fb0e4ab425e37c4f489ecea34168d3b2522",
             "shasum": ""
         },
         "require": {
             "geocoder-php/common-http": "^4.0",
-            "php": "^5.5",
+            "php": "^7.0",
             "willdurand/geocoder": "^4.0"
         },
         "provide": {
             "geocoder-php/provider-implementation": "1.0"
         },
         "require-dev": {
-            "geocoder-php/provider-integration-tests": "^1.0",
-            "nyholm/psr7": "^0.2.2",
+            "geocoder-php/provider-integration-tests": "^1.1",
             "php-http/curl-client": "^1.7",
             "php-http/message": "^1.0",
-            "phpunit/phpunit": "6.3.*"
+            "phpunit/phpunit": "^6.5 || ^7.5"
         },
-        "time": "2017-12-14T10:46:36+00:00",
+        "time": "2019-02-06T12:18:09+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -288,7 +285,7 @@
         ],
         "authors": [
             {
-                "name": "William Durand",
+                "name": "William DURAND",
                 "email": "william.durand1@gmail.com"
             }
         ],
@@ -297,16 +294,22 @@
     },
     {
         "name": "geocoder-php/nominatim-provider",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "5.1.0",
+        "version_normalized": "5.1.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/eileenmcnaughton/nominatim-provider.git",
-            "reference": "9cdaba82bab4d635f2df7e"
+            "url": "https://github.com/geocoder-php/nominatim-provider.git",
+            "reference": "85e8a063754011484d31778bb371c444bbf313ed"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/85e8a063754011484d31778bb371c444bbf313ed",
+            "reference": "85e8a063754011484d31778bb371c444bbf313ed",
+            "shasum": ""
         },
         "require": {
-            "geocoder-php/common-http": "^4.0",
-            "php": "^5.6",
+            "geocoder-php/common-http": "^4.1",
+            "php": "^7.0",
             "willdurand/geocoder": "^4.0"
         },
         "provide": {
@@ -314,12 +317,11 @@
         },
         "require-dev": {
             "geocoder-php/provider-integration-tests": "^1.0",
-            "nyholm/psr7": "^0.2.2",
             "php-http/curl-client": "^1.7",
             "php-http/message": "^1.0",
-            "phpunit/phpunit": "^6.1"
+            "phpunit/phpunit": "^6.5 || ^7.5"
         },
-        "time": "2018-01-23T02:22:17+00:00",
+        "time": "2019-02-06T12:18:09+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -335,20 +337,13 @@
                 "/Tests/"
             ]
         },
-        "scripts": {
-            "test": [
-                "vendor/bin/phpunit"
-            ],
-            "test-ci": [
-                "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
-            ]
-        },
+        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],
         "authors": [
             {
-                "name": "William Durand",
+                "name": "William DURAND",
                 "email": "william.durand1@gmail.com"
             }
         ],
@@ -357,47 +352,48 @@
     },
     {
         "name": "guzzlehttp/guzzle",
-        "version": "6.3.0",
-        "version_normalized": "6.3.0.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699"
+            "reference": "ca2892a8c2778c1821899fd2c79932e3b895f2ad"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f4db5a78a5ea468d4831de7f0bf9d9415e348699",
-            "reference": "f4db5a78a5ea468d4831de7f0bf9d9415e348699",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ca2892a8c2778c1821899fd2c79932e3b895f2ad",
+            "reference": "ca2892a8c2778c1821899fd2c79932e3b895f2ad",
             "shasum": ""
         },
         "require": {
+            "ext-json": "*",
             "guzzlehttp/promises": "^1.0",
             "guzzlehttp/psr7": "^1.4",
             "php": ">=5.5"
         },
         "require-dev": {
             "ext-curl": "*",
-            "phpunit/phpunit": "^4.0 || ^5.0",
-            "psr/log": "^1.0"
+            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.4 || ^7.0",
+            "psr/log": "^1.1"
         },
         "suggest": {
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2017-06-22T18:50:49+00:00",
+        "time": "2019-05-12T12:35:22+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "6.2-dev"
+                "dev-master": "6.3-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
-            "files": [
-                "src/functions_include.php"
-            ],
             "psr-4": {
                 "GuzzleHttp\\": "src/"
-            }
+            },
+            "files": [
+                "src/functions_include.php"
+            ]
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -429,21 +425,21 @@
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/promises.git",
-            "reference": "2e48ae638dc0bf0849772f5590835fcd700a2e1d"
+            "reference": "17d36ed176c998839582c739ce0753381598edf0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/promises/zipball/2e48ae638dc0bf0849772f5590835fcd700a2e1d",
-            "reference": "2e48ae638dc0bf0849772f5590835fcd700a2e1d",
+            "url": "https://api.github.com/repos/guzzle/promises/zipball/17d36ed176c998839582c739ce0753381598edf0",
+            "reference": "17d36ed176c998839582c739ce0753381598edf0",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.5.0"
+            "php": ">=5.6"
         },
         "require-dev": {
-            "phpunit/phpunit": "^4.8.36"
+            "phpunit/phpunit": "^5.7.27 || ^7.5"
         },
-        "time": "2017-12-07T21:04:15+00:00",
+        "time": "2019-07-02T14:54:06+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -477,34 +473,39 @@
     },
     {
         "name": "guzzlehttp/psr7",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.x-dev",
+        "version_normalized": "1.9999999.9999999.9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/psr7.git",
-            "reference": "d2537c86fa8b004c29e9b9f5e10028f0a29df101"
+            "reference": "239400de7a173fe9901b9ac7c06497751f00727a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/psr7/zipball/d2537c86fa8b004c29e9b9f5e10028f0a29df101",
-            "reference": "d2537c86fa8b004c29e9b9f5e10028f0a29df101",
+            "url": "https://api.github.com/repos/guzzle/psr7/zipball/239400de7a173fe9901b9ac7c06497751f00727a",
+            "reference": "239400de7a173fe9901b9ac7c06497751f00727a",
             "shasum": ""
         },
         "require": {
             "php": ">=5.4.0",
-            "psr/http-message": "~1.0"
+            "psr/http-message": "~1.0",
+            "ralouphie/getallheaders": "^2.0.5 || ^3.0.0"
         },
         "provide": {
             "psr/http-message-implementation": "1.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "~4.0"
+            "ext-zlib": "*",
+            "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.8"
         },
-        "time": "2017-10-07T03:19:56+00:00",
+        "suggest": {
+            "zendframework/zend-httphandlerrunner": "Emit PSR-7 responses"
+        },
+        "time": "2019-07-01T23:21:34+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.4-dev"
+                "dev-master": "1.6-dev"
             }
         },
         "installation-source": "source",
@@ -535,6 +536,7 @@
         "keywords": [
             "http",
             "message",
+            "psr-7",
             "request",
             "response",
             "stream",
@@ -544,38 +546,41 @@
     },
     {
         "name": "php-http/discovery",
-        "version": "1.4.0",
-        "version_normalized": "1.4.0.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/php-http/discovery.git",
-            "reference": "9a6cb24de552bfe1aa9d7d1569e2d49c5b169a33"
+            "reference": "e822f86a6983790aa17ab13aa7e69631e86806b6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-http/discovery/zipball/9a6cb24de552bfe1aa9d7d1569e2d49c5b169a33",
-            "reference": "9a6cb24de552bfe1aa9d7d1569e2d49c5b169a33",
+            "url": "https://api.github.com/repos/php-http/discovery/zipball/e822f86a6983790aa17ab13aa7e69631e86806b6",
+            "reference": "e822f86a6983790aa17ab13aa7e69631e86806b6",
             "shasum": ""
         },
         "require": {
-            "php": "^5.5 || ^7.0"
+            "php": "^7.1"
+        },
+        "conflict": {
+            "nyholm/psr7": "<1.0"
         },
         "require-dev": {
-            "henrikbjorn/phpspec-code-coverage": "^2.0.2",
-            "php-http/httplug": "^1.0",
+            "akeneo/phpspec-skip-example-extension": "^4.0",
+            "php-http/httplug": "^1.0 || ^2.0",
             "php-http/message-factory": "^1.0",
-            "phpspec/phpspec": "^2.4",
+            "phpspec/phpspec": "^5.1",
             "puli/composer-plugin": "1.0.0-beta10"
         },
         "suggest": {
             "php-http/message": "Allow to use Guzzle, Diactoros or Slim Framework factories",
             "puli/composer-plugin": "Sets up Puli which is recommended for Discovery to work. Check http://docs.php-http.org/en/latest/discovery.html for more details."
         },
-        "time": "2018-02-06T10:55:24+00:00",
+        "time": "2019-06-30T09:04:27+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.3-dev"
+                "dev-master": "1.7-dev"
             }
         },
         "installation-source": "source",
@@ -608,22 +613,22 @@
     },
     {
         "name": "php-http/guzzle6-adapter",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v1.1.1",
+        "version_normalized": "1.1.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/php-http/guzzle6-adapter.git",
-            "reference": "54181ff8455a4c2e1706a53e0d98060b93030321"
+            "reference": "a56941f9dc6110409cfcddc91546ee97039277ab"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-http/guzzle6-adapter/zipball/54181ff8455a4c2e1706a53e0d98060b93030321",
-            "reference": "54181ff8455a4c2e1706a53e0d98060b93030321",
+            "url": "https://api.github.com/repos/php-http/guzzle6-adapter/zipball/a56941f9dc6110409cfcddc91546ee97039277ab",
+            "reference": "a56941f9dc6110409cfcddc91546ee97039277ab",
             "shasum": ""
         },
         "require": {
             "guzzlehttp/guzzle": "^6.0",
-            "php": "^5.5 || ^7.0",
+            "php": ">=5.5.0",
             "php-http/httplug": "^1.0"
         },
         "provide": {
@@ -632,9 +637,9 @@
         },
         "require-dev": {
             "ext-curl": "*",
-            "php-http/client-integration-tests": "^0.6"
+            "php-http/adapter-integration-tests": "^0.4"
         },
-        "time": "2017-05-29T15:06:15+00:00",
+        "time": "2016-05-10T06:13:32+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -670,17 +675,17 @@
     },
     {
         "name": "php-http/httplug",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/php-http/httplug.git",
-            "reference": "afa7b216322f8157e21025f04f72eda0ee12f89d"
+            "reference": "1c6381726c18579c4ca2ef1ec1498fdae8bdf018"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-http/httplug/zipball/afa7b216322f8157e21025f04f72eda0ee12f89d",
-            "reference": "afa7b216322f8157e21025f04f72eda0ee12f89d",
+            "url": "https://api.github.com/repos/php-http/httplug/zipball/1c6381726c18579c4ca2ef1ec1498fdae8bdf018",
+            "reference": "1c6381726c18579c4ca2ef1ec1498fdae8bdf018",
             "shasum": ""
         },
         "require": {
@@ -692,11 +697,11 @@
             "henrikbjorn/phpspec-code-coverage": "^1.0",
             "phpspec/phpspec": "^2.4"
         },
-        "time": "2017-12-18T08:01:36+00:00",
+        "time": "2016-08-31T08:30:17+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.2-dev"
+                "dev-master": "1.1-dev"
             }
         },
         "installation-source": "source",
@@ -728,22 +733,22 @@
     },
     {
         "name": "php-http/message",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.7.2",
+        "version_normalized": "1.7.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/php-http/message.git",
-            "reference": "c7f6a70444057810b418dab14478b01c482d5707"
+            "reference": "b159ffe570dffd335e22ef0b91a946eacb182fa1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-http/message/zipball/c7f6a70444057810b418dab14478b01c482d5707",
-            "reference": "c7f6a70444057810b418dab14478b01c482d5707",
+            "url": "https://api.github.com/repos/php-http/message/zipball/b159ffe570dffd335e22ef0b91a946eacb182fa1",
+            "reference": "b159ffe570dffd335e22ef0b91a946eacb182fa1",
             "shasum": ""
         },
         "require": {
             "clue/stream-filter": "^1.4",
-            "php": ">=5.4",
+            "php": "^5.4 || ^7.0",
             "php-http/message-factory": "^1.0.2",
             "psr/http-message": "^1.0"
         },
@@ -766,7 +771,7 @@
             "slim/slim": "Used with Slim Framework PSR-7 implementation",
             "zendframework/zend-diactoros": "Used with Diactoros Factories"
         },
-        "time": "2018-01-22T17:52:04+00:00",
+        "time": "2018-11-01T09:32:41+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -807,19 +812,19 @@
         "source": {
             "type": "git",
             "url": "https://github.com/php-http/message-factory.git",
-            "reference": "2494018caaff513d36f9ee4413eece71a22534bc"
+            "reference": "597f30e6dfd32a85fd7dbe58cb47554b5bad910e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-http/message-factory/zipball/2494018caaff513d36f9ee4413eece71a22534bc",
-            "reference": "2494018caaff513d36f9ee4413eece71a22534bc",
+            "url": "https://api.github.com/repos/php-http/message-factory/zipball/597f30e6dfd32a85fd7dbe58cb47554b5bad910e",
+            "reference": "597f30e6dfd32a85fd7dbe58cb47554b5bad910e",
             "shasum": ""
         },
         "require": {
             "php": ">=5.4",
             "psr/http-message": "^1.0"
         },
-        "time": "2018-01-04T12:23:13+00:00",
+        "time": "2018-12-06T18:41:41+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -957,6 +962,48 @@
         ]
     },
     {
+        "name": "ralouphie/getallheaders",
+        "version": "3.0.3",
+        "version_normalized": "3.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ralouphie/getallheaders.git",
+            "reference": "120b605dfeb996808c31b6477290a714d356e822"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/120b605dfeb996808c31b6477290a714d356e822",
+            "reference": "120b605dfeb996808c31b6477290a714d356e822",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6"
+        },
+        "require-dev": {
+            "php-coveralls/php-coveralls": "^2.1",
+            "phpunit/phpunit": "^5 || ^6.5"
+        },
+        "time": "2019-03-08T08:55:37+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/getallheaders.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ralph Khattar",
+                "email": "ralph.khattar@gmail.com"
+            }
+        ],
+        "description": "A polyfill for getallheaders."
+    },
+    {
         "name": "wikimedia/civicrm-data-table-provider",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -1018,25 +1065,31 @@
     },
     {
         "name": "willdurand/geocoder",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "4.2.1",
+        "version_normalized": "4.2.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/eileenmcnaughton/php-common.git",
-            "reference": "d1cbff78003dede05dda13d543b872001c0cc50f"
+            "url": "https://github.com/geocoder-php/php-common.git",
+            "reference": "aaa17bddb8dc9e4553110db8beb38534b095b61a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geocoder-php/php-common/zipball/aaa17bddb8dc9e4553110db8beb38534b095b61a",
+            "reference": "aaa17bddb8dc9e4553110db8beb38534b095b61a",
+            "shasum": ""
         },
         "require": {
-            "php": "^5.6"
+            "php": "^7.0"
         },
         "require-dev": {
             "nyholm/nsa": "^1.1",
-            "phpunit/phpunit": "^6.1",
+            "phpunit/phpunit": "6.3.*",
             "symfony/stopwatch": "~2.5"
         },
         "suggest": {
             "symfony/stopwatch": "If you want to use the TimedGeocoder"
         },
-        "time": "2018-01-23T01:35:43+00:00",
+        "time": "2018-12-26T12:01:09+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1052,20 +1105,13 @@
                 "/Tests/"
             ]
         },
-        "scripts": {
-            "test": [
-                "vendor/bin/phpunit"
-            ],
-            "test-ci": [
-                "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
-            ]
-        },
+        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],
         "authors": [
             {
-                "name": "William Durand",
+                "name": "William DURAND",
                 "email": "william.durand1@gmail.com"
             }
         ],

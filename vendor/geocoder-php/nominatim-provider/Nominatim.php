@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -11,6 +13,7 @@
 namespace Geocoder\Provider\Nominatim;
 
 use Geocoder\Collection;
+use Geocoder\Exception\InvalidArgument;
 use Geocoder\Exception\InvalidServerResponse;
 use Geocoder\Exception\UnsupportedOperation;
 use Geocoder\Location;
@@ -27,7 +30,7 @@ use Http\Client\HttpClient;
  * @author Niklas Närhinen <niklas@narhinen.net>
  * @author Jonathan Beliën <jbe@geo6.be>
  */
-class Nominatim extends AbstractHttpProvider implements Provider
+final class Nominatim extends AbstractHttpProvider implements Provider
 {
     /**
      * @var string
@@ -35,61 +38,110 @@ class Nominatim extends AbstractHttpProvider implements Provider
     private $rootUrl;
 
     /**
-     * @param HttpClient  $client
-     * @param string|null $locale
+     * @var string
+     */
+    private $userAgent;
+
+    /**
+     * @var string
+     */
+    private $referer;
+
+    /**
+     * @param HttpClient $client    an HTTP client
+     * @param string     $userAgent Value of the User-Agent header
+     * @param string     $referer   Value of the Referer header
      *
      * @return Nominatim
      */
-    public static function withOpenStreetMapServer(HttpClient $client)
+    public static function withOpenStreetMapServer(HttpClient $client, string $userAgent, string $referer = ''): self
     {
-        return new self($client, 'https://nominatim.openstreetmap.org');
+        return new self($client, 'https://nominatim.openstreetmap.org', $userAgent, $referer);
     }
 
     /**
-     * @param HttpClient $client  an HTTP adapter
-     * @param string     $rootUrl Root URL of the nominatim server
+     * @param HttpClient $client    an HTTP client
+     * @param string     $rootUrl   Root URL of the nominatim server
+     * @param string     $userAgent Value of the User-Agent header
+     * @param string     $referer   Value of the Referer header
      */
-    public function __construct(HttpClient $client, $rootUrl)
+    public function __construct(HttpClient $client, $rootUrl, string $userAgent, string $referer = '')
     {
         parent::__construct($client);
 
         $this->rootUrl = rtrim($rootUrl, '/');
+        $this->userAgent = $userAgent;
+        $this->referer = $referer;
+
+        if (empty($this->userAgent)) {
+            throw new InvalidArgument('The User-Agent must be set to use the Nominatim provider.');
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function geocodeQuery(GeocodeQuery $query)
+    public function geocodeQuery(GeocodeQuery $query): Collection
     {
         $address = $query->getText();
-        // This API does not support IPv6
-        if (filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-            throw new UnsupportedOperation('The Nominatim provider does not support IPv6 addresses.');
+
+        // This API doesn't handle IPs
+        if (filter_var($address, FILTER_VALIDATE_IP)) {
+            throw new UnsupportedOperation('The Nominatim provider does not support IP addresses.');
         }
 
-        if ('127.0.0.1' === $address) {
-            return new AddressCollection([$this->getLocationForLocalhost()]);
+        $url = $this->rootUrl
+            .'/search?'
+            .http_build_query([
+                'format' => 'jsonv2',
+                'q' => $address,
+                'addressdetails' => 1,
+                'limit' => $query->getLimit(),
+            ]);
+
+        $countrycodes = $query->getData('countrycodes');
+        if (!is_null($countrycodes)) {
+            if (is_array($countrycodes)) {
+                $countrycodes = array_map('strtolower', $countrycodes);
+
+                $url .= '&'.http_build_query([
+                    'countrycodes' => implode(',', $countrycodes),
+                ]);
+            } else {
+                $url .= '&'.http_build_query([
+                    'countrycodes' => strtolower($countrycodes),
+                ]);
+            }
         }
 
-        $url = sprintf($this->getGeocodeEndpointUrl(), urlencode($address), $query->getLimit());
+        $viewbox = $query->getData('viewbox');
+        if (!is_null($viewbox) && is_array($viewbox) && 4 === count($viewbox)) {
+            $url .= '&'.http_build_query([
+                'viewbox' => implode(',', $viewbox),
+            ]);
+
+            $bounded = $query->getData('bounded');
+            if (!is_null($bounded) && true === $bounded) {
+                $url .= '&'.http_build_query([
+                    'bounded' => 1,
+                ]);
+            }
+        }
+
         $content = $this->executeQuery($url, $query->getLocale());
 
-        $doc = new \DOMDocument();
-        if (!@$doc->loadXML($content) || null === $doc->getElementsByTagName('searchresults')->item(0)) {
+        $json = json_decode($content);
+        if (is_null($json) || !is_array($json)) {
             throw InvalidServerResponse::create($url);
         }
 
-        $searchResult = $doc->getElementsByTagName('searchresults')->item(0);
-        $attribution = $searchResult->getAttribute('attribution');
-        $places = $searchResult->getElementsByTagName('place');
-
-        if (null === $places || 0 === $places->length) {
+        if (empty($json)) {
             return new AddressCollection([]);
         }
 
         $results = [];
-        foreach ($places as $place) {
-            $results[] = $this->xmlResultToArray($place, $place, $attribution, false);
+        foreach ($json as $place) {
+            $results[] = $this->jsonResultToLocation($place, false);
         }
 
         return new AddressCollection($results);
@@ -98,91 +150,93 @@ class Nominatim extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function reverseQuery(ReverseQuery $query)
+    public function reverseQuery(ReverseQuery $query): Collection
     {
         $coordinates = $query->getCoordinates();
         $longitude = $coordinates->getLongitude();
         $latitude = $coordinates->getLatitude();
-        $url = sprintf($this->getReverseEndpointUrl(), $latitude, $longitude, $query->getData('zoom', 18));
+
+        $url = $this->rootUrl
+            .'/reverse?'
+            .http_build_query([
+                'format' => 'jsonv2',
+                'lat' => $latitude,
+                'lon' => $longitude,
+                'addressdetails' => 1,
+                'zoom' => $query->getData('zoom', 18),
+            ]);
+
         $content = $this->executeQuery($url, $query->getLocale());
 
-        $doc = new \DOMDocument();
-        if (!@$doc->loadXML($content) || $doc->getElementsByTagName('error')->length > 0) {
+        $json = json_decode($content);
+        if (is_null($json) || isset($json->error)) {
             return new AddressCollection([]);
         }
 
-        $searchResult = $doc->getElementsByTagName('reversegeocode')->item(0);
-        $attribution = $searchResult->getAttribute('attribution');
-        $addressParts = $searchResult->getElementsByTagName('addressparts')->item(0);
-        $result = $searchResult->getElementsByTagName('result')->item(0);
+        if (empty($json)) {
+            return new AddressCollection([]);
+        }
 
-        return new AddressCollection([$this->xmlResultToArray($result, $addressParts, $attribution, true)]);
+        return new AddressCollection([$this->jsonResultToLocation($json, true)]);
     }
 
     /**
-     * @param \DOMElement $resultNode
-     * @param \DOMElement $addressNode
+     * @param \stdClass $place
+     * @param bool      $reverse
      *
      * @return Location
      */
-    private function xmlResultToArray(\DOMElement $resultNode, \DOMElement $addressNode, $attribution, $reverse)
+    private function jsonResultToLocation(\stdClass $place, bool $reverse): Location
     {
         $builder = new AddressBuilder($this->getName());
 
         foreach (['state', 'county'] as $i => $tagName) {
-            if (null !== ($adminLevel = $this->getNodeValue($addressNode->getElementsByTagName($tagName)))) {
-                $builder->addAdminLevel($i + 1, $adminLevel, '');
+            if (isset($place->address->{$tagName})) {
+                $builder->addAdminLevel($i + 1, $place->address->{$tagName}, '');
             }
         }
 
         // get the first postal-code when there are many
-        $postalCode = $this->getNodeValue($addressNode->getElementsByTagName('postcode'));
-        if (!empty($postalCode)) {
-            $postalCode = current(explode(';', $postalCode));
+        if (isset($place->address->postcode)) {
+            $postalCode = $place->address->postcode;
+            if (!empty($postalCode)) {
+                $postalCode = current(explode(';', $postalCode));
+            }
+            $builder->setPostalCode($postalCode);
         }
-        $builder->setPostalCode($postalCode);
 
         $localityFields = ['city', 'town', 'village', 'hamlet'];
         foreach ($localityFields as $localityField) {
-            $localityFieldContent = $this->getNodeValue($addressNode->getElementsByTagName($localityField));
-            if (!empty($localityFieldContent)) {
-                $builder->setLocality($localityFieldContent);
+            if (isset($place->address->{$localityField})) {
+                $localityFieldContent = $place->address->{$localityField};
 
-                break;
+                if (!empty($localityFieldContent)) {
+                    $builder->setLocality($localityFieldContent);
+
+                    break;
+                }
             }
         }
 
-        $builder->setStreetName($this->getNodeValue($addressNode->getElementsByTagName('road')) ?: $this->getNodeValue($addressNode->getElementsByTagName('pedestrian')));
-        $builder->setStreetNumber($this->getNodeValue($addressNode->getElementsByTagName('house_number')));
-        $builder->setSubLocality($this->getNodeValue($addressNode->getElementsByTagName('suburb')));
-        $builder->setCountry($this->getNodeValue($addressNode->getElementsByTagName('country')));
+        $builder->setStreetName($place->address->road ?? $place->address->pedestrian ?? null);
+        $builder->setStreetNumber($place->address->house_number ?? null);
+        $builder->setSubLocality($place->address->suburb ?? null);
+        $builder->setCountry($place->address->country);
+        $builder->setCountryCode(strtoupper($place->address->country_code));
 
-        $countryCode = $this->getNodeValue($addressNode->getElementsByTagName('country_code'));
-        if (!empty($countryCode)) {
-            $countryCode = strtoupper($countryCode);
-        }
-        $builder->setCountryCode($countryCode);
+        $builder->setCoordinates(floatval($place->lat), floatval($place->lon));
 
-        $builder->setCoordinates($resultNode->getAttribute('lat'), $resultNode->getAttribute('lon'));
-
-        $boundsAttr = $resultNode->getAttribute('boundingbox');
-        if ($boundsAttr) {
-            $bounds = [];
-            list($bounds['south'], $bounds['north'], $bounds['west'], $bounds['east']) = explode(',', $boundsAttr);
-            $builder->setBounds($bounds['south'], $bounds['west'], $bounds['north'], $bounds['east']);
-        }
+        $builder->setBounds($place->boundingbox[0], $place->boundingbox[2], $place->boundingbox[1], $place->boundingbox[3]);
 
         $location = $builder->build(NominatimAddress::class);
-        $location = $location->withAttribution($attribution);
-        $location = $location->withOSMId(intval($resultNode->getAttribute('osm_id')));
-        $location = $location->withOSMType($resultNode->getAttribute('osm_type'));
+        $location = $location->withAttribution($place->licence);
+        $location = $location->withOSMId(intval($place->osm_id));
+        $location = $location->withOSMType($place->osm_type);
+        $location = $location->withDisplayName($place->display_name);
 
         if (false === $reverse) {
-            $location = $location->withClass($resultNode->getAttribute('class'));
-            $location = $location->withDisplayName($resultNode->getAttribute('display_name'));
-            $location = $location->withType($resultNode->getAttribute('type'));
-        } else {
-            $location = $location->withDisplayName($resultNode->nodeValue);
+            $location = $location->withCategory($place->category);
+            $location = $location->withType($place->type);
         }
 
         return $location;
@@ -191,7 +245,7 @@ class Nominatim extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'nominatim';
     }
@@ -202,27 +256,21 @@ class Nominatim extends AbstractHttpProvider implements Provider
      *
      * @return string
      */
-    private function executeQuery($url, $locale = null)
+    private function executeQuery(string $url, string $locale = null): string
     {
         if (null !== $locale) {
-            $url = sprintf('%s&accept-language=%s', $url, $locale);
+            $url .= '&'.http_build_query([
+                'accept-language' => $locale,
+            ]);
         }
 
-        return $this->getUrlContents($url);
-    }
+        $request = $this->getRequest($url);
+        $request = $request->withHeader('User-Agent', $this->userAgent);
 
-    private function getGeocodeEndpointUrl()
-    {
-        return $this->rootUrl.'/search?q=%s&format=xml&addressdetails=1&limit=%d';
-    }
+        if (!empty($this->referer)) {
+            $request = $request->withHeader('Referer', $this->referer);
+        }
 
-    private function getReverseEndpointUrl()
-    {
-        return $this->rootUrl.'/reverse?format=xml&lat=%F&lon=%F&addressdetails=1&zoom=%d';
-    }
-
-    private function getNodeValue(\DOMNodeList $element)
-    {
-        return $element->length ? $element->item(0)->nodeValue : null;
+        return $this->getParsedResponse($request);
     }
 }

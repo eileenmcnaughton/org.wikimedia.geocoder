@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -49,7 +51,7 @@ final class AddressCollection implements Collection
     /**
      * {@inheritdoc}
      */
-    public function first()
+    public function first(): Location
     {
         if (empty($this->locations)) {
             throw new CollectionIsEmpty();
@@ -61,7 +63,7 @@ final class AddressCollection implements Collection
     /**
      * {@inheritdoc}
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->locations);
     }
@@ -69,7 +71,7 @@ final class AddressCollection implements Collection
     /**
      * @return Location[]
      */
-    public function slice($offset, $length = null)
+    public function slice(int $offset, int $length = null)
     {
         return array_slice($this->locations, $offset, $length);
     }
@@ -77,7 +79,7 @@ final class AddressCollection implements Collection
     /**
      * @return bool
      */
-    public function has($index)
+    public function has(int $index): bool
     {
         return isset($this->locations[$index]);
     }
@@ -85,7 +87,7 @@ final class AddressCollection implements Collection
     /**
      * {@inheritdoc}
      */
-    public function get($index)
+    public function get(int $index): Location
     {
         if (!isset($this->locations[$index])) {
             throw new OutOfBounds(sprintf('The index "%s" does not exist in this collection.', $index));
@@ -97,7 +99,7 @@ final class AddressCollection implements Collection
     /**
      * {@inheritdoc}
      */
-    public function all()
+    public function all(): array
     {
         return $this->locations;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -33,7 +35,7 @@ final class Country
      * @param string $name
      * @param string $code
      */
-    public function __construct($name = null, $code = null)
+    public function __construct(string $name = null, string $code = null)
     {
         if (null === $name && null === $code) {
             throw new InvalidArgument('A country must have either a name or a code');
@@ -68,7 +70,7 @@ final class Country
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName() ?: '';
     }

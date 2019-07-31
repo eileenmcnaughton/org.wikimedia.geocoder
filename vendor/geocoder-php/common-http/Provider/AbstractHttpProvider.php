@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Geocoder package.
  * For the full copyright and license information, please view the LICENSE
@@ -17,6 +19,7 @@ use Geocoder\Provider\AbstractProvider;
 use Http\Message\MessageFactory;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Client\HttpClient;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @author William Durand <william.durand1@gmail.com>
@@ -53,9 +56,34 @@ abstract class AbstractHttpProvider extends AbstractProvider
      *
      * @throws InvalidServerResponse
      */
-    protected function getUrlContents($url)
+    protected function getUrlContents(string $url): string
     {
-        $request = $this->getMessageFactory()->createRequest('GET', $url);
+        $request = $this->getRequest($url);
+
+        return $this->getParsedResponse($request);
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return RequestInterface
+     */
+    protected function getRequest(string $url): RequestInterface
+    {
+        return $this->getMessageFactory()->createRequest('GET', $url);
+    }
+
+    /**
+     * Send request and return contents. If content is empty, an exception will be thrown.
+     *
+     * @param RequestInterface $request
+     *
+     * @return string
+     *
+     * @throws InvalidServerResponse
+     */
+    protected function getParsedResponse(RequestInterface $request): string
+    {
         $response = $this->getHttpClient()->sendRequest($request);
 
         $statusCode = $response->getStatusCode();
@@ -64,12 +92,12 @@ abstract class AbstractHttpProvider extends AbstractProvider
         } elseif (429 === $statusCode) {
             throw new QuotaExceeded();
         } elseif ($statusCode >= 300) {
-            throw InvalidServerResponse::create($url, $statusCode);
+            throw InvalidServerResponse::create((string) $request->getUri(), $statusCode);
         }
 
         $body = (string) $response->getBody();
         if (empty($body)) {
-            throw InvalidServerResponse::emptyResponse($url);
+            throw InvalidServerResponse::emptyResponse((string) $request->getUri());
         }
 
         return $body;
@@ -80,7 +108,7 @@ abstract class AbstractHttpProvider extends AbstractProvider
      *
      * @return HttpClient
      */
-    protected function getHttpClient()
+    protected function getHttpClient(): HttpClient
     {
         return $this->client;
     }
@@ -88,7 +116,7 @@ abstract class AbstractHttpProvider extends AbstractProvider
     /**
      * @return MessageFactory
      */
-    protected function getMessageFactory()
+    protected function getMessageFactory(): MessageFactory
     {
         return $this->messageFactory;
     }

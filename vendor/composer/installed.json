@@ -294,17 +294,17 @@
     },
     {
         "name": "geocoder-php/nominatim-provider",
-        "version": "5.1.0",
-        "version_normalized": "5.1.0.0",
+        "version": "5.1.1",
+        "version_normalized": "5.1.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/geocoder-php/nominatim-provider.git",
-            "reference": "85e8a063754011484d31778bb371c444bbf313ed"
+            "reference": "337ddc834bd955189232c0b38ba89087be148f46"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/85e8a063754011484d31778bb371c444bbf313ed",
-            "reference": "85e8a063754011484d31778bb371c444bbf313ed",
+            "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/337ddc834bd955189232c0b38ba89087be148f46",
+            "reference": "337ddc834bd955189232c0b38ba89087be148f46",
             "shasum": ""
         },
         "require": {
@@ -321,7 +321,7 @@
             "php-http/message": "^1.0",
             "phpunit/phpunit": "^6.5 || ^7.5"
         },
-        "time": "2019-02-06T12:18:09+00:00",
+        "time": "2019-08-14T07:26:34+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -343,7 +343,7 @@
         ],
         "authors": [
             {
-                "name": "William DURAND",
+                "name": "William Durand",
                 "email": "william.durand1@gmail.com"
             }
         ],
@@ -357,12 +357,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "ca2892a8c2778c1821899fd2c79932e3b895f2ad"
+            "reference": "61494bf259393e972f60ff34476dd55ab90cb4a8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ca2892a8c2778c1821899fd2c79932e3b895f2ad",
-            "reference": "ca2892a8c2778c1821899fd2c79932e3b895f2ad",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/61494bf259393e972f60ff34476dd55ab90cb4a8",
+            "reference": "61494bf259393e972f60ff34476dd55ab90cb4a8",
             "shasum": ""
         },
         "require": {
@@ -379,7 +379,7 @@
         "suggest": {
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2019-05-12T12:35:22+00:00",
+        "time": "2019-08-13T11:06:12+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -478,12 +478,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/psr7.git",
-            "reference": "239400de7a173fe9901b9ac7c06497751f00727a"
+            "reference": "2595b33c1c924889b474d324f3d719fa40b6954e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/psr7/zipball/239400de7a173fe9901b9ac7c06497751f00727a",
-            "reference": "239400de7a173fe9901b9ac7c06497751f00727a",
+            "url": "https://api.github.com/repos/guzzle/psr7/zipball/2595b33c1c924889b474d324f3d719fa40b6954e",
+            "reference": "2595b33c1c924889b474d324f3d719fa40b6954e",
             "shasum": ""
         },
         "require": {
@@ -501,7 +501,7 @@
         "suggest": {
             "zendframework/zend-httphandlerrunner": "Emit PSR-7 responses"
         },
-        "time": "2019-07-01T23:21:34+00:00",
+        "time": "2019-08-13T16:05:52+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -733,22 +733,22 @@
     },
     {
         "name": "php-http/message",
-        "version": "1.7.2",
-        "version_normalized": "1.7.2.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/php-http/message.git",
-            "reference": "b159ffe570dffd335e22ef0b91a946eacb182fa1"
+            "reference": "ce8f43ac1e294b54aabf5808515c3554a19c1e1c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-http/message/zipball/b159ffe570dffd335e22ef0b91a946eacb182fa1",
-            "reference": "b159ffe570dffd335e22ef0b91a946eacb182fa1",
+            "url": "https://api.github.com/repos/php-http/message/zipball/ce8f43ac1e294b54aabf5808515c3554a19c1e1c",
+            "reference": "ce8f43ac1e294b54aabf5808515c3554a19c1e1c",
             "shasum": ""
         },
         "require": {
             "clue/stream-filter": "^1.4",
-            "php": "^5.4 || ^7.0",
+            "php": "^7.1",
             "php-http/message-factory": "^1.0.2",
             "psr/http-message": "^1.0"
         },
@@ -771,11 +771,11 @@
             "slim/slim": "Used with Slim Framework PSR-7 implementation",
             "zendframework/zend-diactoros": "Used with Diactoros Factories"
         },
-        "time": "2018-11-01T09:32:41+00:00",
+        "time": "2019-08-05T06:55:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.6-dev"
+                "dev-master": "1.8-dev"
             }
         },
         "installation-source": "source",
@@ -1010,12 +1010,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/eileenmcnaughton/civicrm-data-table-provider.git",
-            "reference": "9f6b1ba3e7f0ec12befedcdac4d1fcfc7d66e40a"
+            "reference": "45bb6ee2152b930594203ef637621dc7cc996718"
         },
         "require": {
-            "geocoder-php/common-http": "^4.0",
-            "php": ">=5.5",
-            "willdurand/geocoder": "^4.0"
+            "geocoder-php/common-http": "^4",
+            "php": ">=7.0",
+            "willdurand/geocoder": "^4"
         },
         "provide": {
             "geocoder-php/provider-implementation": "1.0"
@@ -1027,7 +1027,7 @@
             "php-http/message": "^1.0",
             "phpunit/phpunit": "^6.1"
         },
-        "time": "2018-02-21T04:05:10+00:00",
+        "time": "2019-07-31T02:22:21+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

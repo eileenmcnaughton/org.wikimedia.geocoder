@@ -58,7 +58,7 @@ final class DataTable extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function geocodeQuery(GeocodeQuery $query)
+    public function geocodeQuery(GeocodeQuery $query): Collection
     {
 
         $postalCode = substr(trim($query->getText()), 0, 5);
@@ -93,7 +93,7 @@ final class DataTable extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function reverseQuery(ReverseQuery $query)
+    public function reverseQuery(ReverseQuery $query): Collection
     {
         throw new UnsupportedOperation('The data table provider is not able to do reverse geocoding yet.');
     }
@@ -101,7 +101,7 @@ final class DataTable extends AbstractHttpProvider implements Provider
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'data_table';
     }

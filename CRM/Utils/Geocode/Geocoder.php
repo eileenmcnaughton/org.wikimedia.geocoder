@@ -114,7 +114,11 @@ class CRM_Utils_Geocode_Geocoder {
            $provider = new $classString(self::$client, $argument, TRUE);
         }
         else {
-           $provider = new $classString(self::$client, $argument);
+         // oh dear tragically you need to know the construct argument for every one - arg
+         // for now adding what is needed for Nominatim since that is tested
+         // and I don't think it will actually HURT any others.
+         //https://github.com/geocoder-php/Geocoder/pull/994
+         $provider = new $classString(self::$client, $argument, CRM_Utils_Array::value('User-Agent', $_SERVER, 'CiviCRM'), CRM_Utils_Array::value('Referrer', $_SERVER, ''));
         }
 
         $geocoderObj = new \Geocoder\StatefulGeocoder($provider, $locale);

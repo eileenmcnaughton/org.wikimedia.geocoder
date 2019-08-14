@@ -94,9 +94,11 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
 
   /**
    * Test open street maps geocodes address.
+   *
+   * @throws \Exception
    */
   public function testOpenStreetMaps() {
-    $responses = [new Response(200, [], file_get_contents(__DIR__ . '/Responses/OpenStreetMaps.xml'))];
+    $responses = [new Response(200, [], file_get_contents(__DIR__ . '/Responses/OpenStreetMaps.json'))];
     $this->getClient($responses);
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 90210,

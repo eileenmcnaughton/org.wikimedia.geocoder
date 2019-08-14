@@ -1,6 +1,6 @@
 Geocoding for CiviCRM based on geocoder library
 
-Requires - CiviCRM 5.15, php 7.0
+Requires - CiviCRM 5.16, php 7.0
 
 Implementation of geocoder library (which itself supports multiple providers) https://github.com/geocoder-php/mapquest-provider. Only those that have been tested are enabled so far.
 

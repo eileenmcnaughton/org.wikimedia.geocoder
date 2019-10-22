@@ -338,8 +338,28 @@ class CRM_Utils_Geocode_Geocoder {
     // filter out unrelated keys
 
     $addressValues = array_intersect_key($addressValues, array_fill_keys($addressFields, 1));
+    // Convert the state id to name
+    if ($addressValues['state_province_id']) {
+      $addressValues['state_province_id'] = self::getStateName($addressValues['state_province_id']);
+    }
     $geocodableAddress = implode(',', array_filter($addressValues));
     return $geocodableAddress;
+  }
+
+  /**
+   * Convert the state id to name
+   * @param int|string $state the id
+   *
+   * @return string the state name
+   */
+  protected static function getStateName($state) {
+    if (!is_numeric($state)) {
+      return $state;
+    }
+    $result = civicrm_api3('StateProvince', 'getsingle', [
+      'id' => $state,
+    ]);
+    return $result['name'];
   }
 
   /**

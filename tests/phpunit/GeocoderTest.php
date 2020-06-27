@@ -41,13 +41,14 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
       ->apply();
   }
 
+  /**
+   * @throws \CiviCRM_API3_Exception
+   */
   public function setUp() {
     parent::setUp();
-    civicrm_initialize();
-    if (!isset($GLOBALS['_PEAR_default_error_mode'])) {
-      // This is simply to protect against e-notices if globals have been reset by phpunit.
-      $GLOBALS['_PEAR_default_error_mode'] = NULL;
-      $GLOBALS['_PEAR_default_error_options'] = NULL;
+    if (function_exists('civicrm_initialize')) {
+      // Required in wmf test runner but breaks civi runner.
+      civicrm_initialize();
     }
 
     $geocoders = civicrm_api3('Geocoder', 'get', [])['values'];
@@ -160,6 +161,8 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
 
   /**
    * Test geoname table option.
+   *
+   * @throws \Exception
    */
   public function testGeoName(){
     $this->setHttpClientToEmptyMock();

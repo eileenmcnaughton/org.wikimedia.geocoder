@@ -342,7 +342,9 @@ class CRM_Utils_Geocode_Geocoder {
     if ($addressValues['state_province_id']) {
       $addressValues['state_province_id'] = self::getStateName($addressValues['state_province_id']);
     }
-    $geocodableAddress = implode(',', array_filter($addressValues));
+    $geocodableAddress = implode(',', array_filter($addressValues, function($k) {
+      return (!empty($k) && $k !== 'null');
+    }));
     return $geocodableAddress;
   }
 

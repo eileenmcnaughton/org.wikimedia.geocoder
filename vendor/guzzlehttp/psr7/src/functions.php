@@ -33,7 +33,13 @@ function str(MessageInterface $message)
     }
 
     foreach ($message->getHeaders() as $name => $values) {
-        $msg .= "\r\n{$name}: " . implode(', ', $values);
+        if (strtolower($name) === 'set-cookie') {
+            foreach ($values as $value) {
+                $msg .= "\r\n{$name}: " . $value;
+            }
+        } else {
+            $msg .= "\r\n{$name}: " . implode(', ', $values);
+        }
     }
 
     return "{$msg}\r\n\r\n" . $message->getBody();
@@ -433,7 +439,7 @@ function hash(
  * Read a line from the stream up to the maximum allowed buffer length
  *
  * @param StreamInterface $stream    Stream to read from
- * @param int             $maxLength Maximum buffer length
+ * @param int|null        $maxLength Maximum buffer length
  *
  * @return string
  */
@@ -504,7 +510,7 @@ function parse_response($message)
     $parts = explode(' ', $data['start-line'], 3);
 
     return new Response(
-        $parts[1],
+        (int) $parts[1],
         $data['headers'],
         $data['body'],
         explode('/', $parts[0])[1],
@@ -841,7 +847,7 @@ function _parse_request_uri($path, array $headers)
 }
 
 /**
- * Get a short summary of the message body
+ * Get a short summary of the message body.
  *
  * Will return `null` if the response is not printable.
  *
@@ -873,7 +879,7 @@ function get_message_body_summary(MessageInterface $message, $truncateAt = 120)
 
     // Matches any printable character, including unicode characters:
     // letters, marks, numbers, punctuation, spacing, and separators.
-    if (preg_match('/[^\pL\pM\pN\pP\pS\pZ\n\r\t]/', $summary)) {
+    if (preg_match('/[^\pL\pM\pN\pP\pS\pZ\n\r\t]/u', $summary)) {
         return null;
     }
 

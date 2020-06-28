@@ -15,8 +15,8 @@
         "geocoder-php/mapquest-provider": "^4",
         "geocoder-php/google-maps-provider": "^4.4",
         "wikimedia/civicrm-data-table-provider": "@dev",
-            "geo6/geocoder-php-addok-provider": "dev-master",
-            "geocoder-php/here-provider": "^1.0@dev"
+        "geo6/geocoder-php-addok-provider": "dev-master",
+        "geocoder-php/here-provider": "^1.0@dev"
     }
 
 }

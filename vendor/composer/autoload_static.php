@@ -35,9 +35,11 @@ class ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8
             'GuzzleHttp\\' => 11,
             'Geocoder\\Provider\\Nominatim\\' => 28,
             'Geocoder\\Provider\\MapQuest\\' => 27,
+            'Geocoder\\Provider\\Here\\' => 23,
             'Geocoder\\Provider\\GoogleMaps\\' => 29,
             'Geocoder\\Provider\\FreeGeoIp\\' => 28,
             'Geocoder\\Provider\\DataTable\\' => 28,
+            'Geocoder\\Provider\\Addok\\' => 24,
             'Geocoder\\Http\\' => 14,
             'Geocoder\\' => 9,
         ),
@@ -93,6 +95,10 @@ class ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/mapquest-provider',
         ),
+        'Geocoder\\Provider\\Here\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geocoder-php/here-provider',
+        ),
         'Geocoder\\Provider\\GoogleMaps\\' => 
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/google-maps-provider',
@@ -104,6 +110,10 @@ class ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8
         'Geocoder\\Provider\\DataTable\\' => 
         array (
             0 => __DIR__ . '/..' . '/wikimedia/civicrm-data-table-provider',
+        ),
+        'Geocoder\\Provider\\Addok\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geo6/geocoder-php-addok-provider',
         ),
         'Geocoder\\Http\\' => 
         array (

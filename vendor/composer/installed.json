@@ -54,6 +54,58 @@
         ]
     },
     {
+        "name": "geo6/geocoder-php-addok-provider",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/geo6/geocoder-php-addok-provider.git",
+            "reference": "f4434f2d9d32542b7dbc51565da119f2f6786d3f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geo6/geocoder-php-addok-provider/zipball/f4434f2d9d32542b7dbc51565da119f2f6786d3f",
+            "reference": "f4434f2d9d32542b7dbc51565da119f2f6786d3f",
+            "shasum": ""
+        },
+        "require": {
+            "geocoder-php/common-http": "^4.0",
+            "php": "^7.0",
+            "willdurand/geocoder": "^4.0"
+        },
+        "provide": {
+            "geocoder-php/provider-implementation": "1.0"
+        },
+        "require-dev": {
+            "geocoder-php/provider-integration-tests": "^1.0",
+            "php-http/curl-client": "^1.7 || ^2.0",
+            "php-http/message": "^1.0",
+            "phpunit/phpunit": "^6.5 || ^7.5"
+        },
+        "time": "2020-02-09T15:42:11+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Geocoder\\Provider\\Addok\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jonathan Beliën",
+                "email": "jbe@geo6.be"
+            }
+        ],
+        "description": "Geocoder addok adapter"
+    },
+    {
         "name": "geocoder-php/common-http",
         "version": "4.2.0",
         "version_normalized": "4.2.0.0",
@@ -232,6 +284,64 @@
             }
         ],
         "description": "Geocoder GoogleMaps adapter",
+        "homepage": "http://geocoder-php.org/Geocoder/"
+    },
+    {
+        "name": "geocoder-php/here-provider",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/geocoder-php/here-provider.git",
+            "reference": "3b9021abb44d1d31bc24778af6781412fb881c42"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geocoder-php/here-provider/zipball/3b9021abb44d1d31bc24778af6781412fb881c42",
+            "reference": "3b9021abb44d1d31bc24778af6781412fb881c42",
+            "shasum": ""
+        },
+        "require": {
+            "geocoder-php/common-http": "^4.0",
+            "php": "^7.0",
+            "willdurand/geocoder": "^4.0"
+        },
+        "provide": {
+            "geocoder-php/provider-implementation": "1.0"
+        },
+        "require-dev": {
+            "geocoder-php/provider-integration-tests": "^1.1",
+            "php-http/curl-client": "^1.7",
+            "php-http/message": "^1.0",
+            "phpunit/phpunit": "^6.5 || ^7.5"
+        },
+        "time": "2019-08-04T16:36:44+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Geocoder\\Provider\\Here\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "William Durand",
+                "email": "william.durand1@gmail.com"
+            }
+        ],
+        "description": "Geocoder here adapter",
         "homepage": "http://geocoder-php.org/Geocoder/"
     },
     {

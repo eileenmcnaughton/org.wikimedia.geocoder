@@ -91,7 +91,6 @@ class CRM_Utils_Geocode_Geocoder {
       if (!self::isUsable($geocoder)) {
         continue;
       }
-      $classString = '\\Geocoder\\Provider\\' . $geocoder['class'];
       try {
         self::fillMissingAddressData($values, $geocoder);
         self::padPostalCodeIfRequired($values);
@@ -107,19 +106,8 @@ class CRM_Utils_Geocode_Geocoder {
         if (empty($geocodableAddress)) {
           continue;
         }
-        $argument = self::getProviderArgument($geocoder);
 
-        // At least for mapquest, in addition to the api_key, add a flag to no longer use the open version
-        if (($geocoder['name'] == "mapquest") && (isset($geocoder['api_key']))) {
-           $provider = new $classString(self::$client, $argument, TRUE);
-        }
-        else {
-         // oh dear tragically you need to know the construct argument for every one - arg
-         // for now adding what is needed for Nominatim since that is tested
-         // and I don't think it will actually HURT any others.
-         //https://github.com/geocoder-php/Geocoder/pull/994
-         $provider = new $classString(self::$client, $argument, CRM_Utils_Array::value('User-Agent', $_SERVER, 'CiviCRM'), CRM_Utils_Array::value('Referrer', $_SERVER, ''));
-        }
+        $provider = self::getProviderClass($geocoder);
 
         $geocoderObj = new \Geocoder\StatefulGeocoder($provider, $locale);
         $result = $geocoderObj->geocodeQuery(GeocodeQuery::create($geocodableAddress));
@@ -518,6 +506,30 @@ class CRM_Utils_Geocode_Geocoder {
    */
   public static function resetGeoCoders() {
     self::$geoCoders = NULL;
+  }
+
+  /**
+   * Load the provider class.
+   *
+   * @param array $geocoder
+   *
+   * @return \Geocoder\Provider\Provider
+   */
+  protected static function getProviderClass($geocoder) {
+    $classString = '\\Geocoder\\Provider\\' . $geocoder['class'];
+    $argument = self::getProviderArgument($geocoder);
+
+    // At least for mapquest, in addition to the api_key, add a flag to no longer use the open version
+    if (($geocoder['name'] == "mapquest") && (isset($geocoder['api_key']))) {
+      return new $classString(self::$client, $argument, TRUE);
+    }
+    else {
+      // oh dear tragically you need to know the construct argument for every one - arg
+      // for now adding what is needed for Nominatim since that is tested
+      // and I don't think it will actually HURT any others.
+      //https://github.com/geocoder-php/Geocoder/pull/994
+      return new $classString(self::$client, $argument, CRM_Utils_Array::value('User-Agent', $_SERVER, 'CiviCRM'), CRM_Utils_Array::value('Referrer', $_SERVER, ''));
+    }
   }
 
 }

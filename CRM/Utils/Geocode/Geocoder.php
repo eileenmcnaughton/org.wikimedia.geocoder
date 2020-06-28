@@ -239,11 +239,12 @@ class CRM_Utils_Geocode_Geocoder {
    *
    * @param array $inputValues
    * @param array $geocoder
+   *
+   * @throws \CiviCRM_API3_Exception
    */
   public static function fillMissingAddressData(&$inputValues, $geocoder) {
-
     foreach (['county', 'state_province', 'country'] as $locationField) {
-      if (empty($addressValues[$locationField]) && !empty($addressValues[$locationField . '_id'])) {
+      if (empty($inputValues[$locationField]) && !empty($inputValues[$locationField . '_id'])) {
         $inputValues[$locationField] = CRM_Core_PseudoConstant::getLabel(
           'CRM_Core_BAO_Address',
           $locationField . '_id',
@@ -339,7 +340,7 @@ class CRM_Utils_Geocode_Geocoder {
 
     $addressValues = array_intersect_key($addressValues, array_fill_keys($addressFields, 1));
     // Convert the state id to name
-    if ($addressValues['state_province_id']) {
+    if (!empty($addressValues['state_province_id'])) {
       $addressValues['state_province_id'] = self::getStateName($addressValues['state_province_id']);
     }
     $geocodableAddress = implode(',', array_filter($addressValues, function($k) {

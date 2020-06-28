@@ -27,6 +27,8 @@ use GuzzleHttp\Psr7\Response;
  */
 class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInterface, TransactionalInterface {
 
+  use \Civi\Test\Api3TestTrait;
+
   protected $ids = [];
 
   protected $geocoders = [];

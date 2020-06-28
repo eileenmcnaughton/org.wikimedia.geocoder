@@ -301,9 +301,6 @@ class CRM_Utils_Geocode_Geocoder {
   public static function getAddressFields() {
     return [
       'street_address' => E::ts('Street Address'),
-      'supplemental_address_1' => E::ts('Supplemental Address 1'),
-      'supplemental_address_2' => E::ts('Supplemental Address 2'),
-      'supplemental_address_3' => E::ts('Supplemental Address 4'),
       'city' => E::ts('City'),
       'postal_code' => ts('Postal code'),
       'county_id' => E::ts('County'),

@@ -46,6 +46,45 @@ class CRM_Geocoder_Upgrader extends CRM_Geocoder_Upgrader_Base {
   }
 
   /**
+   *  Add parameter column in DB
+   *
+   * @throws \CiviCRM_API3_Exception
+   */
+  public function upgrade_1100() {
+    $this->ctx->log->info('Applying update 1100');
+    $this->update_providers();
+    return TRUE;
+  }
+
+  /**
+   * Add new providers.
+   *
+   * @return bool
+   *
+   * @throws \CiviCRM_API3_Exception
+   */
+  private function update_providers() {
+    $geoCoders = [];
+    geocoder_civicrm_geo_managed($geoCoders);
+
+    // get already defined providers
+    $defined = civicrm_api3('Geocoder', 'get', ['sequential' => 1, 'return' => ['name', 'weight'], 'options' => ['sort' => 'weight']])['values'];
+
+    // get max weight value
+    $max_weight = (int) $defined[count($defined) - 1]['weight'];
+    foreach ($geoCoders as $geoCoder) {
+      $is_defined = array_search($geoCoder['name'], array_column($defined, 'name'), TRUE);
+      if (($is_defined === FALSE)) {
+        $params = ['is_active' => $geoCoder['metadata']['is_enabled_on_install'], 'weight' => ++$max_weight];
+        civicrm_api3('Geocoder', 'create', array_merge($params, $geoCoder['params']));
+      }
+
+    }
+
+    return TRUE;
+  }
+
+  /**
    * Example: Run an external SQL script when the module is uninstalled.
    */
   public function uninstall() {

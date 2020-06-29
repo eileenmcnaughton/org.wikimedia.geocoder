@@ -25,7 +25,7 @@ use GuzzleHttp\Psr7\Response;
  *
  * @group headless
  */
-class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInterface, TransactionalInterface {
+class GeocoderTest extends BaseTestClass {
 
   use \Civi\Test\Api3TestTrait;
 

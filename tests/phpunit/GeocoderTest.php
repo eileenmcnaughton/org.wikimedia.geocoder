@@ -53,7 +53,7 @@ class GeocoderTest extends BaseTestClass {
       // Required in wmf test runner but breaks civi runner.
       civicrm_initialize();
     }
-
+    $this->setHttpClientToEmptyMock();
     $geocoders = civicrm_api3('Geocoder', 'get', [])['values'];
     foreach ($geocoders as $geocoder) {
       $this->geocoders[$geocoder['name']] = $geocoder;
@@ -123,8 +123,7 @@ class GeocoderTest extends BaseTestClass {
    *
    * @throws \CRM_Core_Exception
    */
-  public function testOpenStreetMapsFailsFallsbackToUSLookup() {
-    $this->setHttpClientToEmptyMock();
+  public function testOpenStreetMapsFailsFallsBackToUSLookup() {
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 90210,
       'location_type_id' => 'Home',
@@ -151,6 +150,8 @@ class GeocoderTest extends BaseTestClass {
    *
    * This only applies to NZ & US at the moment but as we get validation for
    * more countries we can extend.
+   *
+   * @throws \CRM_Core_Exception
    */
   public function testShortPostalCode() {
     $this->setHttpClientToEmptyMock();
@@ -199,6 +200,8 @@ class GeocoderTest extends BaseTestClass {
    *
    * @param array $coders
    *   Array of coders that should be enabled.
+   *
+   * @throws \CRM_Core_Exception
    */
   protected function configureGeoCoders($coders) {
      foreach ($this->geocoders as $geoCoder) {
@@ -221,7 +224,7 @@ class GeocoderTest extends BaseTestClass {
   }
 
   /**
-   * @param $responses
+   * @param array $responses
    */
   protected function getClient($responses) {
     $mock = new MockHandler($responses);

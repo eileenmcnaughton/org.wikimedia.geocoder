@@ -451,6 +451,15 @@ class CRM_Utils_Geocode_Geocoder {
         }
       }
     }
+    if (!empty($metadata['required_api_key_subkeys'])) {
+      $key = json_decode($geocoder['api_key'], TRUE);
+      foreach ($metadata['required_api_key_subkeys'] as $subkey) {
+        if (empty($key[$subkey])) {
+          return FALSE;
+        }
+      }
+
+    }
     return TRUE;
   }
 
@@ -530,6 +539,10 @@ class CRM_Utils_Geocode_Geocoder {
         $serverParts = explode(':', $parts[1]);
         $default = $serverParts[1] ?? '';
         $parameters[] = $_SERVER[$serverParts[0]] ?? $default;
+      }
+      if ($parts[0] === 'api_key') {
+        $keyFields = json_decode($geocoder['api_key'], TRUE);
+        $parameters[] = $keyFields[$parts[1]];
       }
     }
     switch (count($parameters)) {

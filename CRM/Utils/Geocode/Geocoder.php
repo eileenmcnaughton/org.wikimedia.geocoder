@@ -432,9 +432,7 @@ class CRM_Utils_Geocode_Geocoder {
       $split = explode('.', $argument);
       return $geocoder[$split[1]];
     }
-    else {
-      return $argument;
-    }
+    return $argument;
   }
 
   /**
@@ -517,18 +515,41 @@ class CRM_Utils_Geocode_Geocoder {
    */
   protected static function getProviderClass($geocoder) {
     $classString = '\\Geocoder\\Provider\\' . $geocoder['class'];
-    $argument = self::getProviderArgument($geocoder);
-
-    // At least for mapquest, in addition to the api_key, add a flag to no longer use the open version
-    if (($geocoder['name'] == "mapquest") && (isset($geocoder['api_key']))) {
-      return new $classString(self::$client, $argument, TRUE);
+    $arguments = (array) self::getProviderArgument($geocoder);
+    $parameters = [];
+    foreach ($arguments as $index => $argument) {
+       if (strpos($index, 'pass_through') === 0) {
+        $parameters[] = $argument;
+        continue;
+      }
+      $parts = explode('.', $argument);
+      if ($parts[0] === 'geocoder') {
+        $parameters[] = $geocoder[$parts[1]];
+      }
+      elseif ($parts[0] === 'server') {
+        $serverParts = explode(':', $parts[1]);
+        $default = $serverParts[1] ?? '';
+        $parameters[] = $_SERVER[$serverParts[0]] ?? $default;
+      }
     }
-    else {
-      // oh dear tragically you need to know the construct argument for every one - arg
-      // for now adding what is needed for Nominatim since that is tested
-      // and I don't think it will actually HURT any others.
-      //https://github.com/geocoder-php/Geocoder/pull/994
-      return new $classString(self::$client, $argument, CRM_Utils_Array::value('User-Agent', $_SERVER, 'CiviCRM'), CRM_Utils_Array::value('Referrer', $_SERVER, ''));
+    switch (count($parameters)) {
+      case 0:
+        return new $classString(self::$client);
+
+      case 1:
+        return new $classString(self::$client, $parameters[0]);
+
+      case 2:
+        return new $classString(self::$client, $parameters[0], $parameters[1]);
+
+      case 3:
+        return new $classString(self::$client, $parameters[0], $parameters[1], $parameters[2]);
+
+      case 4:
+        return new $classString(self::$client, $parameters[0], $parameters[1], $parameters[2], $parameters[3]);
+
+      case 5:
+        return new $classString(self::$client, $parameters[0], $parameters[1], $parameters[2], $parameters[3], $parameters[4]);
     }
   }
 

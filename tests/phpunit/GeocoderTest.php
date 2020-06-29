@@ -119,6 +119,8 @@ class GeocoderTest extends BaseTestClass implements HeadlessInterface, HookInter
    * Test when open street maps fail we fall back on the next one (USZipGeoCoder).
    *
    * Note the lat long are slightly different between the 2 providers & we get timezone.
+   *
+   * @throws \CRM_Core_Exception
    */
   public function testOpenStreetMapsFailsFallsbackToUSLookup() {
     $this->setHttpClientToEmptyMock();

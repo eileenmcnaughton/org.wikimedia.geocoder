@@ -37,40 +37,6 @@ class BaseTestClass extends \PHPUnit\Framework\TestCase implements HeadlessInter
   protected $sql;
 
   /**
-   * wrap api functions.
-   * so we can ensure they succeed & throw exceptions without litterering the test with checks
-   *
-   * @param string $entity
-   * @param string $action
-   * @param array $params
-   * @param mixed $checkAgainst
-   *   Optional value to check result against, implemented for getvalue,.
-   *   getcount, getsingle. Note that for getvalue the type is checked rather than the value
-   *   for getsingle the array is compared against an array passed in - the id is not compared (for
-   *   better or worse )
-   *
-   * @return array|int
-   */
-  public function callAPISuccess($entity, $action, $params, $checkAgainst = NULL) {
-    $params = array_merge(array(
-      'version' => $this->_apiversion,
-      'debug' => 1,
-    ),
-      $params
-    );
-    switch (strtolower($action)) {
-      case 'getvalue':
-        return $this->callAPISuccessGetValue($entity, $params, $checkAgainst);
-      case 'getsingle':
-        return $this->callAPISuccessGetSingle($entity, $params, $checkAgainst);
-      case 'getcount':
-        return $this->callAPISuccessGetCount($entity, $params, $checkAgainst);
-    }
-    $result = $this->civicrm_api($entity, $action, $params);
-    $this->assertAPISuccess($result, "Failure in api call for $entity $action");
-    return $result;
-  }
-  /**
    * This function exists to wrap api getValue function & check the result
    * so we can ensure they succeed & throw exceptions without litterering the test with checks
    * There is a type check in this

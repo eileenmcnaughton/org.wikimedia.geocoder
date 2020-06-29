@@ -54,7 +54,7 @@
         <name>api_key</name>
         <type>varchar</type>
         <length>255</length>
-        <comment>API Key</comment>
+        <comment>API Key or a json array of user customised values.</comment>
     </field>
     <field>
         <name>url</name>

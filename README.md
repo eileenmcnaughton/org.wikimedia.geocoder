@@ -1,6 +1,6 @@
 Geocoding for CiviCRM based on geocoder library
 
-Requires - CiviCRM 5.26, php 7.1
+Requires - CiviCRM 5.28, php 7.1
 
 Implementation of geocoder library (which itself supports multiple providers) https://github.com/geocoder-php/mapquest-provider. Only those that have been tested are enabled so far.
 
@@ -18,7 +18,8 @@ Currently enabled geocoders are
 - GoogleMaps - requires an API key to be used - this is enabled on install as the default if you
 already have google configured as your provider. However the Terms of service suggest it may not be a good choose https://support.google.com/code/answer/55180?hl=en
 - GeoName DB geocoder - this requires that you get a sample dataset from geonames. I will require a developer or similar to tweak the download into an sql table. There is a sample dataset for New Zealand in the install directory & if loaded it will work for New Zealand.
-
+- Here (not enabled by default)
+- Addok (not enabled by default)
 
 Features
 - Threshold standdown period. If the geocoding quota is hit for a provider it is not used

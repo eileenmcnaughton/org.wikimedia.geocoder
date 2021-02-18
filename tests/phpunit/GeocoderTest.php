@@ -89,7 +89,7 @@ class GeocoderTest extends BaseTestClass {
   public function tearDown() {
     foreach ($this->ids as $entity => $entityIDs) {
       foreach ($entityIDs as $id) {
-        $this->callAPISuccess($entity, 'delete', ['id' => $id]);
+        $this->callAPISuccess($entity, 'delete', ['id' => $id, 'skip_undelete' => TRUE]);
       }
     }
     $this->configureGeoCoders($this->geocoders);

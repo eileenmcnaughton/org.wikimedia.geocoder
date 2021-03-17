@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/BaseTestClass.php';
 
+use Civi\Test\CiviEnvBuilder;
 use CRM_Geocoder_ExtensionUtil as E;
 use Civi\Test\HeadlessInterface;
 use Civi\Test\HookInterface;
@@ -33,7 +34,11 @@ class GeocoderTest extends BaseTestClass {
 
   protected $geocoders = [];
 
-  public function setUpHeadless() {
+  /**
+   * @return \Civi\Test\CiviEnvBuilder
+   * @throws \CRM_Extension_Exception_ParseException
+   */
+  public function setUpHeadless(): CiviEnvBuilder {
     // Civi\Test has many helpers, like install(), uninstall(), sql(), and sqlFile().
     // See: https://github.com/civicrm/org.civicrm.testapalooza/blob/master/civi-test.md
     return \Civi\Test::headless()
@@ -47,7 +52,7 @@ class GeocoderTest extends BaseTestClass {
    * @throws \CiviCRM_API3_Exception
    * @throws \CRM_Core_Exception
    */
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     if (function_exists('civicrm_initialize')) {
       // Required in wmf test runner but breaks civi runner.
@@ -86,7 +91,12 @@ class GeocoderTest extends BaseTestClass {
     $this->callAPISuccess('System', 'flush', []);
   }
 
-  public function tearDown() {
+  /**
+   * Clean up after class.
+   *
+   * @throws \CRM_Core_Exception
+   */
+  public function tearDown(): void {
     foreach ($this->ids as $entity => $entityIDs) {
       foreach ($entityIDs as $id) {
         $this->callAPISuccess($entity, 'delete', ['id' => $id, 'skip_undelete' => TRUE]);
@@ -101,7 +111,7 @@ class GeocoderTest extends BaseTestClass {
    *
    * @throws \Exception
    */
-  public function testOpenStreetMaps() {
+  public function testOpenStreetMaps(): void {
     $responses = [new Response(200, [], file_get_contents(__DIR__ . '/Responses/OpenStreetMaps.json'))];
     $this->getClient($responses);
     $address = $this->callAPISuccess('Address', 'create', [
@@ -123,7 +133,7 @@ class GeocoderTest extends BaseTestClass {
    *
    * @throws \CRM_Core_Exception
    */
-  public function testOpenStreetMapsFailsFallsBackToUSLookup() {
+  public function testOpenStreetMapsFailsFallsBackToUSLookup(): void {
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 90210,
       'location_type_id' => 'Home',
@@ -153,7 +163,7 @@ class GeocoderTest extends BaseTestClass {
    *
    * @throws \CRM_Core_Exception
    */
-  public function testShortPostalCode() {
+  public function testShortPostalCode(): void {
     $this->setHttpClientToEmptyMock();
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 624,
@@ -170,7 +180,7 @@ class GeocoderTest extends BaseTestClass {
    *
    * @throws \Exception
    */
-  public function testGeoName(){
+  public function testGeoName(): void {
     $this->setHttpClientToEmptyMock();
     $drop = FALSE;
     if (!CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE 'civicrm_geonames_lookup'")) {
@@ -203,7 +213,7 @@ class GeocoderTest extends BaseTestClass {
    *
    * @throws \CRM_Core_Exception
    */
-  protected function configureGeoCoders($coders) {
+  protected function configureGeoCoders($coders): void {
      foreach ($this->geocoders as $geoCoder) {
        if (isset($coders[$geoCoder['name']])) {
          $params = array_merge(['id' => $geoCoder['id']], $coders[$geoCoder['name']]);
@@ -226,13 +236,13 @@ class GeocoderTest extends BaseTestClass {
   /**
    * @param array $responses
    */
-  protected function getClient($responses) {
+  protected function getClient($responses): void {
     $mock = new MockHandler($responses);
     $handler = HandlerStack::create($mock);
     CRM_Utils_Geocode_Geocoder::setClient(Client::createWithConfig(['handler' => $handler]));
   }
 
-  protected function setHttpClientToEmptyMock() {
+  protected function setHttpClientToEmptyMock(): void {
     $responses = [];
     $this->getClient($responses);
   }

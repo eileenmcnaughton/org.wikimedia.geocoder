@@ -4,27 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a9801d37537d2238d796a6f725dcceb",
+    "content-hash": "bb5ce43d64ebdb6d7cc492e3aee308a2",
     "packages": [
         {
             "name": "clue/stream-filter",
-            "version": "v1.4.1",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/clue/php-stream-filter.git",
-                "reference": "5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71"
+                "url": "https://github.com/clue/stream-filter.git",
+                "reference": "aeb7d8ea49c7963d3b581378955dbf5bc49aa320"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/php-stream-filter/zipball/5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71",
-                "reference": "5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71",
+                "url": "https://api.github.com/repos/clue/stream-filter/zipball/aeb7d8ea49c7963d3b581378955dbf5bc49aa320",
+                "reference": "aeb7d8ea49c7963d3b581378955dbf5bc49aa320",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.0 || ^4.8"
+                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.36"
             },
             "type": "library",
             "autoload": {
@@ -42,7 +42,7 @@
             "authors": [
                 {
                     "name": "Christian Lück",
-                    "email": "christian@lueck.tv"
+                    "email": "christian@clue.engineering"
                 }
             ],
             "description": "A simple and modern approach to stream filtering in PHP",
@@ -56,25 +56,39 @@
                 "stream_filter_append",
                 "stream_filter_register"
             ],
-            "time": "2019-04-09T12:31:48+00:00"
+            "support": {
+                "issues": "https://github.com/clue/stream-filter/issues",
+                "source": "https://github.com/clue/stream-filter/tree/v1.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https://clue.engineering/support",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/clue",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-10-02T12:38:20+00:00"
         },
         {
             "name": "geo6/geocoder-php-addok-provider",
-            "version": "dev-master",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geo6/geocoder-php-addok-provider.git",
-                "reference": "f4434f2d9d32542b7dbc51565da119f2f6786d3f"
+                "reference": "5030967a6cdf6a29c5e9b08c78c2f2ddb68587c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geo6/geocoder-php-addok-provider/zipball/f4434f2d9d32542b7dbc51565da119f2f6786d3f",
-                "reference": "f4434f2d9d32542b7dbc51565da119f2f6786d3f",
+                "url": "https://api.github.com/repos/geo6/geocoder-php-addok-provider/zipball/5030967a6cdf6a29c5e9b08c78c2f2ddb68587c0",
+                "reference": "5030967a6cdf6a29c5e9b08c78c2f2ddb68587c0",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.0",
-                "php": "^7.0",
+                "php": "^7.3 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -82,9 +96,9 @@
             },
             "require-dev": {
                 "geocoder-php/provider-integration-tests": "^1.0",
-                "php-http/curl-client": "^1.7 || ^2.0",
+                "php-http/curl-client": "^2.0",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^6.5 || ^7.5"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "autoload": {
@@ -106,26 +120,30 @@
                 }
             ],
             "description": "Geocoder addok adapter",
-            "time": "2020-02-09T15:42:11+00:00"
+            "support": {
+                "issues": "https://github.com/geo6/geocoder-php-addok-provider/issues",
+                "source": "https://github.com/geo6/geocoder-php-addok-provider/tree/v1.3.0"
+            },
+            "time": "2020-12-22T16:47:52+00:00"
         },
         {
             "name": "geocoder-php/common-http",
-            "version": "4.2.0",
+            "version": "4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/php-common-http.git",
-                "reference": "8e666f89d0b87121595ec2f5134a9f54bf4b0cd2"
+                "reference": "9f44a006d4b45d01dd31ea9b38ee7fb5724cd73e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/php-common-http/zipball/8e666f89d0b87121595ec2f5134a9f54bf4b0cd2",
-                "reference": "8e666f89d0b87121595ec2f5134a9f54bf4b0cd2",
+                "url": "https://api.github.com/repos/geocoder-php/php-common-http/zipball/9f44a006d4b45d01dd31ea9b38ee7fb5724cd73e",
+                "reference": "9f44a006d4b45d01dd31ea9b38ee7fb5724cd73e",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0",
+                "php": "^7.3 || ^8.0",
                 "php-http/client-implementation": "^1.0",
-                "php-http/discovery": "^1.4",
+                "php-http/discovery": "^1.6",
                 "php-http/httplug": "^1.0 || ^2.0",
                 "php-http/message-factory": "^1.0.2",
                 "psr/http-message": "^1.0",
@@ -133,10 +151,10 @@
                 "willdurand/geocoder": "^4.0"
             },
             "require-dev": {
-                "nyholm/psr7": "^0.2.2",
+                "nyholm/psr7": "^1.0",
                 "php-http/message": "^1.0",
                 "php-http/mock-client": "^1.0",
-                "phpunit/phpunit": "6.3.*",
+                "phpunit/phpunit": "^9.5",
                 "symfony/stopwatch": "~2.5"
             },
             "type": "library",
@@ -168,25 +186,28 @@
             "keywords": [
                 "http geocoder"
             ],
-            "time": "2018-11-15T22:27:27+00:00"
+            "support": {
+                "source": "https://github.com/geocoder-php/php-common-http/tree/4.4.0"
+            },
+            "time": "2020-12-21T09:30:01+00:00"
         },
         {
             "name": "geocoder-php/free-geoip-provider",
-            "version": "4.2.0",
+            "version": "4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/free-geoip-provider.git",
-                "reference": "342858fa250e71dd486b47892532c14f39c917cc"
+                "reference": "8f61d1729440e5fe8391ec7bb9dd42c8b3d2e055"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/free-geoip-provider/zipball/342858fa250e71dd486b47892532c14f39c917cc",
-                "reference": "342858fa250e71dd486b47892532c14f39c917cc",
+                "url": "https://api.github.com/repos/geocoder-php/free-geoip-provider/zipball/8f61d1729440e5fe8391ec7bb9dd42c8b3d2e055",
+                "reference": "8f61d1729440e5fe8391ec7bb9dd42c8b3d2e055",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.1",
-                "php": "^7.0",
+                "php": "^7.3 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -194,9 +215,9 @@
             },
             "require-dev": {
                 "geocoder-php/provider-integration-tests": "^1.0",
-                "php-http/curl-client": "^1.7",
+                "php-http/curl-client": "^2.2",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^6.5 || ^7.5"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "extra": {
@@ -224,25 +245,28 @@
             ],
             "description": "Geocoder FreeGeoIp adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
-            "time": "2019-09-13T07:07:34+00:00"
+            "support": {
+                "source": "https://github.com/geocoder-php/free-geoip-provider/tree/4.4.0"
+            },
+            "time": "2020-12-21T16:41:18+00:00"
         },
         {
             "name": "geocoder-php/google-maps-provider",
-            "version": "4.4.0",
+            "version": "4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/google-maps-provider.git",
-                "reference": "307ca3590b67d23d0658808bb3615f2be3154eee"
+                "reference": "1e88138b66bf31b7e025b7bd579edb2cc9690414"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/google-maps-provider/zipball/307ca3590b67d23d0658808bb3615f2be3154eee",
-                "reference": "307ca3590b67d23d0658808bb3615f2be3154eee",
+                "url": "https://api.github.com/repos/geocoder-php/google-maps-provider/zipball/1e88138b66bf31b7e025b7bd579edb2cc9690414",
+                "reference": "1e88138b66bf31b7e025b7bd579edb2cc9690414",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.0",
-                "php": "^7.0",
+                "php": "^7.3 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -250,9 +274,9 @@
             },
             "require-dev": {
                 "geocoder-php/provider-integration-tests": "^1.0",
-                "php-http/curl-client": "^1.7",
+                "php-http/curl-client": "^2.2",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^6.5 || ^7.5"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "extra": {
@@ -280,25 +304,28 @@
             ],
             "description": "Geocoder GoogleMaps adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
-            "time": "2019-04-26T20:17:17+00:00"
+            "support": {
+                "source": "https://github.com/geocoder-php/google-maps-provider/tree/4.6.0"
+            },
+            "time": "2020-12-21T16:41:18+00:00"
         },
         {
             "name": "geocoder-php/here-provider",
-            "version": "dev-master",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/here-provider.git",
-                "reference": "3b9021abb44d1d31bc24778af6781412fb881c42"
+                "reference": "d6b96e1bf5824714cbaea3486edd5b53956173dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/here-provider/zipball/3b9021abb44d1d31bc24778af6781412fb881c42",
-                "reference": "3b9021abb44d1d31bc24778af6781412fb881c42",
+                "url": "https://api.github.com/repos/geocoder-php/here-provider/zipball/d6b96e1bf5824714cbaea3486edd5b53956173dd",
+                "reference": "d6b96e1bf5824714cbaea3486edd5b53956173dd",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.0",
-                "php": "^7.0",
+                "php": "^7.3 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -306,9 +333,9 @@
             },
             "require-dev": {
                 "geocoder-php/provider-integration-tests": "^1.1",
-                "php-http/curl-client": "^1.7",
+                "php-http/curl-client": "^2.2",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^6.5 || ^7.5"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "extra": {
@@ -336,25 +363,28 @@
             ],
             "description": "Geocoder here adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
-            "time": "2019-08-04T16:36:44+00:00"
+            "support": {
+                "source": "https://github.com/geocoder-php/here-provider/tree/0.6.0"
+            },
+            "time": "2020-12-21T16:41:18+00:00"
         },
         {
             "name": "geocoder-php/mapquest-provider",
-            "version": "dev-master",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/mapquest-provider.git",
-                "reference": "92d39fb0e4ab425e37c4f489ecea34168d3b2522"
+                "reference": "8c7b4b415bb606d6dbb7e6c61233be25f4bfe10b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/mapquest-provider/zipball/92d39fb0e4ab425e37c4f489ecea34168d3b2522",
-                "reference": "92d39fb0e4ab425e37c4f489ecea34168d3b2522",
+                "url": "https://api.github.com/repos/geocoder-php/mapquest-provider/zipball/8c7b4b415bb606d6dbb7e6c61233be25f4bfe10b",
+                "reference": "8c7b4b415bb606d6dbb7e6c61233be25f4bfe10b",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.0",
-                "php": "^7.0",
+                "php": "^7.3 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -362,9 +392,9 @@
             },
             "require-dev": {
                 "geocoder-php/provider-integration-tests": "^1.1",
-                "php-http/curl-client": "^1.7",
+                "php-http/curl-client": "^2.2",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^6.5 || ^7.5"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "extra": {
@@ -386,31 +416,34 @@
             ],
             "authors": [
                 {
-                    "name": "William DURAND",
+                    "name": "William Durand",
                     "email": "william.durand1@gmail.com"
                 }
             ],
             "description": "Geocoder MapQuest adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
-            "time": "2019-02-06T12:18:09+00:00"
+            "support": {
+                "source": "https://github.com/geocoder-php/mapquest-provider/tree/4.2.0"
+            },
+            "time": "2020-12-21T16:41:18+00:00"
         },
         {
             "name": "geocoder-php/nominatim-provider",
-            "version": "5.1.1",
+            "version": "5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/nominatim-provider.git",
-                "reference": "337ddc834bd955189232c0b38ba89087be148f46"
+                "reference": "80f39ce41bcd0e4d9de3e83c40caf92d089fecf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/337ddc834bd955189232c0b38ba89087be148f46",
-                "reference": "337ddc834bd955189232c0b38ba89087be148f46",
+                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/80f39ce41bcd0e4d9de3e83c40caf92d089fecf2",
+                "reference": "80f39ce41bcd0e4d9de3e83c40caf92d089fecf2",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.1",
-                "php": "^7.0",
+                "php": "^7.3 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -418,9 +451,9 @@
             },
             "require-dev": {
                 "geocoder-php/provider-integration-tests": "^1.0",
-                "php-http/curl-client": "^1.7",
+                "php-http/curl-client": "^2.2",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^6.5 || ^7.5"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "extra": {
@@ -448,7 +481,10 @@
             ],
             "description": "Geocoder Nominatim adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
-            "time": "2019-08-14T07:26:34+00:00"
+            "support": {
+                "source": "https://github.com/geocoder-php/nominatim-provider/tree/5.4.0"
+            },
+            "time": "2020-12-21T16:41:18+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -456,12 +492,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "9d4290de1cfd701f38099ef7e183b64b4b7b0c5e"
+                "reference": "e8ed4dbf49b260ff129ff0e0400718c3269971bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/9d4290de1cfd701f38099ef7e183b64b4b7b0c5e",
-                "reference": "9d4290de1cfd701f38099ef7e183b64b4b7b0c5e",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/e8ed4dbf49b260ff129ff0e0400718c3269971bf",
+                "reference": "e8ed4dbf49b260ff129ff0e0400718c3269971bf",
                 "shasum": ""
             },
             "require": {
@@ -515,7 +551,33 @@
                 "rest",
                 "web service"
             ],
-            "time": "2020-06-16T21:01:06+00:00"
+            "support": {
+                "issues": "https://github.com/guzzle/guzzle/issues",
+                "source": "https://github.com/guzzle/guzzle/tree/6.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/Nyholm",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/alexeyshockov",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/gmponos",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/sagikazarmark",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-07-02T06:52:04+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -523,24 +585,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "bbf3b200bc83c1e9298580a9f99b9be248543467"
+                "reference": "8e7d04f1f6450fef59366c399cfad4b9383aa30d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/bbf3b200bc83c1e9298580a9f99b9be248543467",
-                "reference": "bbf3b200bc83c1e9298580a9f99b9be248543467",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/8e7d04f1f6450fef59366c399cfad4b9383aa30d",
+                "reference": "8e7d04f1f6450fef59366c399cfad4b9383aa30d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^7.5"
+                "symfony/phpunit-bridge": "^4.4 || ^5.1"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -566,7 +629,11 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2020-06-21T23:10:57+00:00"
+            "support": {
+                "issues": "https://github.com/guzzle/promises/issues",
+                "source": "https://github.com/guzzle/promises/tree/1.4.1"
+            },
+            "time": "2021-03-07T09:25:29+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -574,12 +641,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "188cc82398f157483976ccf61bd04ee80afcf29c"
+                "reference": "a67cdbf85690e54a7b92fe91c297b20d2607c0b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/188cc82398f157483976ccf61bd04ee80afcf29c",
-                "reference": "188cc82398f157483976ccf61bd04ee80afcf29c",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/a67cdbf85690e54a7b92fe91c297b20d2607c0b2",
+                "reference": "a67cdbf85690e54a7b92fe91c297b20d2607c0b2",
                 "shasum": ""
             },
             "require": {
@@ -592,7 +659,7 @@
             },
             "require-dev": {
                 "ext-zlib": "*",
-                "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.8"
+                "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.10"
             },
             "suggest": {
                 "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
@@ -600,7 +667,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6-dev"
+                    "dev-master": "1.7-dev"
                 }
             },
             "autoload": {
@@ -637,33 +704,37 @@
                 "uri",
                 "url"
             ],
-            "time": "2020-05-17T20:05:25+00:00"
+            "support": {
+                "issues": "https://github.com/guzzle/psr7/issues",
+                "source": "https://github.com/guzzle/psr7/tree/1.x"
+            },
+            "time": "2021-03-15T11:15:53+00:00"
         },
         {
             "name": "php-http/discovery",
-            "version": "1.8.0",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "10d9019f393773345aedc0dc79e7fd678da874ee"
+                "reference": "788f72d64c43dc361e7fcc7464c3d947c64984a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/discovery/zipball/10d9019f393773345aedc0dc79e7fd678da874ee",
-                "reference": "10d9019f393773345aedc0dc79e7fd678da874ee",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/788f72d64c43dc361e7fcc7464c3d947c64984a7",
+                "reference": "788f72d64c43dc361e7fcc7464c3d947c64984a7",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "php": "^7.1 || ^8.0"
             },
             "conflict": {
                 "nyholm/psr7": "<1.0"
             },
             "require-dev": {
-                "akeneo/phpspec-skip-example-extension": "^4.0",
+                "graham-campbell/phpspec-skip-example-extension": "^5.0",
                 "php-http/httplug": "^1.0 || ^2.0",
                 "php-http/message-factory": "^1.0",
-                "phpspec/phpspec": "^5.1",
+                "phpspec/phpspec": "^5.1 || ^6.1",
                 "puli/composer-plugin": "1.0.0-beta10"
             },
             "suggest": {
@@ -673,7 +744,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.7-dev"
+                    "dev-master": "1.9-dev"
                 }
             },
             "autoload": {
@@ -702,7 +773,11 @@
                 "message",
                 "psr7"
             ],
-            "time": "2020-06-14T10:44:12+00:00"
+            "support": {
+                "issues": "https://github.com/php-http/discovery/issues",
+                "source": "https://github.com/php-http/discovery/tree/1.13.0"
+            },
+            "time": "2020-11-27T14:49:42+00:00"
         },
         {
             "name": "php-http/guzzle6-adapter",
@@ -762,6 +837,10 @@
                 "Guzzle",
                 "http"
             ],
+            "support": {
+                "issues": "https://github.com/php-http/guzzle6-adapter/issues",
+                "source": "https://github.com/php-http/guzzle6-adapter/tree/master"
+            },
             "time": "2016-05-10T06:13:32+00:00"
         },
         {
@@ -818,25 +897,29 @@
                 "client",
                 "http"
             ],
+            "support": {
+                "issues": "https://github.com/php-http/httplug/issues",
+                "source": "https://github.com/php-http/httplug/tree/master"
+            },
             "time": "2016-08-31T08:30:17+00:00"
         },
         {
             "name": "php-http/message",
-            "version": "dev-master",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/message.git",
-                "reference": "226ba9f7a4bddb6295b9ccff5a70b54013562ff0"
+                "reference": "fb0dbce7355cad4f4f6a225f537c34d013571f29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/message/zipball/226ba9f7a4bddb6295b9ccff5a70b54013562ff0",
-                "reference": "226ba9f7a4bddb6295b9ccff5a70b54013562ff0",
+                "url": "https://api.github.com/repos/php-http/message/zipball/fb0dbce7355cad4f4f6a225f537c34d013571f29",
+                "reference": "fb0dbce7355cad4f4f6a225f537c34d013571f29",
                 "shasum": ""
             },
             "require": {
-                "clue/stream-filter": "^1.4.1",
-                "php": "^7.1",
+                "clue/stream-filter": "^1.5",
+                "php": "^7.1 || ^8.0",
                 "php-http/message-factory": "^1.0.2",
                 "psr/http-message": "^1.0"
             },
@@ -844,26 +927,23 @@
                 "php-http/message-factory-implementation": "1.0"
             },
             "require-dev": {
-                "akeneo/phpspec-skip-example-extension": "^1.0",
-                "coduo/phpspec-data-provider-extension": "^1.0",
-                "ergebnis/composer-normalize": "^2.1",
+                "ergebnis/composer-normalize": "^2.6",
                 "ext-zlib": "*",
                 "guzzlehttp/psr7": "^1.0",
-                "henrikbjorn/phpspec-code-coverage": "^1.0",
-                "phpspec/phpspec": "^2.4",
-                "slim/slim": "^3.0",
-                "zendframework/zend-diactoros": "^1.0"
+                "laminas/laminas-diactoros": "^2.0",
+                "phpspec/phpspec": "^5.1 || ^6.3",
+                "slim/slim": "^3.0"
             },
             "suggest": {
                 "ext-zlib": "Used with compressor/decompressor streams",
                 "guzzlehttp/psr7": "Used with Guzzle PSR-7 Factories",
-                "slim/slim": "Used with Slim Framework PSR-7 implementation",
-                "zendframework/zend-diactoros": "Used with Diactoros Factories"
+                "laminas/laminas-diactoros": "Used with Diactoros Factories",
+                "slim/slim": "Used with Slim Framework PSR-7 implementation"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.10-dev"
                 }
             },
             "autoload": {
@@ -891,7 +971,11 @@
                 "message",
                 "psr-7"
             ],
-            "time": "2020-05-14T06:40:00+00:00"
+            "support": {
+                "issues": "https://github.com/php-http/message/issues",
+                "source": "https://github.com/php-http/message/tree/1.11.0"
+            },
+            "time": "2021-02-01T08:54:58+00:00"
         },
         {
             "name": "php-http/message-factory",
@@ -911,6 +995,7 @@
                 "php": ">=5.4",
                 "psr/http-message": "^1.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -941,6 +1026,10 @@
                 "stream",
                 "uri"
             ],
+            "support": {
+                "issues": "https://github.com/php-http/message-factory/issues",
+                "source": "https://github.com/php-http/message-factory/tree/master"
+            },
             "time": "2018-12-06T18:41:41+00:00"
         },
         {
@@ -949,21 +1038,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/promise.git",
-                "reference": "02ee67f2346b4eec3861afec741c656f5ff717ab"
+                "reference": "4c4c1f9b7289a2ec57cde7f1e9762a5789506f88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/promise/zipball/02ee67f2346b4eec3861afec741c656f5ff717ab",
-                "reference": "02ee67f2346b4eec3861afec741c656f5ff717ab",
+                "url": "https://api.github.com/repos/php-http/promise/zipball/4c4c1f9b7289a2ec57cde7f1e9762a5789506f88",
+                "reference": "4c4c1f9b7289a2ec57cde7f1e9762a5789506f88",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "henrikbjorn/phpspec-code-coverage": "^1.0",
-                "phpspec/phpspec": "^2.4"
+                "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
+                "phpspec/phpspec": "^5.1.2 || ^6.2"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -994,7 +1084,11 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2019-12-20T11:48:16+00:00"
+            "support": {
+                "issues": "https://github.com/php-http/promise/issues",
+                "source": "https://github.com/php-http/promise/tree/1.1.0"
+            },
+            "time": "2020-07-07T09:29:14+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1013,6 +1107,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1044,6 +1139,9 @@
                 "request",
                 "response"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/http-message/tree/master"
+            },
             "time": "2019-08-29T13:16:46+00:00"
         },
         {
@@ -1084,34 +1182,39 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
+            "support": {
+                "issues": "https://github.com/ralouphie/getallheaders/issues",
+                "source": "https://github.com/ralouphie/getallheaders/tree/develop"
+            },
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "dev-master",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
-                "reference": "a57f8161502549a742a63c09f0a604997bf47027"
+                "reference": "3709eb82b37c8d6eb23cf10ef19b27b3312d1632"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/a57f8161502549a742a63c09f0a604997bf47027",
-                "reference": "a57f8161502549a742a63c09f0a604997bf47027",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/3709eb82b37c8d6eb23cf10ef19b27b3312d1632",
+                "reference": "3709eb82b37c8d6eb23cf10ef19b27b3312d1632",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
-                "symfony/polyfill-mbstring": "^1.3",
+                "php": ">=7.1",
+                "symfony/polyfill-intl-normalizer": "^1.10",
                 "symfony/polyfill-php72": "^1.10"
             },
             "suggest": {
                 "ext-intl": "For best performance"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.17-dev"
+                    "dev-main": "1.22-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -1136,6 +1239,10 @@
                     "email": "laurent@bassin.info"
                 },
                 {
+                    "name": "Trevor Rowbotham",
+                    "email": "trevor.rowbotham@pm.me"
+                },
+                {
                     "name": "Symfony Community",
                     "homepage": "https://symfony.com/contributors"
                 }
@@ -1150,32 +1257,50 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-06-06T08:46:27+00:00"
+            "support": {
+                "source": "https://github.com/symfony/polyfill-intl-idn/tree/main"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-02-19T11:00:07+00:00"
         },
         {
-            "name": "symfony/polyfill-mbstring",
-            "version": "dev-master",
+            "name": "symfony/polyfill-intl-normalizer",
+            "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "7110338d81ce1cbc3e273136e4574663627037a7"
+                "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
+                "reference": "43a0283138253ed1d48d352ab6d0bdb3f809f248"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7110338d81ce1cbc3e273136e4574663627037a7",
-                "reference": "7110338d81ce1cbc3e273136e4574663627037a7",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/43a0283138253ed1d48d352ab6d0bdb3f809f248",
+                "reference": "43a0283138253ed1d48d352ab6d0bdb3f809f248",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
             "suggest": {
-                "ext-mbstring": "For best performance"
+                "ext-intl": "For best performance"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.17-dev"
+                    "dev-main": "1.22-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -1184,10 +1309,13 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
+                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
                 },
                 "files": [
                     "bootstrap.php"
+                ],
+                "classmap": [
+                    "Resources/stubs"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1204,38 +1332,57 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony polyfill for the Mbstring extension",
+            "description": "Symfony polyfill for intl's Normalizer class and related functions",
             "homepage": "https://symfony.com",
             "keywords": [
                 "compatibility",
-                "mbstring",
+                "intl",
+                "normalizer",
                 "polyfill",
                 "portable",
                 "shim"
             ],
-            "time": "2020-06-06T08:46:27+00:00"
+            "support": {
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.22.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-01-22T09:19:47+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
-            "version": "dev-master",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php72.git",
-                "reference": "3d9c70ff1b9f6bb618f9954b2f7f760220c2b38a"
+                "reference": "cc6e6f9b39fe8075b3dabfbaf5b5f645ae1340c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/3d9c70ff1b9f6bb618f9954b2f7f760220c2b38a",
-                "reference": "3d9c70ff1b9f6bb618f9954b2f7f760220c2b38a",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/cc6e6f9b39fe8075b3dabfbaf5b5f645ae1340c9",
+                "reference": "cc6e6f9b39fe8075b3dabfbaf5b5f645ae1340c9",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.17-dev"
+                    "dev-main": "1.22-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -1272,7 +1419,24 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-06-06T08:46:27+00:00"
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php72/tree/v1.22.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-01-07T16:49:33+00:00"
         },
         {
             "name": "wikimedia/civicrm-data-table-provider",
@@ -1297,6 +1461,7 @@
                 "php-http/message": "^1.0",
                 "phpunit/phpunit": "^6.1"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1334,24 +1499,24 @@
         },
         {
             "name": "willdurand/geocoder",
-            "version": "4.2.2",
+            "version": "4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/php-common.git",
-                "reference": "31bc59626c737871c3d5cc4dc9bc468a7668d0d1"
+                "reference": "3e86f5b10ab0cef1cf03f979fe8e34b6476daff0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/php-common/zipball/31bc59626c737871c3d5cc4dc9bc468a7668d0d1",
-                "reference": "31bc59626c737871c3d5cc4dc9bc468a7668d0d1",
+                "url": "https://api.github.com/repos/geocoder-php/php-common/zipball/3e86f5b10ab0cef1cf03f979fe8e34b6476daff0",
+                "reference": "3e86f5b10ab0cef1cf03f979fe8e34b6476daff0",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0"
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
                 "nyholm/nsa": "^1.1",
-                "phpunit/phpunit": "^6.5 || ^7.5",
+                "phpunit/phpunit": "^9.5",
                 "symfony/stopwatch": "~2.5"
             },
             "suggest": {
@@ -1389,19 +1554,19 @@
                 "geocoding",
                 "geoip"
             ],
-            "time": "2020-01-22T09:02:24+00:00"
+            "support": {
+                "source": "https://github.com/geocoder-php/php-common/tree/4.4.0"
+            },
+            "time": "2020-12-21T09:30:01+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "wikimedia/civicrm-data-table-provider": 20,
-        "geo6/geocoder-php-addok-provider": 20,
-        "geocoder-php/here-provider": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }

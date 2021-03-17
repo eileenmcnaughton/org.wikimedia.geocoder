@@ -9,7 +9,7 @@ use CRM_Geocoder_ExtensionUtil as E;
 class CRM_Geocoder_Upgrader_Base {
 
   /**
-   * @var varies, subclass of ttis
+   * @var CRM_Geocoder_Upgrader_Base, subclass of this
    */
   static $instance;
 
@@ -93,9 +93,10 @@ class CRM_Geocoder_Upgrader_Base {
   /**
    * Run a CustomData file
    *
-   * @param string $xml_file  the CustomData XML file path (absolute path)
+   * @param string $xml_file the CustomData XML file path (absolute path)
    *
    * @return bool
+   * @throws \CRM_Core_Exception
    */
   protected static function executeCustomDataFileByAbsPath($xml_file) {
     $import = new CRM_Utils_Migrate_Import();
@@ -109,6 +110,7 @@ class CRM_Geocoder_Upgrader_Base {
    * @param string $relativePath the SQL file path (relative to this extension's dir)
    *
    * @return bool
+   * @throws \CRM_Core_Exception
    */
   public function executeSqlFile($relativePath) {
     CRM_Utils_File::sourceSQLFile(
@@ -122,7 +124,9 @@ class CRM_Geocoder_Upgrader_Base {
    * @param string $tplFile
    *   The SQL file path (relative to this extension's dir).
    *   Ex: "sql/mydata.mysql.tpl".
+   *
    * @return bool
+   * @throws \CRM_Core_Exception
    */
   public function executeSqlTemplate($tplFile) {
     // Assign multilingual variable to Smarty.
@@ -143,6 +147,11 @@ class CRM_Geocoder_Upgrader_Base {
    * This is just a wrapper for CRM_Core_DAO::executeSql, but it
    * provides syntatic sugar for queueing several tasks that
    * run different queries
+   *
+   * @param $query
+   * @param array $params
+   *
+   * @return bool
    */
   public function executeSql($query, $params = array()) {
     // FIXME verify that we raise an exception on error
@@ -158,6 +167,8 @@ class CRM_Geocoder_Upgrader_Base {
    *
    * After passing the $funcName, you can also pass parameters that will go to
    * the function. Note that all params must be serializable.
+   * @param $title
+   * @return mixed
    */
   public function addTask($title) {
     $args = func_get_args();
@@ -193,6 +204,8 @@ class CRM_Geocoder_Upgrader_Base {
 
   /**
    * Add any pending revisions to the queue.
+   * @param \CRM_Queue_Queue $queue
+   * @throws \ReflectionException
    */
   public function enqueuePendingRevisions(CRM_Queue_Queue $queue) {
     $this->queue = $queue;
@@ -228,6 +241,7 @@ class CRM_Geocoder_Upgrader_Base {
    * Get a list of revisions.
    *
    * @return array(revisionNumbers) sorted numerically
+   * @throws \ReflectionException
    */
   public function getRevisions() {
     if (!is_array($this->revisions)) {

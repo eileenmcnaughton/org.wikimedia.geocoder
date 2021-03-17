@@ -77,6 +77,8 @@ class CRM_Utils_Geocode_Geocoder {
    *
    * @return bool
    *   true if we modified the address, false otherwise
+   * @throws \CiviCRM_API3_Exception
+   * @throws \Geocoder\Exception\Exception
    */
   public static function format(&$values, $stateName = FALSE) {
     if (!self::getClient()) {
@@ -314,7 +316,10 @@ class CRM_Utils_Geocode_Geocoder {
    * This is an address string.
    *
    * @param array $addressValues
+   * @param $geocoder
+   *
    * @return string
+   * @throws \CiviCRM_API3_Exception
    */
   protected static function getGeocodableAddress($addressValues, $geocoder) {
     $addressFields = self::getSendableFields($geocoder);
@@ -336,9 +341,11 @@ class CRM_Utils_Geocode_Geocoder {
 
   /**
    * Convert the state id to name
+   *
    * @param int|string $state the id
    *
    * @return string the state name
+   * @throws \CiviCRM_API3_Exception
    */
   protected static function getStateName($state) {
     if (!is_numeric($state)) {

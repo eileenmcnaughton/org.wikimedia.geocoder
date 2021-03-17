@@ -83,6 +83,8 @@ use CRM_Geocoder_ExtensionUtil as E;
  * (Delegated) Implements hook_civicrm_config().
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config
+ *
+ * @param null $config
  */
 function _geocoder_civix_civicrm_config(&$config = NULL) {
   static $configured = FALSE;
@@ -191,7 +193,7 @@ function _geocoder_civix_civicrm_disable() {
  * (Delegated) Implements hook_civicrm_upgrade().
  *
  * @param $op string, the type of operation being performed; 'check' or 'enqueue'
- * @param $queue CRM_Queue_Queue, (for 'enqueue') the modifiable list of pending up upgrade tasks
+ * @param \CRM_Queue_Queue|null $queue CRM_Queue_Queue, (for 'enqueue') the modifiable list of pending up upgrade tasks
  *
  * @return mixed
  *   based on op. for 'check', returns array(boolean) (TRUE if upgrades are pending)
@@ -263,6 +265,7 @@ function _geocoder_civix_find_files($dir, $pattern) {
  * Find any *.mgd.php files, merge their content, and return.
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_managed
+ * @param $entities
  */
 function _geocoder_civix_civicrm_managed(&$entities) {
   $mgdFiles = _geocoder_civix_find_files(__DIR__, '*.mgd.php');
@@ -289,6 +292,8 @@ function _geocoder_civix_civicrm_managed(&$entities) {
  * Note: This hook only runs in CiviCRM 4.4+.
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_caseTypes
+ * @param $caseTypes
+ * @throws \CRM_Core_Exception
  */
 function _geocoder_civix_civicrm_caseTypes(&$caseTypes) {
   if (!is_dir(__DIR__ . '/xml/case')) {
@@ -317,6 +322,7 @@ function _geocoder_civix_civicrm_caseTypes(&$caseTypes) {
  * Note: This hook only runs in CiviCRM 4.5+.
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_angularModules
+ * @param $angularModules
  */
 function _geocoder_civix_civicrm_angularModules(&$angularModules) {
   if (!is_dir(__DIR__ . '/ang')) {
@@ -338,6 +344,7 @@ function _geocoder_civix_civicrm_angularModules(&$angularModules) {
  * (Delegated) Implements hook_civicrm_themes().
  *
  * Find any and return any files matching "*.theme.php"
+ * @param $themes
  */
 function _geocoder_civix_civicrm_themes(&$themes) {
   $files = _geocoder_civix_glob(__DIR__ . '/*.theme.php');
@@ -412,6 +419,7 @@ function _geocoder_civix_insert_navigation_menu(&$menu, $path, $item) {
 
 /**
  * (Delegated) Implements hook_civicrm_navigationMenu().
+ * @param $nodes
  */
 function _geocoder_civix_navigationMenu(&$nodes) {
   if (!is_callable(['CRM_Core_BAO_Navigation', 'fixNavigationMenu'])) {
@@ -422,6 +430,7 @@ function _geocoder_civix_navigationMenu(&$nodes) {
 /**
  * Given a navigation menu, generate navIDs for any items which are
  * missing them.
+ * @param $nodes
  */
 function _geocoder_civix_fixNavigationMenu(&$nodes) {
   $maxNavID = 1;
@@ -457,6 +466,7 @@ function _geocoder_civix_fixNavigationMenuItems(&$nodes, &$maxNavID, $parentID) 
  * (Delegated) Implements hook_civicrm_alterSettingsFolders().
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterSettingsFolders
+ * @param null $metaDataFolders
  */
 function _geocoder_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   $settingsDir = __DIR__ . DIRECTORY_SEPARATOR . 'settings';
@@ -471,6 +481,7 @@ function _geocoder_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) 
  * Find any *.entityType.php files, merge their content, and return.
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_entityTypes
+ * @param $entityTypes
  */
 function _geocoder_civix_civicrm_entityTypes(&$entityTypes) {
   $entityTypes = array_merge($entityTypes, [

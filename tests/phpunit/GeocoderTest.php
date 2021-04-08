@@ -123,7 +123,7 @@ class GeocoderTest extends BaseTestClass {
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
     // Different systems seem to vary in their precision so let's round.
     $this->assertEquals('34.0781172375', round($address['geo_code_1'], 10));
-    $this->assertEquals('-118.352999971', round($address['geo_code_2'], 9));
+    $this->assertEquals('-118.35299997', round($address['geo_code_2'], 8));
   }
 
   /**

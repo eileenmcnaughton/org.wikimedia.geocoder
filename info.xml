@@ -27,4 +27,7 @@
   <civix>
     <namespace>CRM/Geocoder</namespace>
   </civix>
+  <classloader>
+    <psr4 prefix="Geocoder\Provider\" path="Provider"/>
+  </classloader>
 </extension>

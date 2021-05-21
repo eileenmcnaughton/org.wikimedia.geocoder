@@ -242,6 +242,7 @@ class CRM_Utils_Geocode_Geocoder {
         );
       }
     }
+    // xxx this ALWAYS exits here since $values is not defined.
     if (empty($values['id'])) {
       return;
     }
@@ -382,6 +383,9 @@ class CRM_Utils_Geocode_Geocoder {
 
       case 'city':
         return $firstResult->getLocality();
+
+      case 'postal_code':
+        return $firstResult->getPostalCode();
 
       case 'state_province_id':
         if (empty($values['country_id'])) {
@@ -552,25 +556,7 @@ class CRM_Utils_Geocode_Geocoder {
         $parameters[] = $keyFields[$parts[1]];
       }
     }
-    switch (count($parameters)) {
-      case 0:
-        return new $classString(self::$client);
-
-      case 1:
-        return new $classString(self::$client, $parameters[0]);
-
-      case 2:
-        return new $classString(self::$client, $parameters[0], $parameters[1]);
-
-      case 3:
-        return new $classString(self::$client, $parameters[0], $parameters[1], $parameters[2]);
-
-      case 4:
-        return new $classString(self::$client, $parameters[0], $parameters[1], $parameters[2], $parameters[3]);
-
-      case 5:
-        return new $classString(self::$client, $parameters[0], $parameters[1], $parameters[2], $parameters[3], $parameters[4]);
-    }
+    return new $classString(self::$client, ...$parameters);
   }
 
 }

@@ -7,6 +7,6 @@ CREATE TABLE `civicrm_open_postcode_geo_uk` (
   `longitude` decimal(9,6) DEFAULT NULL,
   `postcode_no_space` char(7) NOT NULL,
   UNIQUE KEY `postcode_no_space` (`postcode_no_space`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 INSERT INTO `civicrm_open_postcode_geo_uk` VALUES ('SW1A 0AA',51.499840,-0.124663,'SW1A0AA');
 

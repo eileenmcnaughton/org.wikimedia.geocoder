@@ -119,7 +119,7 @@ The data came from https://www.getthedata.com/open-postcode-geo
 > - Contains Royal Mail data (c) Royal Mail copyright and database right 2021
 > - Contains National Statistics data (c) Crown copyright and database right 2021
 
-### Downloading the data yourself
+### Downloading the data
 
 1. grab the .sql.gz file from https://www.getthedata.com/open-postcode-geo and unzip it.
 2. Edit the table name to `civicrm_open_postcode_geo_uk` (you can do this with `sed -i 's/open_postcode_geo/civicrm_open_postcode_geo_uk/g' /path/to/open_postcode_geo.sql`)
@@ -139,6 +139,8 @@ The data came from https://www.getthedata.com/open-postcode-geo
     DROP postcode_district,
     DROP postcode_sector,
     DROP outcode,
-    DROP incode;
+    DROP incode,
+    DROP KEY IF EXISTS postcode_no_space,
+    ADD PRIMARY KEY (postcode_no_space);
     ```
 5. Enable the UK Postcode geocoder. Not sure if there's a UI for this, but you can do it via the API (v3).

@@ -3,6 +3,7 @@
 require_once __DIR__ . '/BaseTestClass.php';
 
 use Civi\Test\CiviEnvBuilder;
+use Civi\Api4\Address;
 use CRM_Geocoder_ExtensionUtil as E;
 use Civi\Test\HeadlessInterface;
 use Civi\Test\HookInterface;
@@ -45,6 +46,9 @@ class GeocoderTest extends BaseTestClass {
       ->installMe(__DIR__)
       ->sqlFile(__DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
         . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'nz_sample_geoname_table.sql')
+      // Add the UK data (1 test row)
+      ->sqlFile(__DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
+        . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'open_postcode_geo-test.sql')
       ->apply();
   }
 
@@ -156,7 +160,8 @@ class GeocoderTest extends BaseTestClass {
   }
 
   /**
-   * Test that postal codes are prepended with zeros for minimum length.
+   * Test that postal codes are suitably formatted for the locale
+   * (ex. left-pad with 0s)
    *
    * This only applies to NZ & US at the moment but as we get validation for
    * more countries we can extend.
@@ -205,6 +210,61 @@ class GeocoderTest extends BaseTestClass {
     }
   }
 
+  public function testUK() {
+
+    // We need to enable the uk_postcode geocoder
+    $id = (int) civicrm_api3('Geocoder', 'getvalue', ['name' => 'uk_postcode', 'return' => 'id']);
+    if (!$id) {
+      throw new \Exception("Failed to find uk_postcode geocoder");
+    }
+    civicrm_api3('Geocoder', 'create', ['is_active' => 1, 'id' => $id]);
+
+    $this->configureGeoCoders([
+      'uk_postcode' => [
+        'name' => 'uk_postcode',
+        'is_active' => 1,
+        'weight' => 1,
+      ],
+    ]);
+
+    // Check that passing in a valid, known postcode yields the correct latitude.
+    $address = $this->callAPISuccess('Address', 'create', [
+      'postal_code'      => 'SW1A 0AA',
+      'location_type_id' => 'Home',
+      'contact_id'       => $this->ids['contact'][0],
+      'country_id'       => 'GB',
+    ]);
+    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+    $this->assertEquals('51.499840', $address['geo_code_1'] ?? NULL);
+    $this->assertEquals('SW1A 0AA', $address['postal_code'] ?? NULL);
+    Address::delete(FALSE)->addWhere('id', '=', $address['id']);
+
+    // Check that passing in a malformed but correct postcode without spaces
+    // (a) gets latitude and (b) gets corrected.
+    $address = $this->callAPISuccess('Address', 'create', [
+      'postal_code' => 'SW1A0AA',
+      'location_type_id' => 'Home',
+      'contact_id' => $this->ids['contact'][0],
+      'country_id' => 'GB',
+    ]);
+    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+    $this->assertEquals('51.499840', $address['geo_code_1'] ?? NULL);
+    $this->assertEquals('SW1A 0AA', $address['postal_code'] ?? NULL);
+    Address::delete(FALSE)->addWhere('id', '=', $address['id']);
+
+    // Check that passing in bad postcode/one we don't know does no damage.
+    $address = $this->callAPISuccess('Address', 'create', [
+      'postal_code' => 'ZEBRA678',
+      'location_type_id' => 'Home',
+      'contact_id' => $this->ids['contact'][0],
+      'country_id' => 'GB',
+    ]);
+    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+    // Check the postcode wasn't changed.
+    $this->assertEquals('ZEBRA678', $address['postal_code'] ?? NULL);
+    Address::delete(FALSE)->addWhere('id', '=', $address['id']);
+
+  }
   /**
    * Configure geocoders for testing.
    *

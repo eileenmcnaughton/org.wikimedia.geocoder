@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '2fc153eb9cbcbe5906f1232275999e32b96b5b0a',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '2fc153eb9cbcbe5906f1232275999e32b96b5b0a',
     ),
     'clue/stream-filter' => 
     array (
@@ -101,31 +101,17 @@
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '6.5.x-dev',
-      'version' => '6.5.9999999.9999999-dev',
-      'aliases' => 
+      'replaced' => 
       array (
+        0 => '^6.0',
       ),
-      'reference' => 'e8ed4dbf49b260ff129ff0e0400718c3269971bf',
-    ),
-    'guzzlehttp/promises' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-        0 => '1.4.x-dev',
-      ),
-      'reference' => '8e7d04f1f6450fef59366c399cfad4b9383aa30d',
     ),
     'guzzlehttp/psr7' => 
     array (
-      'pretty_version' => '1.x-dev',
-      'version' => '1.9999999.9999999.9999999-dev',
-      'aliases' => 
+      'replaced' => 
       array (
+        0 => '^1.6.1',
       ),
-      'reference' => 'a67cdbf85690e54a7b92fe91c297b20d2607c0b2',
     ),
     'php-http/async-client-implementation' => 
     array (
@@ -143,12 +129,12 @@
     ),
     'php-http/discovery' => 
     array (
-      'pretty_version' => '1.13.0',
-      'version' => '1.13.0.0',
+      'pretty_version' => '1.14.0',
+      'version' => '1.14.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '788f72d64c43dc361e7fcc7464c3d947c64984a7',
+      'reference' => '778f722e29250c1fac0bbdef2c122fa5d038c9eb',
     ),
     'php-http/guzzle6-adapter' => 
     array (
@@ -170,12 +156,12 @@
     ),
     'php-http/message' => 
     array (
-      'pretty_version' => '1.11.0',
-      'version' => '1.11.0.0',
+      'pretty_version' => '1.11.1',
+      'version' => '1.11.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'fb0dbce7355cad4f4f6a225f537c34d013571f29',
+      'reference' => '887734d9c515ad9a564f6581a682fff87a6253cc',
     ),
     'php-http/message-factory' => 
     array (
@@ -206,59 +192,17 @@
     ),
     'psr/http-message' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
+      'replaced' => 
       array (
-        0 => '1.0.x-dev',
+        0 => '^1.0.1',
       ),
-      'reference' => 'efd67d1dc14a7ef4fc4e518e7dee91c271d524e4',
     ),
     'psr/http-message-implementation' => 
     array (
-      'provided' => 
+      'replaced' => 
       array (
-        0 => '1.0',
+        0 => '^1.0',
       ),
-    ),
-    'ralouphie/getallheaders' => 
-    array (
-      'pretty_version' => '3.0.3',
-      'version' => '3.0.3.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '120b605dfeb996808c31b6477290a714d356e822',
-    ),
-    'symfony/polyfill-intl-idn' => 
-    array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
-      'aliases' => 
-      array (
-        0 => '1.22.x-dev',
-      ),
-      'reference' => '3709eb82b37c8d6eb23cf10ef19b27b3312d1632',
-    ),
-    'symfony/polyfill-intl-normalizer' => 
-    array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
-      'aliases' => 
-      array (
-        0 => '1.22.x-dev',
-      ),
-      'reference' => '43a0283138253ed1d48d352ab6d0bdb3f809f248',
-    ),
-    'symfony/polyfill-php72' => 
-    array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
-      'aliases' => 
-      array (
-        0 => '1.22.x-dev',
-      ),
-      'reference' => 'cc6e6f9b39fe8075b3dabfbaf5b5f645ae1340c9',
     ),
     'wikimedia/civicrm-data-table-provider' => 
     array (

@@ -25,24 +25,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '2fc153eb9cbcbe5906f1232275999e32b96b5b0a',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '2fc153eb9cbcbe5906f1232275999e32b96b5b0a',
     ),
     'clue/stream-filter' => 
     array (
@@ -149,7 +149,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'a67cdbf85690e54a7b92fe91c297b20d2607c0b2',
+      'reference' => 'dc960a912984efb74d0a90222870c72c87f10c91',
     ),
     'php-http/async-client-implementation' => 
     array (
@@ -167,12 +167,12 @@ private static $installed = array (
     ),
     'php-http/discovery' => 
     array (
-      'pretty_version' => '1.13.0',
-      'version' => '1.13.0.0',
+      'pretty_version' => '1.14.0',
+      'version' => '1.14.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '788f72d64c43dc361e7fcc7464c3d947c64984a7',
+      'reference' => '778f722e29250c1fac0bbdef2c122fa5d038c9eb',
     ),
     'php-http/guzzle6-adapter' => 
     array (
@@ -194,12 +194,12 @@ private static $installed = array (
     ),
     'php-http/message' => 
     array (
-      'pretty_version' => '1.11.0',
-      'version' => '1.11.0.0',
+      'pretty_version' => '1.11.1',
+      'version' => '1.11.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'fb0dbce7355cad4f4f6a225f537c34d013571f29',
+      'reference' => '887734d9c515ad9a564f6581a682fff87a6253cc',
     ),
     'php-http/message-factory' => 
     array (
@@ -260,9 +260,9 @@ private static $installed = array (
       'version' => 'dev-main',
       'aliases' => 
       array (
-        0 => '1.22.x-dev',
+        0 => '1.23.x-dev',
       ),
-      'reference' => '3709eb82b37c8d6eb23cf10ef19b27b3312d1632',
+      'reference' => '65bd267525e82759e7d8c4e8ceea44f398838e65',
     ),
     'symfony/polyfill-intl-normalizer' => 
     array (
@@ -270,9 +270,9 @@ private static $installed = array (
       'version' => 'dev-main',
       'aliases' => 
       array (
-        0 => '1.22.x-dev',
+        0 => '1.23.x-dev',
       ),
-      'reference' => '43a0283138253ed1d48d352ab6d0bdb3f809f248',
+      'reference' => '8590a5f561694770bdcd3f9b5c69dde6945028e8',
     ),
     'symfony/polyfill-php72' => 
     array (
@@ -280,9 +280,9 @@ private static $installed = array (
       'version' => 'dev-main',
       'aliases' => 
       array (
-        0 => '1.22.x-dev',
+        0 => '1.23.x-dev',
       ),
-      'reference' => 'cc6e6f9b39fe8075b3dabfbaf5b5f645ae1340c9',
+      'reference' => '9a142215a36a3888e30d0a9eeea9766764e96976',
     ),
     'wikimedia/civicrm-data-table-provider' => 
     array (

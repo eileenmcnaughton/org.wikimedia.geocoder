@@ -683,6 +683,26 @@ class UriTest extends BaseTest
         $uri = (new Uri)->withUserInfo('foo%40bar.com', 'pass%23word');
         self::assertSame('foo%40bar.com:pass%23word', $uri->getUserInfo());
     }
+
+    public function testInternationalizedDomainName()
+    {
+        $uri = new Uri('https://яндекс.рф');
+        self::assertSame('яндекс.рф', $uri->getHost());
+
+        $uri = new Uri('https://яндекAс.рф');
+        self::assertSame('яндекaс.рф', $uri->getHost());
+    }
+
+    public function testIPv6Host()
+    {
+        $uri = new Uri('https://[2a00:f48:1008::212:183:10]');
+        self::assertSame('[2a00:f48:1008::212:183:10]', $uri->getHost());
+
+        $uri = new Uri('http://[2a00:f48:1008::212:183:10]:56?foo=bar');
+        self::assertSame('[2a00:f48:1008::212:183:10]', $uri->getHost());
+        self::assertSame(56, $uri->getPort());
+        self::assertSame('foo=bar', $uri->getQuery());
+    }
 }
 
 class ExtendedUriTest extends Uri

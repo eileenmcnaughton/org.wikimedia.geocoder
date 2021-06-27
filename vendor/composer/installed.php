@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '2fc153eb9cbcbe5906f1232275999e32b96b5b0a',
+    'reference' => '1081c049147626771081cfc08bb94d819c494f14',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '2fc153eb9cbcbe5906f1232275999e32b96b5b0a',
+      'reference' => '1081c049147626771081cfc08bb94d819c494f14',
     ),
     'clue/stream-filter' => 
     array (
@@ -85,12 +85,12 @@
     ),
     'geocoder-php/nominatim-provider' => 
     array (
-      'pretty_version' => '5.4.0',
-      'version' => '5.4.0.0',
+      'pretty_version' => '5.5.0',
+      'version' => '5.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '80f39ce41bcd0e4d9de3e83c40caf92d089fecf2',
+      'reference' => 'db1d2b5c435b4be257f6698e9eea70ae549f360a',
     ),
     'geocoder-php/provider-implementation' => 
     array (
@@ -101,31 +101,17 @@
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '6.5.x-dev',
-      'version' => '6.5.9999999.9999999-dev',
-      'aliases' => 
+      'replaced' => 
       array (
+        0 => '^6.0',
       ),
-      'reference' => 'e8ed4dbf49b260ff129ff0e0400718c3269971bf',
-    ),
-    'guzzlehttp/promises' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-        0 => '1.4.x-dev',
-      ),
-      'reference' => '8e7d04f1f6450fef59366c399cfad4b9383aa30d',
     ),
     'guzzlehttp/psr7' => 
     array (
-      'pretty_version' => '1.x-dev',
-      'version' => '1.9999999.9999999.9999999-dev',
-      'aliases' => 
+      'replaced' => 
       array (
+        0 => '^1.6.1',
       ),
-      'reference' => 'dc960a912984efb74d0a90222870c72c87f10c91',
     ),
     'php-http/async-client-implementation' => 
     array (
@@ -206,59 +192,17 @@
     ),
     'psr/http-message' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
+      'replaced' => 
       array (
-        0 => '1.0.x-dev',
+        0 => '^1.0.1',
       ),
-      'reference' => 'efd67d1dc14a7ef4fc4e518e7dee91c271d524e4',
     ),
     'psr/http-message-implementation' => 
     array (
-      'provided' => 
+      'replaced' => 
       array (
-        0 => '1.0',
+        0 => '^1.0',
       ),
-    ),
-    'ralouphie/getallheaders' => 
-    array (
-      'pretty_version' => '3.0.3',
-      'version' => '3.0.3.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '120b605dfeb996808c31b6477290a714d356e822',
-    ),
-    'symfony/polyfill-intl-idn' => 
-    array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
-      'aliases' => 
-      array (
-        0 => '1.23.x-dev',
-      ),
-      'reference' => '65bd267525e82759e7d8c4e8ceea44f398838e65',
-    ),
-    'symfony/polyfill-intl-normalizer' => 
-    array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
-      'aliases' => 
-      array (
-        0 => '1.23.x-dev',
-      ),
-      'reference' => '8590a5f561694770bdcd3f9b5c69dde6945028e8',
-    ),
-    'symfony/polyfill-php72' => 
-    array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
-      'aliases' => 
-      array (
-        0 => '1.23.x-dev',
-      ),
-      'reference' => '9a142215a36a3888e30d0a9eeea9766764e96976',
     ),
     'wikimedia/civicrm-data-table-provider' => 
     array (

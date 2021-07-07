@@ -21,7 +21,7 @@ return [
       'datafill_response_fields' => ['city'],
     ],
     'metadata' => [
-      'argument' => ['tableName' => 'civicrm_geonames_lookup', 'columns' => ['city', 'latitude', 'longitude']],
+      'argument' => ['pass_through' => ['tableName' => 'civicrm_geonames_lookup', 'columns' => ['city', 'latitude', 'longitude']]],
       'is_enabled_on_install' => FALSE,
     ]
   ]

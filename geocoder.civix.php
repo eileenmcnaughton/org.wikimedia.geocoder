@@ -7,9 +7,9 @@
  * extension.
  */
 class CRM_Geocoder_ExtensionUtil {
-  const SHORT_NAME = "geocoder";
-  const LONG_NAME = "org.wikimedia.geocoder";
-  const CLASS_PREFIX = "CRM_Geocoder";
+  const SHORT_NAME = 'geocoder';
+  const LONG_NAME = 'org.wikimedia.geocoder';
+  const CLASS_PREFIX = 'CRM_Geocoder';
 
   /**
    * Translate a string using the extension's domain.
@@ -24,9 +24,9 @@ class CRM_Geocoder_ExtensionUtil {
    *   Translated text.
    * @see ts
    */
-  public static function ts($text, $params = array()) {
+  public static function ts($text, $params = []) {
     if (!array_key_exists('domain', $params)) {
-      $params['domain'] = array(self::LONG_NAME, NULL);
+      $params['domain'] = [self::LONG_NAME, NULL];
     }
     return ts($text, $params);
   }
@@ -82,7 +82,9 @@ use CRM_Geocoder_ExtensionUtil as E;
 /**
  * (Delegated) Implements hook_civicrm_config().
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config
+ *
+ * @param null $config
  */
 function _geocoder_civix_civicrm_config(&$config = NULL) {
   static $configured = FALSE;
@@ -100,7 +102,7 @@ function _geocoder_civix_civicrm_config(&$config = NULL) {
     array_unshift($template->template_dir, $extDir);
   }
   else {
-    $template->template_dir = array($extDir, $template->template_dir);
+    $template->template_dir = [$extDir, $template->template_dir];
   }
 
   $include_path = $extRoot . PATH_SEPARATOR . get_include_path();
@@ -112,7 +114,7 @@ function _geocoder_civix_civicrm_config(&$config = NULL) {
  *
  * @param $files array(string)
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_xmlMenu
  */
 function _geocoder_civix_civicrm_xmlMenu(&$files) {
   foreach (_geocoder_civix_glob(__DIR__ . '/xml/Menu/*.xml') as $file) {
@@ -123,7 +125,7 @@ function _geocoder_civix_civicrm_xmlMenu(&$files) {
 /**
  * Implements hook_civicrm_install().
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_install
  */
 function _geocoder_civix_civicrm_install() {
   _geocoder_civix_civicrm_config();
@@ -135,12 +137,12 @@ function _geocoder_civix_civicrm_install() {
 /**
  * Implements hook_civicrm_postInstall().
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_postInstall
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_postInstall
  */
 function _geocoder_civix_civicrm_postInstall() {
   _geocoder_civix_civicrm_config();
   if ($upgrader = _geocoder_civix_upgrader()) {
-    if (is_callable(array($upgrader, 'onPostInstall'))) {
+    if (is_callable([$upgrader, 'onPostInstall'])) {
       $upgrader->onPostInstall();
     }
   }
@@ -149,7 +151,7 @@ function _geocoder_civix_civicrm_postInstall() {
 /**
  * Implements hook_civicrm_uninstall().
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_uninstall
  */
 function _geocoder_civix_civicrm_uninstall() {
   _geocoder_civix_civicrm_config();
@@ -161,12 +163,12 @@ function _geocoder_civix_civicrm_uninstall() {
 /**
  * (Delegated) Implements hook_civicrm_enable().
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_enable
  */
 function _geocoder_civix_civicrm_enable() {
   _geocoder_civix_civicrm_config();
   if ($upgrader = _geocoder_civix_upgrader()) {
-    if (is_callable(array($upgrader, 'onEnable'))) {
+    if (is_callable([$upgrader, 'onEnable'])) {
       $upgrader->onEnable();
     }
   }
@@ -175,13 +177,13 @@ function _geocoder_civix_civicrm_enable() {
 /**
  * (Delegated) Implements hook_civicrm_disable().
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_disable
  * @return mixed
  */
 function _geocoder_civix_civicrm_disable() {
   _geocoder_civix_civicrm_config();
   if ($upgrader = _geocoder_civix_upgrader()) {
-    if (is_callable(array($upgrader, 'onDisable'))) {
+    if (is_callable([$upgrader, 'onDisable'])) {
       $upgrader->onDisable();
     }
   }
@@ -191,12 +193,13 @@ function _geocoder_civix_civicrm_disable() {
  * (Delegated) Implements hook_civicrm_upgrade().
  *
  * @param $op string, the type of operation being performed; 'check' or 'enqueue'
- * @param $queue CRM_Queue_Queue, (for 'enqueue') the modifiable list of pending up upgrade tasks
+ * @param \CRM_Queue_Queue|null $queue CRM_Queue_Queue, (for 'enqueue') the modifiable list of pending up upgrade tasks
  *
- * @return mixed  based on op. for 'check', returns array(boolean) (TRUE if upgrades are pending)
- *                for 'enqueue', returns void
+ * @return mixed
+ *   based on op. for 'check', returns array(boolean) (TRUE if upgrades are pending)
+ *   for 'enqueue', returns void
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_upgrade
  */
 function _geocoder_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
   if ($upgrader = _geocoder_civix_upgrader()) {
@@ -217,22 +220,23 @@ function _geocoder_civix_upgrader() {
 }
 
 /**
- * Search directory tree for files which match a glob pattern
+ * Search directory tree for files which match a glob pattern.
  *
  * Note: Dot-directories (like "..", ".git", or ".svn") will be ignored.
  * Note: In Civi 4.3+, delegate to CRM_Utils_File::findFiles()
  *
- * @param $dir string, base dir
- * @param $pattern string, glob pattern, eg "*.txt"
- * @return array(string)
+ * @param string $dir base dir
+ * @param string $pattern , glob pattern, eg "*.txt"
+ *
+ * @return array
  */
 function _geocoder_civix_find_files($dir, $pattern) {
-  if (is_callable(array('CRM_Utils_File', 'findFiles'))) {
+  if (is_callable(['CRM_Utils_File', 'findFiles'])) {
     return CRM_Utils_File::findFiles($dir, $pattern);
   }
 
-  $todos = array($dir);
-  $result = array();
+  $todos = [$dir];
+  $result = [];
   while (!empty($todos)) {
     $subdir = array_shift($todos);
     foreach (_geocoder_civix_glob("$subdir/$pattern") as $match) {
@@ -243,7 +247,7 @@ function _geocoder_civix_find_files($dir, $pattern) {
     if ($dh = opendir($subdir)) {
       while (FALSE !== ($entry = readdir($dh))) {
         $path = $subdir . DIRECTORY_SEPARATOR . $entry;
-        if ($entry{0} == '.') {
+        if ($entry[0] == '.') {
         }
         elseif (is_dir($path)) {
           $todos[] = $path;
@@ -254,25 +258,28 @@ function _geocoder_civix_find_files($dir, $pattern) {
   }
   return $result;
 }
+
 /**
  * (Delegated) Implements hook_civicrm_managed().
  *
  * Find any *.mgd.php files, merge their content, and return.
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_managed
+ * @param $entities
  */
 function _geocoder_civix_civicrm_managed(&$entities) {
   $mgdFiles = _geocoder_civix_find_files(__DIR__, '*.mgd.php');
+  sort($mgdFiles);
   foreach ($mgdFiles as $file) {
     $es = include $file;
     foreach ($es as $e) {
       if (empty($e['module'])) {
         $e['module'] = E::LONG_NAME;
       }
-      $entities[] = $e;
       if (empty($e['params']['version'])) {
         $e['params']['version'] = '3';
       }
+      $entities[] = $e;
     }
   }
 }
@@ -284,7 +291,9 @@ function _geocoder_civix_civicrm_managed(&$entities) {
  *
  * Note: This hook only runs in CiviCRM 4.4+.
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_caseTypes
+ * @param $caseTypes
+ * @throws \CRM_Core_Exception
  */
 function _geocoder_civix_civicrm_caseTypes(&$caseTypes) {
   if (!is_dir(__DIR__ . '/xml/case')) {
@@ -295,14 +304,13 @@ function _geocoder_civix_civicrm_caseTypes(&$caseTypes) {
     $name = preg_replace('/\.xml$/', '', basename($file));
     if ($name != CRM_Case_XMLProcessor::mungeCaseType($name)) {
       $errorMessage = sprintf("Case-type file name is malformed (%s vs %s)", $name, CRM_Case_XMLProcessor::mungeCaseType($name));
-      CRM_Core_Error::fatal($errorMessage);
-      // throw new CRM_Core_Exception($errorMessage);
+      throw new CRM_Core_Exception($errorMessage);
     }
-    $caseTypes[$name] = array(
+    $caseTypes[$name] = [
       'module' => E::LONG_NAME,
       'name' => $name,
       'file' => $file,
-    );
+    ];
   }
 }
 
@@ -313,7 +321,8 @@ function _geocoder_civix_civicrm_caseTypes(&$caseTypes) {
  *
  * Note: This hook only runs in CiviCRM 4.5+.
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_angularModules
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_angularModules
+ * @param $angularModules
  */
 function _geocoder_civix_civicrm_angularModules(&$angularModules) {
   if (!is_dir(__DIR__ . '/ang')) {
@@ -332,6 +341,26 @@ function _geocoder_civix_civicrm_angularModules(&$angularModules) {
 }
 
 /**
+ * (Delegated) Implements hook_civicrm_themes().
+ *
+ * Find any and return any files matching "*.theme.php"
+ * @param $themes
+ */
+function _geocoder_civix_civicrm_themes(&$themes) {
+  $files = _geocoder_civix_glob(__DIR__ . '/*.theme.php');
+  foreach ($files as $file) {
+    $themeMeta = include $file;
+    if (empty($themeMeta['name'])) {
+      $themeMeta['name'] = preg_replace(':\.theme\.php$:', '', basename($file));
+    }
+    if (empty($themeMeta['ext'])) {
+      $themeMeta['ext'] = E::LONG_NAME;
+    }
+    $themes[$themeMeta['name']] = $themeMeta;
+  }
+}
+
+/**
  * Glob wrapper which is guaranteed to return an array.
  *
  * The documentation for glob() says, "On some systems it is impossible to
@@ -341,29 +370,34 @@ function _geocoder_civix_civicrm_angularModules(&$angularModules) {
  *
  * @link http://php.net/glob
  * @param string $pattern
- * @return array, possibly empty
+ *
+ * @return array
  */
 function _geocoder_civix_glob($pattern) {
   $result = glob($pattern);
-  return is_array($result) ? $result : array();
+  return is_array($result) ? $result : [];
 }
 
 /**
  * Inserts a navigation menu item at a given place in the hierarchy.
  *
  * @param array $menu - menu hierarchy
- * @param string $path - path where insertion should happen (ie. Administer/System Settings)
- * @param array $item - menu you need to insert (parent/child attributes will be filled for you)
+ * @param string $path - path to parent of this item, e.g. 'my_extension/submenu'
+ *    'Mailing', or 'Administer/System Settings'
+ * @param array $item - the item to insert (parent/child attributes will be
+ *    filled for you)
+ *
+ * @return bool
  */
 function _geocoder_civix_insert_navigation_menu(&$menu, $path, $item) {
   // If we are done going down the path, insert menu
   if (empty($path)) {
-    $menu[] = array(
-      'attributes' => array_merge(array(
+    $menu[] = [
+      'attributes' => array_merge([
         'label'      => CRM_Utils_Array::value('name', $item),
         'active'     => 1,
-      ), $item),
-    );
+      ], $item),
+    ];
     return TRUE;
   }
   else {
@@ -374,9 +408,9 @@ function _geocoder_civix_insert_navigation_menu(&$menu, $path, $item) {
     foreach ($menu as $key => &$entry) {
       if ($entry['attributes']['name'] == $first) {
         if (!isset($entry['child'])) {
-          $entry['child'] = array();
+          $entry['child'] = [];
         }
-        $found = _geocoder_civix_insert_navigation_menu($entry['child'], implode('/', $path), $item, $key);
+        $found = _geocoder_civix_insert_navigation_menu($entry['child'], implode('/', $path), $item);
       }
     }
     return $found;
@@ -385,9 +419,10 @@ function _geocoder_civix_insert_navigation_menu(&$menu, $path, $item) {
 
 /**
  * (Delegated) Implements hook_civicrm_navigationMenu().
+ * @param $nodes
  */
 function _geocoder_civix_navigationMenu(&$nodes) {
-  if (!is_callable(array('CRM_Core_BAO_Navigation', 'fixNavigationMenu'))) {
+  if (!is_callable(['CRM_Core_BAO_Navigation', 'fixNavigationMenu'])) {
     _geocoder_civix_fixNavigationMenu($nodes);
   }
 }
@@ -395,6 +430,7 @@ function _geocoder_civix_navigationMenu(&$nodes) {
 /**
  * Given a navigation menu, generate navIDs for any items which are
  * missing them.
+ * @param $nodes
  */
 function _geocoder_civix_fixNavigationMenu(&$nodes) {
   $maxNavID = 1;
@@ -429,17 +465,30 @@ function _geocoder_civix_fixNavigationMenuItems(&$nodes, &$maxNavID, $parentID) 
 /**
  * (Delegated) Implements hook_civicrm_alterSettingsFolders().
  *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_alterSettingsFolders
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterSettingsFolders
+ * @param null $metaDataFolders
  */
 function _geocoder_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
-  static $configured = FALSE;
-  if ($configured) {
-    return;
-  }
-  $configured = TRUE;
-
   $settingsDir = __DIR__ . DIRECTORY_SEPARATOR . 'settings';
-  if (is_dir($settingsDir) && !in_array($settingsDir, $metaDataFolders)) {
+  if (!in_array($settingsDir, $metaDataFolders) && is_dir($settingsDir)) {
     $metaDataFolders[] = $settingsDir;
   }
+}
+
+/**
+ * (Delegated) Implements hook_civicrm_entityTypes().
+ *
+ * Find any *.entityType.php files, merge their content, and return.
+ *
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_entityTypes
+ * @param $entityTypes
+ */
+function _geocoder_civix_civicrm_entityTypes(&$entityTypes) {
+  $entityTypes = array_merge($entityTypes, [
+    'CRM_Geocoder_DAO_Geocoder' => [
+      'name' => 'Geocoder',
+      'class' => 'CRM_Geocoder_DAO_Geocoder',
+      'table' => 'civicrm_geocoder',
+    ],
+  ]);
 }

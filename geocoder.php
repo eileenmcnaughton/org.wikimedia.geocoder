@@ -3,7 +3,7 @@
 require_once 'geocoder.civix.php';
 
 // checking if the file exists allows compilation elsewhere if desired.
-if (file_exists( __DIR__ . '/vendor/autoload.php')) {
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
   require_once __DIR__ . '/vendor/autoload.php';
 }
 
@@ -160,11 +160,11 @@ function geocoder_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  *   Registered entity types.
  */
 function geocoder_civicrm_entityTypes(&$entityTypes) {
-  $entityTypes['CRM_Geocoder_DAO_Geocoder'] = array(
+  $entityTypes['CRM_Geocoder_DAO_Geocoder'] = [
     'name' => 'Geocoder',
     'class' => 'CRM_Geocoder_DAO_Geocoder',
     'table' => 'civicrm_geocoder',
-  );
+  ];
 }
 
 /**

@@ -20,10 +20,10 @@ return [
       'datafill_response_fields' => ["city", "state_province_id"],
     ],
     'metadata' => [
-      'argument' => [
+      'argument' => ['pass_through' => [
         'tableName' => 'civicrm_geocoder_zip_dataset',
         'columns' => ['city', 'state_code', 'latitude', 'longitude', 'timezone'],
-      ],
+      ]],
       'is_enabled_on_install' => TRUE,
     ]
   ]

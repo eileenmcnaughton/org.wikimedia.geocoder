@@ -14,7 +14,14 @@
         "geocoder-php/nominatim-provider": "^5.1",
         "geocoder-php/mapquest-provider": "^4",
         "geocoder-php/google-maps-provider": "^4.4",
-        "wikimedia/civicrm-data-table-provider": "@dev"
-    }
-
+        "wikimedia/civicrm-data-table-provider": "^4",
+        "geo6/geocoder-php-addok-provider": "^1",
+        "geocoder-php/here-provider": "^0.6"
+    },
+  "replace": {
+    "guzzlehttp/guzzle": "^6.0",
+    "guzzlehttp/psr7": "^1.6.1",
+    "psr/http-message-implementation": "^1.0",
+    "psr/http-message": "^1.0.1"
+  }
 }

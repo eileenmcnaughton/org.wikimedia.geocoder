@@ -18,7 +18,7 @@ return [
       'url' => 'https://nominatim.openstreetmap.org/search',
     ],
     'metadata' => [
-      'argument' => 'geocoder.url',
+      'argument' => ['geocoder.url', 'server.User-Agent:CiviCRM', 'server.Referrer'],
       'required_config_fields' => ['url'],
       'is_enabled_on_install' => TRUE,
     ],

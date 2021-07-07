@@ -4,22 +4,14 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8
+class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
 {
     public static $files = array (
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
         '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'P' => 
-        array (
-            'Psr\\Http\\Message\\' => 17,
-        ),
         'H' => 
         array (
             'Http\\Promise\\' => 13,
@@ -30,14 +22,13 @@ class ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8
         ),
         'G' => 
         array (
-            'GuzzleHttp\\Psr7\\' => 16,
-            'GuzzleHttp\\Promise\\' => 19,
-            'GuzzleHttp\\' => 11,
             'Geocoder\\Provider\\Nominatim\\' => 28,
             'Geocoder\\Provider\\MapQuest\\' => 27,
+            'Geocoder\\Provider\\Here\\' => 23,
             'Geocoder\\Provider\\GoogleMaps\\' => 29,
             'Geocoder\\Provider\\FreeGeoIp\\' => 28,
             'Geocoder\\Provider\\DataTable\\' => 28,
+            'Geocoder\\Provider\\Addok\\' => 24,
             'Geocoder\\Http\\' => 14,
             'Geocoder\\' => 9,
         ),
@@ -48,10 +39,6 @@ class ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8
     );
 
     public static $prefixDirsPsr4 = array (
-        'Psr\\Http\\Message\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-        ),
         'Http\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-http/promise/src',
@@ -73,18 +60,6 @@ class ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8
         array (
             0 => __DIR__ . '/..' . '/php-http/guzzle6-adapter/src',
         ),
-        'GuzzleHttp\\Psr7\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
-        ),
-        'GuzzleHttp\\Promise\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
-        ),
-        'GuzzleHttp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
-        ),
         'Geocoder\\Provider\\Nominatim\\' => 
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/nominatim-provider',
@@ -92,6 +67,10 @@ class ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8
         'Geocoder\\Provider\\MapQuest\\' => 
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/mapquest-provider',
+        ),
+        'Geocoder\\Provider\\Here\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geocoder-php/here-provider',
         ),
         'Geocoder\\Provider\\GoogleMaps\\' => 
         array (
@@ -104,6 +83,10 @@ class ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8
         'Geocoder\\Provider\\DataTable\\' => 
         array (
             0 => __DIR__ . '/..' . '/wikimedia/civicrm-data-table-provider',
+        ),
+        'Geocoder\\Provider\\Addok\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geo6/geocoder-php-addok-provider',
         ),
         'Geocoder\\Http\\' => 
         array (
@@ -119,11 +102,16 @@ class ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8
         ),
     );
 
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit85ecc08635ef88f540efa0e8f4c34dc8::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a::$classMap;
 
         }, null, ClassLoader::class);
     }

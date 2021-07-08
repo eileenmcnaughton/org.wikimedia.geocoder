@@ -57,6 +57,7 @@ final class DEPlzProvider extends AbstractProvider implements Provider
       $builder = new AddressBuilder($this->getName());
       if ($result->fetch()) {
         $builder->setCoordinates($result->latitude, $result->longitude);
+        $builder->setLocality($result->city);
         $builder->setPostalCode($result->postcode);
         return new AddressCollection([$builder->build()]);
       }

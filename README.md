@@ -22,6 +22,7 @@ already have google configured as your provider. However the Terms of service su
 - GeoName DB geocoder - this requires that you get a sample dataset from geonames. I will require a developer or similar to tweak the download into an sql table. There is a sample dataset for New Zealand in the install directory & if loaded it will work for New Zealand.
 - Here (not enabled by default)
 - Addok (not enabled by default)
+- German Postalcode - see below
 
 Features
 
@@ -144,3 +145,26 @@ The data came from https://www.getthedata.com/open-postcode-geo
     ADD PRIMARY KEY (postcode_no_space);
     ```
 5. Enable the UK Postcode geocoder. Not sure if there's a UI for this, but you can do it via the API (v3).
+
+
+## German Postalcode geocoder
+
+- This *only* goes on postcodes which it looks up from a local database (so no online service, no fees, limits or latency).
+
+- It can handle *and correct* postcodes with spaces missing/in wrong places.
+
+- If the address contains a valid postal code ("Postleitzahl"), the geocodes, the city, and the federal state is filled (if empty)
+
+- This Geocoding provider is not installed by default.
+
+### Installation
+
+1. The postcode-geo data is located in: org.wikimedia.geocoder/sql/PLZ.de.sql
+2. Import that file with the data into your CiviCRM database. This will create a new table named "civicrm_geocoder_plzde_dataset". If that table existed before, it will be dropped.
+3. Enable the UK Postcode geocoder by adding a new line to the table "civicrm_geocoder", that should look like this:
+```+----+--------+-------------------+---------------+-----------+--------+---------+------+-----------------+-----------------------------+--------------------------+---------------------+--------------------+-----------------+
+| id | name   | title             | class         | is_active | weight | api_key | url  | required_fields | retained_response_fields    | datafill_response_fields | threshold_standdown | threshold_last_hit | valid_countries |
++----+--------+-------------------+---------------+-----------+--------+---------+------+-----------------+-----------------------------+--------------------------+---------------------+--------------------+-----------------+
+| 13 | de_plz | DE Postleitzahlen | DEPlzProvider |         1 |      1 | NULL    | NULL | ["postal_code"] | ["geo_code_1","geo_code_2"] | ["city"]                 |                  60 | NULL               | [1082]          |
++----+--------+-------------------+---------------+-----------+--------+---------+------+-----------------+-----------------------------+--------------------------+---------------------+--------------------+-----------------+```
+

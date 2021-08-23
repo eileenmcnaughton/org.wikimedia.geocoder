@@ -444,17 +444,17 @@
         },
         {
             "name": "geocoder-php/nominatim-provider",
-            "version": "5.5.0",
-            "version_normalized": "5.5.0.0",
+            "version": "5.5.1",
+            "version_normalized": "5.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/nominatim-provider.git",
-                "reference": "db1d2b5c435b4be257f6698e9eea70ae549f360a"
+                "reference": "79187d08e7d70ddd9c40c6e58031b69fece9d7c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/db1d2b5c435b4be257f6698e9eea70ae549f360a",
-                "reference": "db1d2b5c435b4be257f6698e9eea70ae549f360a",
+                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/79187d08e7d70ddd9c40c6e58031b69fece9d7c8",
+                "reference": "79187d08e7d70ddd9c40c6e58031b69fece9d7c8",
                 "shasum": ""
             },
             "require": {
@@ -471,7 +471,7 @@
                 "php-http/message": "^1.0",
                 "phpunit/phpunit": "^9.5"
             },
-            "time": "2021-06-20T14:14:20+00:00",
+            "time": "2021-08-20T15:18:10+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -499,9 +499,6 @@
             ],
             "description": "Geocoder Nominatim adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
-            "support": {
-                "source": "https://github.com/geocoder-php/nominatim-provider/tree/5.5.0"
-            },
             "install-path": "../geocoder-php/nominatim-provider"
         },
         {
@@ -707,17 +704,17 @@
         },
         {
             "name": "php-http/message",
-            "version": "1.11.1",
-            "version_normalized": "1.11.1.0",
+            "version": "1.11.2",
+            "version_normalized": "1.11.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/message.git",
-                "reference": "887734d9c515ad9a564f6581a682fff87a6253cc"
+                "reference": "295c82867d07261f2fa4b3a26677519fc6f7f5f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/message/zipball/887734d9c515ad9a564f6581a682fff87a6253cc",
-                "reference": "887734d9c515ad9a564f6581a682fff87a6253cc",
+                "url": "https://api.github.com/repos/php-http/message/zipball/295c82867d07261f2fa4b3a26677519fc6f7f5f6",
+                "reference": "295c82867d07261f2fa4b3a26677519fc6f7f5f6",
                 "shasum": ""
             },
             "require": {
@@ -743,7 +740,7 @@
                 "laminas/laminas-diactoros": "Used with Diactoros Factories",
                 "slim/slim": "Used with Slim Framework PSR-7 implementation"
             },
-            "time": "2021-05-24T18:11:08+00:00",
+            "time": "2021-08-03T11:52:11+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -776,10 +773,6 @@
                 "message",
                 "psr-7"
             ],
-            "support": {
-                "issues": "https://github.com/php-http/message/issues",
-                "source": "https://github.com/php-http/message/tree/1.11.1"
-            },
             "install-path": "../php-http/message"
         },
         {
@@ -802,7 +795,6 @@
                 "psr/http-message": "^1.0"
             },
             "time": "2018-12-06T18:41:41+00:00",
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -863,7 +855,6 @@
                 "phpspec/phpspec": "^5.1.2 || ^6.2"
             },
             "time": "2020-07-07T09:29:14+00:00",
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -926,7 +917,6 @@
                 "phpunit/phpunit": "^6.1"
             },
             "time": "2019-07-31T02:22:21+00:00",
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {

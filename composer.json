@@ -7,7 +7,6 @@
         }
       ],
       "require": {
-        "willdurand/geocoder": "~4",
         "php-http/guzzle6-adapter": "^1.1",
         "geocoder-php/free-geoip-provider": "^4.1",
         "php-http/message": "^1.6",

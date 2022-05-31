@@ -955,17 +955,17 @@
         },
         {
             "name": "willdurand/geocoder",
-            "version": "4.4.0",
-            "version_normalized": "4.4.0.0",
+            "version": "4.5.0",
+            "version_normalized": "4.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/php-common.git",
-                "reference": "3e86f5b10ab0cef1cf03f979fe8e34b6476daff0"
+                "reference": "b9a27dfbc06d012f4ff52b890fe52789e4978769"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/php-common/zipball/3e86f5b10ab0cef1cf03f979fe8e34b6476daff0",
-                "reference": "3e86f5b10ab0cef1cf03f979fe8e34b6476daff0",
+                "url": "https://api.github.com/repos/geocoder-php/php-common/zipball/b9a27dfbc06d012f4ff52b890fe52789e4978769",
+                "reference": "b9a27dfbc06d012f4ff52b890fe52789e4978769",
                 "shasum": ""
             },
             "require": {
@@ -979,7 +979,7 @@
             "suggest": {
                 "symfony/stopwatch": "If you want to use the TimedGeocoder"
             },
-            "time": "2020-12-21T09:30:01+00:00",
+            "time": "2022-01-07T14:44:30+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1014,7 +1014,7 @@
                 "geoip"
             ],
             "support": {
-                "source": "https://github.com/geocoder-php/php-common/tree/4.4.0"
+                "source": "https://github.com/geocoder-php/php-common/tree/4.5.0"
             },
             "install-path": "../willdurand/geocoder"
         }

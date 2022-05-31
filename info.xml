@@ -26,8 +26,12 @@
   </comments>
   <civix>
     <namespace>CRM/Geocoder</namespace>
+    <format>22.05.2</format>
   </civix>
   <classloader>
     <psr4 prefix="Geocoder\Provider\" path="Provider"/>
   </classloader>
+  <mixins>
+    <mixin>ang-php@1.0.0</mixin>
+  </mixins>
 </extension>

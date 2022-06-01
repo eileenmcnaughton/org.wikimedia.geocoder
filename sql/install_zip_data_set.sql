@@ -1496,7 +1496,9 @@ CREATE TABLE `civicrm_geocoder_zip_dataset` (
   ('04087','Waterboro','ME',43.56066,-70.75497,'UTC-5',1),
   ('04088','Waterford','ME',44.190761,-70.70757,'UTC-5',1),
   ('04090','Wells','ME',43.320211,-70.61178,'UTC-5',1),
-  ('04091','West Baldwin','ME',43.824885,-70.75038,'UTC-5',1),
+  ('04091','West Baldwin','ME',43.824885,-70.75038,'UTC-5',1);
+
+INSERT INTO civicrm_geocoder_zip_dataset VALUES
   ('04092','Westbrook','ME',43.682148,-70.35823,'UTC-5',1),
   ('04093','West Buxton','ME',43.660386,-70.57492,'UTC-5',1),
   ('04094','West Kennebunk','ME',43.406101,-70.573255,'UTC-5',1),
@@ -1995,7 +1997,9 @@ CREATE TABLE `civicrm_geocoder_zip_dataset` (
   ('05146','Grafton','VT',43.186044,-72.61661,'UTC-5',1),
   ('05148','Londonderry','VT',43.238921,-72.80106,'UTC-5',1),
   ('05149','Ludlow','VT',43.416827,-72.70416,'UTC-5',1),
-  ('05150','North Springfield','VT',43.334787,-72.53053,'UTC-5',1),
+  ('05150','North Springfield','VT',43.334787,-72.53053,'UTC-5',1);
+
+INSERT INTO civicrm_geocoder_zip_dataset VALUES
   ('05151','Perkinsville','VT',43.380411,-72.49397,'UTC-5',1),
   ('05152','Peru','VT',43.24283,-72.88309,'UTC-5',1),
   ('05153','Proctorsville','VT',43.439302,-72.63738,'UTC-5',1),
@@ -4997,7 +5001,9 @@ CREATE TABLE `civicrm_geocoder_zip_dataset` (
   ('13407','Mohawk','NY',42.970099,-74.96051,'UTC-5',1),
   ('13408','Morrisville','NY',42.923334,-75.66314,'UTC-5',1),
   ('13409','Munnsville','NY',42.967906,-75.59457,'UTC-5',1),
-  ('13410','Nelliston','NY',42.937863,-74.611711,'UTC-5',1),
+  ('13410','Nelliston','NY',42.937863,-74.611711,'UTC-5',1);
+
+INSERT INTO civicrm_geocoder_zip_dataset VALUES
   ('13411','New Berlin','NY',42.626177,-75.31502,'UTC-5',1),
   ('13413','New Hartford','NY',43.067169,-75.28767,'UTC-5',1),
   ('13415','New Lisbon','NY',42.590419,-75.195695,'UTC-5',1),
@@ -9995,7 +10001,9 @@ CREATE TABLE `civicrm_geocoder_zip_dataset` (
   ('24105','Indian Valley','VA',36.901524,-80.5936,'UTC-5',1),
   ('24111','McCoy','VA',37.174227,-80.395698,'UTC-5',1),
   ('24112','Martinsville','VA',36.696264,-79.86879,'UTC-5',1),
-  ('24113','Martinsville','VA',36.679571,-79.865168,'UTC-5',1),
+  ('24113','Martinsville','VA',36.679571,-79.865168,'UTC-5',1);
+
+INSERT INTO civicrm_geocoder_zip_dataset VALUES
   ('24114','Martinsville','VA',36.679571,-79.865168,'UTC-5',1),
   ('24115','Martinsville','VA',36.679571,-79.865168,'UTC-5',1),
   ('24120','Meadows Of Dan','VA',36.720001,-80.41975,'UTC-5',1),
@@ -19989,7 +19997,9 @@ CREATE TABLE `civicrm_geocoder_zip_dataset` (
   ('45660','Peebles','OH',38.987596,-83.37752,'UTC-5',1),
   ('45661','Piketon','OH',39.046079,-83.06459,'UTC-5',1),
   ('45662','Portsmouth','OH',38.762824,-82.94294,'UTC-5',1),
-  ('45663','West Portsmouth','OH',38.743244,-83.05954,'UTC-5',1),
+  ('45663','West Portsmouth','OH',38.743244,-83.05954,'UTC-5',1);
+
+INSERT INTO civicrm_geocoder_zip_dataset VALUES
   ('45669','Proctorville','OH',38.468003,-82.35457,'UTC-5',1),
   ('45670','Wilkesville','OH',39.118117,-82.381351,'UTC-5',1),
   ('45671','Rarden','OH',38.947693,-83.24361,'UTC-5',1),
@@ -24989,7 +24999,9 @@ CREATE TABLE `civicrm_geocoder_zip_dataset` (
   ('56051','Kiester','MN',43.535709,-93.71308,'UTC-6',1),
   ('56052','Kilkenny','MN',44.320314,-93.57071,'UTC-6',1),
   ('56054','Lafayette','MN',44.431776,-94.37742,'UTC-6',1),
-  ('56055','Lake Crystal','MN',44.128212,-94.23883,'UTC-6',1),
+  ('56055','Lake Crystal','MN',44.128212,-94.23883,'UTC-6',1);
+
+INSERT INTO civicrm_geocoder_zip_dataset VALUES
   ('56056','La Salle','MN',44.070204,-94.57143,'UTC-6',1),
   ('56057','Le Center','MN',44.393899,-93.72583,'UTC-6',1),
   ('56058','Le Sueur','MN',44.449976,-93.90513,'UTC-6',1),
@@ -29985,7 +29997,9 @@ CREATE TABLE `civicrm_geocoder_zip_dataset` (
   ('67003','Anthony','KS',37.144088,-98.03857,'UTC-6',1),
   ('67004','Argonia','KS',37.270346,-97.76478,'UTC-6',1),
   ('67005','Arkansas City','KS',37.067387,-97.02831,'UTC-6',1),
-  ('67008','Atlanta','KS',37.454925,-96.83152,'UTC-6',1),
+  ('67008','Atlanta','KS',37.454925,-96.83152,'UTC-6',1);
+
+INSERT INTO civicrm_geocoder_zip_dataset VALUES
   ('67009','Attica','KS',37.233697,-98.24779,'UTC-6',1),
   ('67010','Augusta','KS',37.68066,-96.98153,'UTC-6',1),
   ('67012','Beaumont','KS',37.660135,-96.53372,'UTC-6',1),
@@ -34983,7 +34997,9 @@ CREATE TABLE `civicrm_geocoder_zip_dataset` (
   ('78057','Moore','TX',29.047934,-99.0416,'UTC-6',1),
   ('78058','Mountain Home','TX',30.070414,-99.69191,'UTC-6',1),
   ('78059','Natalia','TX',29.19085,-98.84676,'UTC-6',1),
-  ('78060','Oakville','TX',28.421814,-98.071902,'UTC-6',1),
+  ('78060','Oakville','TX',28.421814,-98.071902,'UTC-6',1);
+
+INSERT INTO civicrm_geocoder_zip_dataset VALUES
   ('78061','Pearsall','TX',28.888468,-99.09005,'UTC-6',1),
   ('78062','Peggy','TX',28.919999,-98.552942,'UTC-6',1),
   ('78063','Pipe Creek','TX',29.641551,-98.93407,'UTC-6',1),
@@ -39981,7 +39997,9 @@ CREATE TABLE `civicrm_geocoder_zip_dataset` (
   ('93043','Port Hueneme Cbc Base','CA',34.162124,-119.207364,'UTC-8',1),
   ('93044','Port Hueneme','CA',34.032383,-119.1343,'UTC-8',1),
   ('93060','Santa Paula','CA',34.367474,-119.07317,'UTC-8',1),
-  ('93061','Santa Paula','CA',34.032383,-119.1343,'UTC-8',1),
+  ('93061','Santa Paula','CA',34.032383,-119.1343,'UTC-8',1);
+
+INSERT INTO civicrm_geocoder_zip_dataset VALUES
   ('93062','Simi Valley','CA',34.032383,-119.1343,'UTC-8',1),
   ('93063','Simi Valley','CA',34.279343,-118.69607,'UTC-8',1),
   ('93064','Brandeis','CA',34.258203,-118.710724,'UTC-8',1),

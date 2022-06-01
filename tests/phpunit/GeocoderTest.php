@@ -44,11 +44,6 @@ class GeocoderTest extends BaseTestClass {
     // See: https://github.com/civicrm/org.civicrm.testapalooza/blob/master/civi-test.md
     return \Civi\Test::headless()
       ->installMe(__DIR__)
-      ->sqlFile(__DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
-        . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'nz_sample_geoname_table.sql')
-      // Add the UK data (1 test row)
-      ->sqlFile(__DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
-        . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'open_postcode_geo-test.sql')
       ->apply();
   }
 
@@ -58,10 +53,6 @@ class GeocoderTest extends BaseTestClass {
    */
   public function setUp(): void {
     parent::setUp();
-    if (function_exists('civicrm_initialize')) {
-      // Required in wmf test runner but breaks civi runner.
-      civicrm_initialize();
-    }
     $this->setHttpClientToEmptyMock();
     $geocoders = civicrm_api3('Geocoder', 'get', [])['values'];
     foreach ($geocoders as $geocoder) {
@@ -210,12 +201,20 @@ class GeocoderTest extends BaseTestClass {
     }
   }
 
-  public function testUK() {
+  public function testUK(): void {
 
     // We need to enable the uk_postcode geocoder
     $id = (int) civicrm_api3('Geocoder', 'getvalue', ['name' => 'uk_postcode', 'return' => 'id']);
     if (!$id) {
       throw new \Exception("Failed to find uk_postcode geocoder");
+    }
+    $drop = FALSE;
+    if (!CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE 'civicrm_geonames_lookup'")) {
+      // set up headless doesn't seem to be called in wmf tests ...but I haven't
+      // double checked if we can drop if when running tests in isolation.
+      CRM_Utils_File::sourceSQLFile(NULL, __DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
+        . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'open_postcode_geo-test.sql');
+      $drop = TRUE;
     }
     civicrm_api3('Geocoder', 'create', ['is_active' => 1, 'id' => $id]);
 
@@ -235,7 +234,7 @@ class GeocoderTest extends BaseTestClass {
       'country_id'       => 'GB',
     ]);
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
-    $this->assertEquals('51.499840', $address['geo_code_1'] ?? NULL);
+    $this->assertEquals('51.49984', $address['geo_code_1'] ?? NULL);
     $this->assertEquals('SW1A 0AA', $address['postal_code'] ?? NULL);
     Address::delete(FALSE)->addWhere('id', '=', $address['id']);
 
@@ -248,7 +247,7 @@ class GeocoderTest extends BaseTestClass {
       'country_id' => 'GB',
     ]);
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
-    $this->assertEquals('51.499840', $address['geo_code_1'] ?? NULL);
+    $this->assertEquals('51.49984', $address['geo_code_1'] ?? NULL);
     $this->assertEquals('SW1A 0AA', $address['postal_code'] ?? NULL);
     Address::delete(FALSE)->addWhere('id', '=', $address['id']);
 
@@ -263,7 +262,9 @@ class GeocoderTest extends BaseTestClass {
     // Check the postcode wasn't changed.
     $this->assertEquals('ZEBRA678', $address['postal_code'] ?? NULL);
     Address::delete(FALSE)->addWhere('id', '=', $address['id']);
-
+    if ($drop) {
+      CRM_Core_DAO::executeQuery("DROP TABLE civicrm_open_postcode_geo_uk");
+    }
   }
   /**
    * Configure geocoders for testing.

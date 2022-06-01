@@ -82,7 +82,7 @@ class CRM_Utils_Geocode_Geocoder {
    */
   public static function format(&$values, $stateName = FALSE) {
     if (!self::getClient()) {
-      self::setClient(new \Http\Adapter\Guzzle6\Client());
+      self::setClient(new Client());
     }
     self::setGeocoders();
     // AFAIK only 2 char string accepted - from the examples.

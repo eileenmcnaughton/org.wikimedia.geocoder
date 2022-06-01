@@ -9,6 +9,7 @@ return [
   [
     'name' => 'us_zip_geocoder',
     'entity' => 'Geocoder',
+    'update' => 'never',
     'params' => [
       'version' => 3,
       'name' => 'us_zip_geocoder',
@@ -18,6 +19,8 @@ return [
       'required_fields' => ['postal_code'],
       'retained_response_fields' => '["geo_code_1","geo_code_2", "timezone"]',
       'datafill_response_fields' => ["city", "state_province_id"],
+      'is_active' => TRUE,
+      'weight' => 3,
     ],
     'metadata' => [
       'argument' => ['pass_through' => [

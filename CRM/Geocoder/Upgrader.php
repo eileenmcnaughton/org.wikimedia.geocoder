@@ -15,34 +15,7 @@ class CRM_Geocoder_Upgrader extends CRM_Geocoder_Upgrader_Base {
   public function install() {
     $this->executeSqlFile('sql/install.sql');
     $this->executeSqlFile('sql/install_zip_data_set.sql');
-  }
-
-  /**
-   * Example: Work with entities usually not available during the install step.
-   *
-   * This method can be used for any post-install tasks. For example, if a step
-   * of your installation depends on accessing an entity that is itself
-   * created during the installation (e.g., a setting or a managed entity), do
-   * so here to avoid order of operation problems.
-   */
-  public function postInstall() {
-    $existing = \Civi::settings()->get('geoProvider');
     civicrm_api3('Setting', 'create', ['geoProvider' => 'Geocoder']);
-    $geoCoders = [];
-    geocoder_civicrm_geo_managed($geoCoders);
-
-    // Start weight with 2 set google to 1 if we already have api key.
-    $weight = 2;
-    foreach ($geoCoders as $geoCoder) {
-      $params = ['is_active' => $geoCoder['metadata']['is_enabled_on_install'], 'weight' => $weight];
-      if ($existing === 'Google' && $geoCoder['name'] === 'google_maps') {
-        $params['is_active'] = TRUE;
-        $params['weight'] = 1;
-        $params['api_key'] = \Civi::settings()->get('geoAPIKey');
-      }
-      civicrm_api3('Geocoder', 'create', array_merge($params, $geoCoder['params']));
-      $weight++;
-    }
   }
 
   /**

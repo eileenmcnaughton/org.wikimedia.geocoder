@@ -9,11 +9,15 @@ return [
   [
     'name' => 'google_maps',
     'entity' => 'Geocoder',
+    'update' => 'never',
     'params' => [
       'version' => 3,
       'name' => 'google_maps',
       'title' => 'Google Maps',
       'class' => 'GoogleMaps\GoogleMaps',
+      'api_key' =>  \Civi::settings()->get('geoAPIKey'),
+      'is_active' => FALSE,
+      'weight' => 5,
     ],
     'help_text' => ts('Adhering to Terms of service is your responsibility - https://support.google.com/code/answer/55180?hl=en'),
     'user_editable_fields' => ['api_key', 'threshold_standdown'],

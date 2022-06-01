@@ -10,12 +10,15 @@ return [
   [
     'name' => 'open_street_maps',
     'entity' => 'Geocoder',
+    'update' => 'never',
     'params' => [
       'version' => 3,
       'name' => 'open_street_maps',
       'title' => 'Nominatim (Open street maps)',
       'class' => 'Nominatim\Nominatim',
       'url' => 'https://nominatim.openstreetmap.org/search',
+      'is_active' => FALSE,
+      'weight' => 1,
     ],
     'metadata' => [
       'argument' => ['geocoder.url', 'server.User-Agent:CiviCRM', 'server.Referrer'],

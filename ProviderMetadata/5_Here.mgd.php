@@ -8,12 +8,15 @@ return [
   [
     'name' => 'here',
     'entity' => 'Geocoder',
+    'update' => 'never',
     'params' => [
       'version' => 3,
       'name' => 'here',
       'title' => 'Here',
       'class' => 'Here\Here',
       'retained_response_fields' => ['geo_code_1', 'geo_code_2'],
+      'is_active' => FALSE,
+      'weight' => 6,
     ],
     'help_text' => ts('app_id and app_code required in the api_key - ie your key
     should look like:

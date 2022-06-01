@@ -8,14 +8,17 @@ return [
   [
     'name' => 'addok',
     'entity' => 'Geocoder',
+    'update' => 'never',
     'params' => [
       'version' => 3,
       'name' => 'addok',
       'title' => 'Addok',
       'class' => 'Addok\Addok',
-      'valid_countries' => ['1076'],
+      'valid_countries' => [1076],
       'url' => 'https://api-adresse.data.gouv.fr',
       'retained_response_fields' => ['geo_code_1', 'geo_code_2'],
+      'is_active' => FALSE,
+      'weight' => 4,
     ],
     'help_text' => ts('France only'),
     'metadata' => [

@@ -48,5 +48,5 @@ function civicrm_api3_geocoder_delete($params) {
  * @return array API result descriptor
  */
 function civicrm_api3_geocoder_get($params) {
-  return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+  return _civicrm_api3_basic_get('CRM_Geocoder_BAO_Geocoder', $params);
 }

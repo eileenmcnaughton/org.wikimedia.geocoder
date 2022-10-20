@@ -1,22 +1,32 @@
 {
-      "minimum-stability": "dev",
-      "repositories": [
-        {
-          "type": "git",
-          "url": "https://github.com/eileenmcnaughton/civicrm-data-table-provider.git"
-        }
-      ],
-      "require": {
-        "php-http/guzzle6-adapter": "^1.1",
-        "geocoder-php/free-geoip-provider": "^4.1",
-        "php-http/message": "^1.6",
-        "geocoder-php/nominatim-provider": "^5.1",
-        "geocoder-php/mapquest-provider": "^4",
-        "geocoder-php/google-maps-provider": "^4.4",
-        "wikimedia/civicrm-data-table-provider": "^4",
-        "geo6/geocoder-php-addok-provider": "^1",
-        "geocoder-php/here-provider": "^0.6"
-    },
+  "name": "civicrm/geocoder",
+  "type": "civicrm-ext",
+  "description": "Geocoding for CiviCRM based on geocoder library",
+  "license": "AGPL-3.0",
+  "authors": [
+    {
+      "name": "Eileen McNaughton",
+      "email": "eileen@fuzion.co.nz"
+    }
+  ],
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/eileenmcnaughton/civicrm-data-table-provider.git"
+    }
+  ],
+  "require": {
+    "php-http/guzzle6-adapter": "^1.1",
+    "geocoder-php/free-geoip-provider": "^4.1",
+    "php-http/message": "^1.6",
+    "geocoder-php/nominatim-provider": "^5.1",
+    "geocoder-php/mapquest-provider": "^4",
+    "geocoder-php/google-maps-provider": "^4.4",
+    "wikimedia/civicrm-data-table-provider": "^4",
+    "geo6/geocoder-php-addok-provider": "^1",
+    "geocoder-php/here-provider": "^0.6"
+  },
   "replace": {
     "guzzlehttp/guzzle": "^6.0",
     "guzzlehttp/psr7": "^1.6.1",

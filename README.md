@@ -147,13 +147,15 @@ The data came from https://www.getthedata.com/open-postcode-geo
 5. Enable the UK Postcode geocoder. Not sure if there's a UI for this, but you can do it via the API (v3).
 
 
-## German Postalcode geocoder
+## German Postal Code geocoder
 
-- This *only* goes on postcodes which it looks up from a local database (so no online service, no fees, limits or latency).
+- Germany’s postal code(s) are known as ‘Postleitzahl(en)’, acronym PLZ.
 
-- It can handle *and correct* postcodes with spaces missing/in wrong places.
+- This provider derives coordinates from German PLZs *only*, so it is not very precise, but good enough for many purposes. It installs the required data as a local SQL table, so there are no online service, no fees, limits or latency.
 
-- If the address contains a valid postal code ("Postleitzahl"), the geocodes, the city, and the federal state is filled (if empty)
+- It can handle *and correct* postal codes with spaces missing/in wrong places.
+
+- If the address contains a valid postal code, the geocodes, the city, and the federal state is filled (if empty)
 
 - This Geocoding provider is not installed by default.
 
@@ -161,10 +163,21 @@ The data came from https://www.getthedata.com/open-postcode-geo
 
 1. The postcode-geo data is located in: org.wikimedia.geocoder/sql/PLZ.de.sql
 2. Import that file with the data into your CiviCRM database. This will create a new table named "civicrm_geocoder_plzde_dataset". If that table existed before, it will be dropped.
-3. Enable the UK Postcode geocoder by adding a new line to the table "civicrm_geocoder", that should look like this:
-```+----+--------+-------------------+---------------+-----------+--------+---------+------+-----------------+-----------------------------+--------------------------+---------------------+--------------------+-----------------+
-| id | name   | title             | class         | is_active | weight | api_key | url  | required_fields | retained_response_fields    | datafill_response_fields | threshold_standdown | threshold_last_hit | valid_countries |
-+----+--------+-------------------+---------------+-----------+--------+---------+------+-----------------+-----------------------------+--------------------------+---------------------+--------------------+-----------------+
-| 13 | de_plz | DE Postleitzahlen | DEPlzProvider |         1 |      1 | NULL    | NULL | ["postal_code"] | ["geo_code_1","geo_code_2"] | ["city"]                 |                  60 | NULL               | [1082]          |
-+----+--------+-------------------+---------------+-----------+--------+---------+------+-----------------+-----------------------------+--------------------------+---------------------+--------------------+-----------------+```
-
+3. Enable the UK Postcode geocoder by executing an SQL statement like this:
+   ```sql
+   INSERT INTO civicrm_geocoder SET
+   name = 'de_plz',
+   title = 'DE Postleitzahlen',
+   class = 'DEPlzProvider',
+   is_active = 1,
+   weight = (SELECT MAX(weight) + 1 FROM civicrm_geocoder g),
+   api_key = NULL,
+   url = NULL,
+   required_fields = '["postal_code"]',
+   retained_response_fields = '["geo_code_1","geo_code_2"]',
+   datafill_response_fields = '["city"]',
+   threshold_standdown = 60,
+   threshold_last_hit = NULL,
+   valid_countries = '[1082]';
+   ```
+   You may want to reassign weights for all geocoders registered in the `civicrm_geocoder` table.

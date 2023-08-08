@@ -29,6 +29,18 @@ class CRM_Geocoder_Upgrader extends CRM_Geocoder_Upgrader_Base {
     return TRUE;
   }
 
+	/**
+	 *  Update the URL for Open Street Map end point
+	 *
+	 * @throws \CiviCRM_API3_Exception
+	 */
+	public function upgrade_1200() {
+		$this->ctx->log->info( 'Applying update 1200: Update the URL for Open Street Map end point' );
+		CRM_Core_DAO::executeQuery( "UPDATE `civicrm_geocoder` SET `url` = 'https://nominatim.openstreetmap.org' WHERE `url` LIKE '%nominatim.openstreetmap.org%'" );
+
+		return TRUE;
+	}
+
   /**
    * Add new providers.
    *

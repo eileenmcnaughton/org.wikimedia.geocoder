@@ -22,7 +22,7 @@ return [
     ],
     'help_text' => ts('France only'),
     'metadata' => [
-      'argument' => 'geocoder.url',
+      'argument' => ['geocoder.url'],
       'required_config_fields' => ['url'],
       'is_enabled_on_install' => FALSE,
     ],

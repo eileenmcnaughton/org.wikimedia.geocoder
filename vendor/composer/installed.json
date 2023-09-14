@@ -129,21 +129,21 @@
         },
         {
             "name": "geocoder-php/common-http",
-            "version": "4.4.0",
-            "version_normalized": "4.4.0.0",
+            "version": "4.5.0",
+            "version_normalized": "4.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/php-common-http.git",
-                "reference": "9f44a006d4b45d01dd31ea9b38ee7fb5724cd73e"
+                "reference": "4ee2cee60d21631e2a09c196bf6b9fd296bca728"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/php-common-http/zipball/9f44a006d4b45d01dd31ea9b38ee7fb5724cd73e",
-                "reference": "9f44a006d4b45d01dd31ea9b38ee7fb5724cd73e",
+                "url": "https://api.github.com/repos/geocoder-php/php-common-http/zipball/4ee2cee60d21631e2a09c196bf6b9fd296bca728",
+                "reference": "4ee2cee60d21631e2a09c196bf6b9fd296bca728",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "php-http/client-implementation": "^1.0",
                 "php-http/discovery": "^1.6",
                 "php-http/httplug": "^1.0 || ^2.0",
@@ -159,7 +159,7 @@
                 "phpunit/phpunit": "^9.5",
                 "symfony/stopwatch": "~2.5"
             },
-            "time": "2020-12-21T09:30:01+00:00",
+            "time": "2022-07-30T12:09:30+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -191,7 +191,7 @@
                 "http geocoder"
             ],
             "support": {
-                "source": "https://github.com/geocoder-php/php-common-http/tree/4.4.0"
+                "source": "https://github.com/geocoder-php/php-common-http/tree/4.5.0"
             },
             "install-path": "../geocoder-php/common-http"
         },
@@ -1111,15 +1111,15 @@
         },
         {
             "name": "wikimedia/civicrm-data-table-provider",
-            "version": "4.1.0",
-            "version_normalized": "4.1.0.0",
+            "version": "5.0.0",
+            "version_normalized": "5.0.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eileenmcnaughton/civicrm-data-table-provider.git",
-                "reference": "7ee53de7cd5f3b987cdcae418f907b7e9d8c18c2"
+                "reference": "82a68b389340b779779db59673bd6d0e83e8120c"
             },
             "require": {
-                "geocoder-php/common-http": "4.4.*",
+                "geocoder-php/common-http": "4.5.*",
                 "php": ">=7.4",
                 "willdurand/geocoder": "^4"
             },
@@ -1133,7 +1133,7 @@
                 "php-http/message": "^1.0",
                 "phpunit/phpunit": "^6.1"
             },
-            "time": "2023-09-14T04:17:28+00:00",
+            "time": "2023-09-14T05:36:56+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {

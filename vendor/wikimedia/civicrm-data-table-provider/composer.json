@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=7.4",
-        "geocoder-php/common-http": "4.4.*",
+        "geocoder-php/common-http": "4.5.*",
         "willdurand/geocoder": "^4"
     },
     "require-dev": {

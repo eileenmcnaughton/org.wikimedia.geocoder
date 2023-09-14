@@ -2,6 +2,12 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 5.5.1
+
+### Changed
+
+- Force query argument separator and encoding type
+
 ## 5.4.0
 
 ### Added

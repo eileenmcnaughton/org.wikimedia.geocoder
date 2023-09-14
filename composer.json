@@ -20,7 +20,7 @@
     "php-http/guzzle6-adapter": "2.*.*",
     "geocoder-php/free-geoip-provider": "^4.1",
     "php-http/message": "^1.6",
-    "geocoder-php/nominatim-provider": "5.4.*",
+    "geocoder-php/nominatim-provider": "5.5.*",
     "geocoder-php/mapquest-provider": "^4",
     "geocoder-php/google-maps-provider": "^4.4",
     "wikimedia/civicrm-data-table-provider": "^4",

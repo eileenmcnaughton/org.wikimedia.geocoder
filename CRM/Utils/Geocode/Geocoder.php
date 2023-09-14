@@ -26,7 +26,6 @@
  */
 
 use Geocoder\Query\GeocodeQuery;
-use Geocoder\Query\ReverseQuery;
 use Geocoder\Model\AddressCollection;
 use CRM_Geocoder_ExtensionUtil as E;
 use Http\Adapter\Guzzle6\Client;
@@ -175,7 +174,7 @@ class CRM_Utils_Geocode_Geocoder {
   /**
    * Check if the geocoder is usable.
    *
-   * @param string $geocoder
+   * @param array $geocoder
    *
    * @return bool
    */

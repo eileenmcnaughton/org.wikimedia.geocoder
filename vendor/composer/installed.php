@@ -3,7 +3,7 @@
         'name' => 'civicrm/geocoder',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'ab0cd2a8ab136cce4304320ea26a70f9293bfdcd',
+        'reference' => '6c05853f6cdf9cd01cab50c5697e608a57f9a575',
         'type' => 'civicrm-ext',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'civicrm/geocoder' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'ab0cd2a8ab136cce4304320ea26a70f9293bfdcd',
+            'reference' => '6c05853f6cdf9cd01cab50c5697e608a57f9a575',
             'type' => 'civicrm-ext',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -144,18 +144,20 @@
             'dev_requirement' => false,
         ),
         'php-http/guzzle6-adapter' => array(
-            'pretty_version' => 'v1.1.1',
-            'version' => '1.1.1.0',
-            'reference' => 'a56941f9dc6110409cfcddc91546ee97039277ab',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '9d1a45eb1c59f12574552e81fb295e9e53430a56',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/guzzle6-adapter',
-            'aliases' => array(),
+            'aliases' => array(
+                0 => '2.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'php-http/httplug' => array(
-            'pretty_version' => 'v1.1.0',
-            'version' => '1.1.0.0',
-            'reference' => '1c6381726c18579c4ca2ef1ec1498fdae8bdf018',
+            'pretty_version' => '2.x-dev',
+            'version' => '2.9999999.9999999.9999999-dev',
+            'reference' => '625ad742c360c8ac580fcc647a1541d29e257f67',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/httplug',
             'aliases' => array(),
@@ -198,10 +200,22 @@
             ),
             'dev_requirement' => false,
         ),
+        'psr/http-client' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '0955afe48220520692d2d09f7ab7e0f93ffd6a31',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/http-client',
+            'aliases' => array(
+                0 => '1.0.x-dev',
+            ),
+            'dev_requirement' => false,
+        ),
         'psr/http-client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
                 0 => '*',
+                1 => '1.0',
             ),
         ),
         'psr/http-factory' => array(

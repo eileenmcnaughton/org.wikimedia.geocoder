@@ -15,6 +15,7 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
+            'Psr\\Http\\Client\\' => 16,
         ),
         'N' => 
         array (
@@ -50,6 +51,10 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
+        ),
+        'Psr\\Http\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
         'Nyholm\\Psr7\\' => 
         array (

@@ -445,22 +445,22 @@
         },
         {
             "name": "geocoder-php/nominatim-provider",
-            "version": "5.3.0",
-            "version_normalized": "5.3.0.0",
+            "version": "5.4.0",
+            "version_normalized": "5.4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/nominatim-provider.git",
-                "reference": "09ed04eca12599ba88924ecb7cbaa5d96bd86fa3"
+                "reference": "80f39ce41bcd0e4d9de3e83c40caf92d089fecf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/09ed04eca12599ba88924ecb7cbaa5d96bd86fa3",
-                "reference": "09ed04eca12599ba88924ecb7cbaa5d96bd86fa3",
+                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/80f39ce41bcd0e4d9de3e83c40caf92d089fecf2",
+                "reference": "80f39ce41bcd0e4d9de3e83c40caf92d089fecf2",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.1",
-                "php": "^7.2",
+                "php": "^7.3 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -468,11 +468,11 @@
             },
             "require-dev": {
                 "geocoder-php/provider-integration-tests": "^1.0",
-                "php-http/curl-client": "^1.7",
+                "php-http/curl-client": "^2.2",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^7.5"
+                "phpunit/phpunit": "^9.5"
             },
-            "time": "2020-12-10T08:12:58+00:00",
+            "time": "2020-12-21T16:41:18+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -501,7 +501,7 @@
             "description": "Geocoder Nominatim adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
             "support": {
-                "source": "https://github.com/geocoder-php/nominatim-provider/tree/5.3.0"
+                "source": "https://github.com/geocoder-php/nominatim-provider/tree/5.4.0"
             },
             "install-path": "../geocoder-php/nominatim-provider"
         },

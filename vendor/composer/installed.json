@@ -2,35 +2,36 @@
     "packages": [
         {
             "name": "clue/stream-filter",
-            "version": "v1.5.0",
-            "version_normalized": "1.5.0.0",
+            "version": "1.x-dev",
+            "version_normalized": "1.9999999.9999999.9999999-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/stream-filter.git",
-                "reference": "aeb7d8ea49c7963d3b581378955dbf5bc49aa320"
+                "reference": "f3a9eb951d112a8065ef3ea1fc485d8e84fc3ef1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/stream-filter/zipball/aeb7d8ea49c7963d3b581378955dbf5bc49aa320",
-                "reference": "aeb7d8ea49c7963d3b581378955dbf5bc49aa320",
+                "url": "https://api.github.com/repos/clue/stream-filter/zipball/f3a9eb951d112a8065ef3ea1fc485d8e84fc3ef1",
+                "reference": "f3a9eb951d112a8065ef3ea1fc485d8e84fc3ef1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.36"
+                "phpunit/phpunit": "^9.6 || ^5.7 || ^4.8.36"
             },
-            "time": "2020-10-02T12:38:20+00:00",
+            "time": "2023-08-28T09:30:22+00:00",
+            "default-branch": true,
             "type": "library",
             "installation-source": "dist",
             "autoload": {
-                "psr-4": {
-                    "Clue\\StreamFilter\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "Clue\\StreamFilter\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -43,7 +44,7 @@
                 }
             ],
             "description": "A simple and modern approach to stream filtering in PHP",
-            "homepage": "https://github.com/clue/php-stream-filter",
+            "homepage": "https://github.com/clue/stream-filter",
             "keywords": [
                 "bucket brigade",
                 "callback",
@@ -55,7 +56,7 @@
             ],
             "support": {
                 "issues": "https://github.com/clue/stream-filter/issues",
-                "source": "https://github.com/clue/stream-filter/tree/v1.5.0"
+                "source": "https://github.com/clue/stream-filter/tree/1.x"
             },
             "funding": [
                 {
@@ -71,22 +72,22 @@
         },
         {
             "name": "geo6/geocoder-php-addok-provider",
-            "version": "v1.3.0",
-            "version_normalized": "1.3.0.0",
+            "version": "v1.4.0",
+            "version_normalized": "1.4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geo6/geocoder-php-addok-provider.git",
-                "reference": "5030967a6cdf6a29c5e9b08c78c2f2ddb68587c0"
+                "reference": "6578d2b17b68d25213279ec575194a8b0107e5e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geo6/geocoder-php-addok-provider/zipball/5030967a6cdf6a29c5e9b08c78c2f2ddb68587c0",
-                "reference": "5030967a6cdf6a29c5e9b08c78c2f2ddb68587c0",
+                "url": "https://api.github.com/repos/geo6/geocoder-php-addok-provider/zipball/6578d2b17b68d25213279ec575194a8b0107e5e8",
+                "reference": "6578d2b17b68d25213279ec575194a8b0107e5e8",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.0",
-                "php": "^7.3 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -98,7 +99,7 @@
                 "php-http/message": "^1.0",
                 "phpunit/phpunit": "^9.5"
             },
-            "time": "2020-12-22T16:47:52+00:00",
+            "time": "2022-07-31T09:17:47+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -122,7 +123,7 @@
             "description": "Geocoder addok adapter",
             "support": {
                 "issues": "https://github.com/geo6/geocoder-php-addok-provider/issues",
-                "source": "https://github.com/geo6/geocoder-php-addok-provider/tree/v1.3.0"
+                "source": "https://github.com/geo6/geocoder-php-addok-provider/tree/v1.4.0"
             },
             "install-path": "../geo6/geocoder-php-addok-provider"
         },
@@ -196,22 +197,22 @@
         },
         {
             "name": "geocoder-php/free-geoip-provider",
-            "version": "4.4.0",
-            "version_normalized": "4.4.0.0",
+            "version": "4.5.0",
+            "version_normalized": "4.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/free-geoip-provider.git",
-                "reference": "8f61d1729440e5fe8391ec7bb9dd42c8b3d2e055"
+                "reference": "19b61dfe74add2383c3e6f4d23221fc600c7814a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/free-geoip-provider/zipball/8f61d1729440e5fe8391ec7bb9dd42c8b3d2e055",
-                "reference": "8f61d1729440e5fe8391ec7bb9dd42c8b3d2e055",
+                "url": "https://api.github.com/repos/geocoder-php/free-geoip-provider/zipball/19b61dfe74add2383c3e6f4d23221fc600c7814a",
+                "reference": "19b61dfe74add2383c3e6f4d23221fc600c7814a",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.1",
-                "php": "^7.3 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -223,7 +224,7 @@
                 "php-http/message": "^1.0",
                 "phpunit/phpunit": "^9.5"
             },
-            "time": "2020-12-21T16:41:18+00:00",
+            "time": "2022-07-30T12:09:30+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -252,28 +253,28 @@
             "description": "Geocoder FreeGeoIp adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
             "support": {
-                "source": "https://github.com/geocoder-php/free-geoip-provider/tree/4.4.0"
+                "source": "https://github.com/geocoder-php/free-geoip-provider/tree/4.5.0"
             },
             "install-path": "../geocoder-php/free-geoip-provider"
         },
         {
             "name": "geocoder-php/google-maps-provider",
-            "version": "4.6.0",
-            "version_normalized": "4.6.0.0",
+            "version": "4.7.1",
+            "version_normalized": "4.7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/google-maps-provider.git",
-                "reference": "1e88138b66bf31b7e025b7bd579edb2cc9690414"
+                "reference": "ee0dbc229380903043542ae2a79b4518b9f0df17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/google-maps-provider/zipball/1e88138b66bf31b7e025b7bd579edb2cc9690414",
-                "reference": "1e88138b66bf31b7e025b7bd579edb2cc9690414",
+                "url": "https://api.github.com/repos/geocoder-php/google-maps-provider/zipball/ee0dbc229380903043542ae2a79b4518b9f0df17",
+                "reference": "ee0dbc229380903043542ae2a79b4518b9f0df17",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.0",
-                "php": "^7.3 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -285,7 +286,7 @@
                 "php-http/message": "^1.0",
                 "phpunit/phpunit": "^9.5"
             },
-            "time": "2020-12-21T16:41:18+00:00",
+            "time": "2023-04-14T11:13:20+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -314,7 +315,7 @@
             "description": "Geocoder GoogleMaps adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
             "support": {
-                "source": "https://github.com/geocoder-php/google-maps-provider/tree/4.6.0"
+                "source": "https://github.com/geocoder-php/google-maps-provider/tree/4.7.1"
             },
             "install-path": "../geocoder-php/google-maps-provider"
         },
@@ -382,22 +383,22 @@
         },
         {
             "name": "geocoder-php/mapquest-provider",
-            "version": "4.2.0",
-            "version_normalized": "4.2.0.0",
+            "version": "4.3.0",
+            "version_normalized": "4.3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/mapquest-provider.git",
-                "reference": "8c7b4b415bb606d6dbb7e6c61233be25f4bfe10b"
+                "reference": "87644f213e6405b5d49817a9e033f8cada5e3562"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/mapquest-provider/zipball/8c7b4b415bb606d6dbb7e6c61233be25f4bfe10b",
-                "reference": "8c7b4b415bb606d6dbb7e6c61233be25f4bfe10b",
+                "url": "https://api.github.com/repos/geocoder-php/mapquest-provider/zipball/87644f213e6405b5d49817a9e033f8cada5e3562",
+                "reference": "87644f213e6405b5d49817a9e033f8cada5e3562",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.0",
-                "php": "^7.3 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -409,7 +410,7 @@
                 "php-http/message": "^1.0",
                 "phpunit/phpunit": "^9.5"
             },
-            "time": "2020-12-21T16:41:18+00:00",
+            "time": "2022-07-30T10:48:32+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -438,28 +439,28 @@
             "description": "Geocoder MapQuest adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
             "support": {
-                "source": "https://github.com/geocoder-php/mapquest-provider/tree/4.2.0"
+                "source": "https://github.com/geocoder-php/mapquest-provider/tree/4.3.0"
             },
             "install-path": "../geocoder-php/mapquest-provider"
         },
         {
             "name": "geocoder-php/nominatim-provider",
-            "version": "5.5.1",
-            "version_normalized": "5.5.1.0",
+            "version": "5.2.0",
+            "version_normalized": "5.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/nominatim-provider.git",
-                "reference": "79187d08e7d70ddd9c40c6e58031b69fece9d7c8"
+                "reference": "c9b0b3585a14418c55958174ac01bf7d8265d90e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/79187d08e7d70ddd9c40c6e58031b69fece9d7c8",
-                "reference": "79187d08e7d70ddd9c40c6e58031b69fece9d7c8",
+                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/c9b0b3585a14418c55958174ac01bf7d8265d90e",
+                "reference": "c9b0b3585a14418c55958174ac01bf7d8265d90e",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.1",
-                "php": "^7.3 || ^8.0",
+                "php": "^7.2",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -467,11 +468,11 @@
             },
             "require-dev": {
                 "geocoder-php/provider-integration-tests": "^1.0",
-                "php-http/curl-client": "^2.2",
+                "php-http/curl-client": "^1.7",
                 "php-http/message": "^1.0",
-                "phpunit/phpunit": "^9.5"
+                "phpunit/phpunit": "^7.5"
             },
-            "time": "2021-08-20T15:18:10+00:00",
+            "time": "2020-07-04T13:18:10+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -499,51 +500,146 @@
             ],
             "description": "Geocoder Nominatim adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
+            "support": {
+                "source": "https://github.com/geocoder-php/nominatim-provider/tree/master"
+            },
             "install-path": "../geocoder-php/nominatim-provider"
         },
         {
-            "name": "php-http/discovery",
-            "version": "1.14.0",
-            "version_normalized": "1.14.0.0",
+            "name": "nyholm/psr7",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-http/discovery.git",
-                "reference": "778f722e29250c1fac0bbdef2c122fa5d038c9eb"
+                "url": "https://github.com/Nyholm/psr7.git",
+                "reference": "3cb4d163b58589e47b35103e8e5e6a6a475b47be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/discovery/zipball/778f722e29250c1fac0bbdef2c122fa5d038c9eb",
-                "reference": "778f722e29250c1fac0bbdef2c122fa5d038c9eb",
+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/3cb4d163b58589e47b35103e8e5e6a6a475b47be",
+                "reference": "3cb4d163b58589e47b35103e8e5e6a6a475b47be",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": ">=7.2",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.1 || ^2.0"
             },
-            "conflict": {
-                "nyholm/psr7": "<1.0"
+            "provide": {
+                "php-http/message-factory-implementation": "1.0",
+                "psr/http-factory-implementation": "1.0",
+                "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "graham-campbell/phpspec-skip-example-extension": "^5.0",
-                "php-http/httplug": "^1.0 || ^2.0",
+                "http-interop/http-factory-tests": "^0.9",
                 "php-http/message-factory": "^1.0",
-                "phpspec/phpspec": "^5.1 || ^6.1",
-                "puli/composer-plugin": "1.0.0-beta10"
+                "php-http/psr7-integration-tests": "^1.0",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
+                "symfony/error-handler": "^4.4"
             },
-            "suggest": {
-                "php-http/message": "Allow to use Guzzle, Diactoros or Slim Framework factories"
-            },
-            "time": "2021-06-01T14:30:21+00:00",
+            "time": "2023-05-02T11:26:24+00:00",
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.9-dev"
+                    "dev-master": "1.8-dev"
                 }
             },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Http\\Discovery\\": "src/"
+                    "Nyholm\\Psr7\\": "src/"
                 }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com"
+                },
+                {
+                    "name": "Martijn van der Ven",
+                    "email": "martijn@vanderven.se"
+                }
+            ],
+            "description": "A fast PHP7 implementation of PSR-7",
+            "homepage": "https://tnyholm.se",
+            "keywords": [
+                "psr-17",
+                "psr-7"
+            ],
+            "support": {
+                "issues": "https://github.com/Nyholm/psr7/issues",
+                "source": "https://github.com/Nyholm/psr7/tree/1.8.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Zegnat",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nyholm",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../nyholm/psr7"
+        },
+        {
+            "name": "php-http/discovery",
+            "version": "1.x-dev",
+            "version_normalized": "1.9999999.9999999.9999999-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/discovery.git",
+                "reference": "57f3de01d32085fea20865f9b16fb0e69347c39e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/57f3de01d32085fea20865f9b16fb0e69347c39e",
+                "reference": "57f3de01d32085fea20865f9b16fb0e69347c39e",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0|^2.0",
+                "php": "^7.1 || ^8.0"
+            },
+            "conflict": {
+                "nyholm/psr7": "<1.0",
+                "zendframework/zend-diactoros": "*"
+            },
+            "provide": {
+                "php-http/async-client-implementation": "*",
+                "php-http/client-implementation": "*",
+                "psr/http-client-implementation": "*",
+                "psr/http-factory-implementation": "*",
+                "psr/http-message-implementation": "*"
+            },
+            "require-dev": {
+                "composer/composer": "^1.0.2|^2.0",
+                "graham-campbell/phpspec-skip-example-extension": "^5.0",
+                "php-http/httplug": "^1.0 || ^2.0",
+                "php-http/message-factory": "^1.0",
+                "phpspec/phpspec": "^5.1 || ^6.1 || ^7.3",
+                "symfony/phpunit-bridge": "^6.2"
+            },
+            "time": "2023-07-11T07:02:26+00:00",
+            "default-branch": true,
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Http\\Discovery\\Composer\\Plugin",
+                "plugin-optional": true
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Http\\Discovery\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "src/Composer/Plugin.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -555,7 +651,7 @@
                     "email": "mark.sagikazar@gmail.com"
                 }
             ],
-            "description": "Finds installed HTTPlug implementations and PSR-7 message factories",
+            "description": "Finds and installs PSR-7, PSR-17, PSR-18 and HTTPlug implementations",
             "homepage": "http://php-http.org",
             "keywords": [
                 "adapter",
@@ -564,11 +660,12 @@
                 "factory",
                 "http",
                 "message",
+                "psr17",
                 "psr7"
             ],
             "support": {
                 "issues": "https://github.com/php-http/discovery/issues",
-                "source": "https://github.com/php-http/discovery/tree/1.14.0"
+                "source": "https://github.com/php-http/discovery/tree/1.19.1"
             },
             "install-path": "../php-http/discovery"
         },
@@ -704,24 +801,23 @@
         },
         {
             "name": "php-http/message",
-            "version": "1.11.2",
-            "version_normalized": "1.11.2.0",
+            "version": "1.x-dev",
+            "version_normalized": "1.9999999.9999999.9999999-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/message.git",
-                "reference": "295c82867d07261f2fa4b3a26677519fc6f7f5f6"
+                "reference": "47a14338bf4ebd67d317bf1144253d7db4ab55fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/message/zipball/295c82867d07261f2fa4b3a26677519fc6f7f5f6",
-                "reference": "295c82867d07261f2fa4b3a26677519fc6f7f5f6",
+                "url": "https://api.github.com/repos/php-http/message/zipball/47a14338bf4ebd67d317bf1144253d7db4ab55fd",
+                "reference": "47a14338bf4ebd67d317bf1144253d7db4ab55fd",
                 "shasum": ""
             },
             "require": {
                 "clue/stream-filter": "^1.5",
-                "php": "^7.1 || ^8.0",
-                "php-http/message-factory": "^1.0.2",
-                "psr/http-message": "^1.0"
+                "php": "^7.2 || ^8.0",
+                "psr/http-message": "^1.1 || ^2.0"
             },
             "provide": {
                 "php-http/message-factory-implementation": "1.0"
@@ -729,9 +825,10 @@
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.6",
                 "ext-zlib": "*",
-                "guzzlehttp/psr7": "^1.0",
-                "laminas/laminas-diactoros": "^2.0",
-                "phpspec/phpspec": "^5.1 || ^6.3",
+                "guzzlehttp/psr7": "^1.0 || ^2.0",
+                "laminas/laminas-diactoros": "^2.0 || ^3.0",
+                "php-http/message-factory": "^1.0.2",
+                "phpspec/phpspec": "^5.1 || ^6.3 || ^7.1",
                 "slim/slim": "^3.0"
             },
             "suggest": {
@@ -740,21 +837,17 @@
                 "laminas/laminas-diactoros": "Used with Diactoros Factories",
                 "slim/slim": "Used with Slim Framework PSR-7 implementation"
             },
-            "time": "2021-08-03T11:52:11+00:00",
+            "time": "2023-05-17T06:43:38+00:00",
+            "default-branch": true,
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.10-dev"
-                }
-            },
             "installation-source": "dist",
             "autoload": {
-                "psr-4": {
-                    "Http\\Message\\": "src/"
-                },
                 "files": [
                     "src/filters.php"
-                ]
+                ],
+                "psr-4": {
+                    "Http\\Message\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -773,6 +866,10 @@
                 "message",
                 "psr-7"
             ],
+            "support": {
+                "issues": "https://github.com/php-http/message/issues",
+                "source": "https://github.com/php-http/message/tree/1.16.0"
+            },
             "install-path": "../php-http/message"
         },
         {
@@ -782,23 +879,24 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/message-factory.git",
-                "reference": "597f30e6dfd32a85fd7dbe58cb47554b5bad910e"
+                "reference": "4d8778e1c7d405cbb471574821c1ff5b68cc8f57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/message-factory/zipball/597f30e6dfd32a85fd7dbe58cb47554b5bad910e",
-                "reference": "597f30e6dfd32a85fd7dbe58cb47554b5bad910e",
+                "url": "https://api.github.com/repos/php-http/message-factory/zipball/4d8778e1c7d405cbb471574821c1ff5b68cc8f57",
+                "reference": "4d8778e1c7d405cbb471574821c1ff5b68cc8f57",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.0 || ^2.0"
             },
-            "time": "2018-12-06T18:41:41+00:00",
+            "time": "2023-04-14T14:16:17+00:00",
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.x-dev"
                 }
             },
             "installation-source": "source",
@@ -828,8 +926,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/message-factory/issues",
-                "source": "https://github.com/php-http/message-factory/tree/master"
+                "source": "https://github.com/php-http/message-factory/tree/1.1.0"
             },
+            "abandoned": "psr/http-factory",
             "install-path": "../php-http/message-factory"
         },
         {
@@ -839,12 +938,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/promise.git",
-                "reference": "4c4c1f9b7289a2ec57cde7f1e9762a5789506f88"
+                "reference": "cac94eb65326fa1abbb17bab711884ef8753d0a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/promise/zipball/4c4c1f9b7289a2ec57cde7f1e9762a5789506f88",
-                "reference": "4c4c1f9b7289a2ec57cde7f1e9762a5789506f88",
+                "url": "https://api.github.com/repos/php-http/promise/zipball/cac94eb65326fa1abbb17bab711884ef8753d0a3",
+                "reference": "cac94eb65326fa1abbb17bab711884ef8753d0a3",
                 "shasum": ""
             },
             "require": {
@@ -854,7 +953,8 @@
                 "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
                 "phpspec/phpspec": "^5.1.2 || ^6.2"
             },
-            "time": "2020-07-07T09:29:14+00:00",
+            "time": "2023-09-02T07:56:06+00:00",
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -888,22 +988,81 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/promise/issues",
-                "source": "https://github.com/php-http/promise/tree/1.1.0"
+                "source": "https://github.com/php-http/promise/tree/master"
             },
             "install-path": "../php-http/promise"
         },
         {
-            "name": "wikimedia/civicrm-data-table-provider",
+            "name": "psr/http-factory",
             "version": "dev-master",
             "version_normalized": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/eileenmcnaughton/civicrm-data-table-provider.git",
-                "reference": "45bb6ee2152b930594203ef637621dc7cc996718"
+                "url": "https://github.com/php-fig/http-factory.git",
+                "reference": "6d70f402f0eddb2b154b22950b5381bbf5b28469"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/6d70f402f0eddb2b154b22950b5381bbf5b28469",
+                "reference": "6d70f402f0eddb2b154b22950b5381bbf5b28469",
+                "shasum": ""
             },
             "require": {
-                "geocoder-php/common-http": "^4",
-                "php": ">=7.0",
+                "php": ">=7.0.0",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "time": "2023-05-17T18:32:11+00:00",
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-factory/tree/master"
+            },
+            "install-path": "../psr/http-factory"
+        },
+        {
+            "name": "wikimedia/civicrm-data-table-provider",
+            "version": "4.1.0",
+            "version_normalized": "4.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eileenmcnaughton/civicrm-data-table-provider.git",
+                "reference": "7ee53de7cd5f3b987cdcae418f907b7e9d8c18c2"
+            },
+            "require": {
+                "geocoder-php/common-http": "4.4.*",
+                "php": ">=7.4",
                 "willdurand/geocoder": "^4"
             },
             "provide": {
@@ -911,12 +1070,12 @@
             },
             "require-dev": {
                 "geocoder-php/provider-integration-tests": "^1.0",
-                "nyholm/psr7": "^0.2.2",
+                "nyholm/psr7": ">1.6.1",
                 "php-http/curl-client": "^1.7",
                 "php-http/message": "^1.0",
                 "phpunit/phpunit": "^6.1"
             },
-            "time": "2019-07-31T02:22:21+00:00",
+            "time": "2023-09-14T04:17:28+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -955,21 +1114,21 @@
         },
         {
             "name": "willdurand/geocoder",
-            "version": "4.5.0",
-            "version_normalized": "4.5.0.0",
+            "version": "4.6.0",
+            "version_normalized": "4.6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/php-common.git",
-                "reference": "b9a27dfbc06d012f4ff52b890fe52789e4978769"
+                "reference": "be3d9ed0fddf8c698ee079d8a07ae9520b4a49a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/php-common/zipball/b9a27dfbc06d012f4ff52b890fe52789e4978769",
-                "reference": "b9a27dfbc06d012f4ff52b890fe52789e4978769",
+                "url": "https://api.github.com/repos/geocoder-php/php-common/zipball/be3d9ed0fddf8c698ee079d8a07ae9520b4a49a1",
+                "reference": "be3d9ed0fddf8c698ee079d8a07ae9520b4a49a1",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ^8.0"
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
                 "nyholm/nsa": "^1.1",
@@ -979,7 +1138,7 @@
             "suggest": {
                 "symfony/stopwatch": "If you want to use the TimedGeocoder"
             },
-            "time": "2022-01-07T14:44:30+00:00",
+            "time": "2022-07-30T11:09:43+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1014,7 +1173,7 @@
                 "geoip"
             ],
             "support": {
-                "source": "https://github.com/geocoder-php/php-common/tree/4.5.0"
+                "source": "https://github.com/geocoder-php/php-common/tree/4.6.0"
             },
             "install-path": "../willdurand/geocoder"
         }

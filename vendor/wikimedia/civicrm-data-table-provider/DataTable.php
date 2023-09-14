@@ -21,6 +21,7 @@ use Geocoder\Http\Provider\AbstractHttpProvider;
 use Geocoder\Provider\Provider;
 use Http\Client\HttpClient;
 use Geocoder\Exception\CollectionIsEmpty;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * @author Eileen McNaughton <emcnaughton@wikimedia.org>

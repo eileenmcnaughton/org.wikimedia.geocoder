@@ -12,6 +12,14 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
     );
 
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Psr\\Http\\Message\\' => 17,
+        ),
+        'N' => 
+        array (
+            'Nyholm\\Psr7\\' => 12,
+        ),
         'H' => 
         array (
             'Http\\Promise\\' => 13,
@@ -39,6 +47,14 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
     );
 
     public static $prefixDirsPsr4 = array (
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+        ),
+        'Nyholm\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nyholm/psr7/src',
+        ),
         'Http\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-http/promise/src',

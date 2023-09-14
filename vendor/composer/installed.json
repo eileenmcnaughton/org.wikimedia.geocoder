@@ -445,22 +445,22 @@
         },
         {
             "name": "geocoder-php/nominatim-provider",
-            "version": "5.5.1",
-            "version_normalized": "5.5.1.0",
+            "version": "5.6.0",
+            "version_normalized": "5.6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/nominatim-provider.git",
-                "reference": "79187d08e7d70ddd9c40c6e58031b69fece9d7c8"
+                "reference": "a59c34388542e25e3ba3eecd4f07d731b1fa98fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/79187d08e7d70ddd9c40c6e58031b69fece9d7c8",
-                "reference": "79187d08e7d70ddd9c40c6e58031b69fece9d7c8",
+                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/a59c34388542e25e3ba3eecd4f07d731b1fa98fe",
+                "reference": "a59c34388542e25e3ba3eecd4f07d731b1fa98fe",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.1",
-                "php": "^7.3 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -472,7 +472,7 @@
                 "php-http/message": "^1.0",
                 "phpunit/phpunit": "^9.5"
             },
-            "time": "2021-08-20T15:18:10+00:00",
+            "time": "2022-07-30T12:09:30+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -501,7 +501,7 @@
             "description": "Geocoder Nominatim adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
             "support": {
-                "source": "https://github.com/geocoder-php/nominatim-provider/tree/5.5.1"
+                "source": "https://github.com/geocoder-php/nominatim-provider/tree/5.6.0"
             },
             "install-path": "../geocoder-php/nominatim-provider"
         },

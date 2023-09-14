@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbb6a83caeb51e7963d44e8535bb591d",
+    "content-hash": "6cae3c801aedc87a4ec383f05d0da37b",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -430,21 +430,21 @@
         },
         {
             "name": "geocoder-php/nominatim-provider",
-            "version": "5.5.1",
+            "version": "5.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/nominatim-provider.git",
-                "reference": "79187d08e7d70ddd9c40c6e58031b69fece9d7c8"
+                "reference": "a59c34388542e25e3ba3eecd4f07d731b1fa98fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/79187d08e7d70ddd9c40c6e58031b69fece9d7c8",
-                "reference": "79187d08e7d70ddd9c40c6e58031b69fece9d7c8",
+                "url": "https://api.github.com/repos/geocoder-php/nominatim-provider/zipball/a59c34388542e25e3ba3eecd4f07d731b1fa98fe",
+                "reference": "a59c34388542e25e3ba3eecd4f07d731b1fa98fe",
                 "shasum": ""
             },
             "require": {
                 "geocoder-php/common-http": "^4.1",
-                "php": "^7.3 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "willdurand/geocoder": "^4.0"
             },
             "provide": {
@@ -483,9 +483,9 @@
             "description": "Geocoder Nominatim adapter",
             "homepage": "http://geocoder-php.org/Geocoder/",
             "support": {
-                "source": "https://github.com/geocoder-php/nominatim-provider/tree/5.5.1"
+                "source": "https://github.com/geocoder-php/nominatim-provider/tree/5.6.0"
             },
-            "time": "2021-08-20T15:18:10+00:00"
+            "time": "2022-07-30T12:09:30+00:00"
         },
         {
             "name": "nyholm/psr7",

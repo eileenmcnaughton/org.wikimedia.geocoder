@@ -558,4 +558,61 @@ class CRM_Utils_Geocode_Geocoder {
     return new $classString(self::$client, ...$parameters);
   }
 
+  /**
+   * @param string $geocodableAddress
+   *
+   * @return array
+   * @throws \CRM_Core_Exception
+   * @throws \Geocoder\Exception\Exception
+   */
+  public static function getCoordinates(string $geocodableAddress): array {
+    if (!self::getClient()) {
+      self::setClient(new Client());
+    }
+    self::setGeocoders();
+    // AFAIK only 2 char string accepted - from the examples.
+    $locale = substr(CRM_Utils_System::getUFLocale(), 0, 2);
+    $messageOnFail = NULL;
+
+    foreach (self::$geoCoders as $geocoder) {
+      if (!self::isUsable($geocoder)) {
+        continue;
+      }
+
+      try {
+        $provider = self::getProviderClass($geocoder);
+        $geocoderObj = new \Geocoder\StatefulGeocoder($provider, $locale);
+        $result = $geocoderObj->geocodeQuery(GeocodeQuery::create(urlencode($geocodableAddress)));
+        return [
+          'geo_code_1' => $result->first()->getCoordinates()->getLatitude(),
+          'geo_code_2' => $result->first()->getCoordinates()->getLongitude(),
+        ];
+      }
+      catch (Geocoder\Exception\CollectionIsEmpty $e) {
+        $messageOnFail = ts('Failed to geocode address, no co-ordinates saved');
+        continue;
+      }
+      catch (Geocoder\Exception\QuotaExceeded $e) {
+        if (CRM_Core_Permission::check('access CiviCRM')) {
+          CRM_Core_Session::setStatus(ts('Geocoder quota exceeded. No further geocoding attempts will be made for %1 seconds', [
+            $geocoder['threshold_standdown'],
+            'int'
+          ]));
+        }
+        civicrm_api3('Geocoder', 'create', [
+          'id' => $geocoder['id'],
+          'threshold_last_hit' => 'now'
+        ]);
+        // Unset it so we reload next instance & recheck properly.
+        self::$geoCoders = NULL;
+        continue;
+      }
+      catch (Exception $e) {
+        $messageOnFail = ts('Unknown geocoding error on :') . $geocoder['title'] . ":" . $e->getMessage();
+        continue;
+      }
+    }
+    return ['geo_code_error' => $messageOnFail];
+  }
+
 }

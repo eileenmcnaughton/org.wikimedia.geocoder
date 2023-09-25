@@ -124,30 +124,3 @@ function geocoder_civicrm_alterLogTables(&$logTableSpec) {
     }
   }
 }
-
-// --- Functions below this ship commented out. Uncomment as required. ---
-
-/**
- * Implements hook_civicrm_preProcess().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
- *
-
- // */
-
-/**
- * Implements hook_civicrm_navigationMenu().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
- *
-function geocoder_civicrm_navigationMenu(&$menu) {
-  _geocoder_civix_insert_navigation_menu($menu, NULL, array(
-    'label' => E::ts('The Page'),
-    'name' => 'the_page',
-    'url' => 'civicrm/the-page',
-    'permission' => 'access CiviReport,access CiviContribute',
-    'operator' => 'OR',
-    'separator' => 0,
-  ));
-  _geocoder_civix_navigationMenu($menu);
-} // */

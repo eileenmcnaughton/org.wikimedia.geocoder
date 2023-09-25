@@ -1,5 +1,5 @@
 Package: org.wikimedia.geocoder
-Copyright (C) 2018, eileen <emcnaughton@wikimedia.org>
+Copyright (C) 2023, eileen <emcnaughton@wikimedia.org>
 Licensed under the GNU Affero Public License 3.0 (below).
 
 -------------------------------------------------------------------------------

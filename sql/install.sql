@@ -12,7 +12,7 @@ CREATE TABLE `civicrm_geocoder` (
   `datafill_response_fields` varchar(255) COMMENT 'fields retained to fill but not overwrite data',
   `threshold_standdown` int DEFAULT 60 COMMENT 'Number of seconds to wait before retrying after hitting threshold. Geocaching delayed in this time',
   `threshold_last_hit` timestamp NULL COMMENT 'Timestamp when the threshold was last hit.',
-  `valid_countries` string NULL COMMENT 'Countries this geocoder is valid for',
+  `valid_countries` text NULL COMMENT 'Countries this geocoder is valid for',
   PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB;

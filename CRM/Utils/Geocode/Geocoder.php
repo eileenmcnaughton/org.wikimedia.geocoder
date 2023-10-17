@@ -372,10 +372,10 @@ class CRM_Utils_Geocode_Geocoder {
 
     switch ($fieldName) {
       case 'geo_code_1':
-        return $firstResult->getCoordinates()->getLatitude();
+        return $firstResult->getCoordinates() ? $firstResult->getCoordinates()->getLatitude() : NULL;
 
       case 'geo_code_2':
-        return $firstResult->getCoordinates()->getLongitude();
+        return $firstResult->getCoordinates() ? $firstResult->getCoordinates()->getLongitude() : NULL;
 
       case 'timezone':
         return $firstResult->getTimezone();

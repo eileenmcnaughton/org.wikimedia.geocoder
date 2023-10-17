@@ -28,8 +28,7 @@
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Model\AddressCollection;
 use CRM_Geocoder_ExtensionUtil as E;
-use Http\Adapter\Guzzle6\Client;
-
+use Http\Discovery\Psr18Client as Client;
 /**
  *
  * @package CRM
@@ -42,14 +41,14 @@ use Http\Adapter\Guzzle6\Client;
 class CRM_Utils_Geocode_Geocoder {
 
   /**
-   * @var \Http\Adapter\Guzzle6\Client
+   * @var \Http\Discovery\Psr18Client
    */
   protected static $client;
 
   /**
    * Get client.
    *
-   * @return \Http\Adapter\Guzzle6\Client
+   * @return Http\Discovery\Psr18Client
    */
   public static function getClient() {
     return self::$client;
@@ -58,7 +57,7 @@ class CRM_Utils_Geocode_Geocoder {
   /**
    * Set client.
    *
-   * @param \Http\Adapter\Guzzle6\Client $client
+   * @param Http\Discovery\Psr18Client
    */
   public static function setClient($client) {
     self::$client = $client;

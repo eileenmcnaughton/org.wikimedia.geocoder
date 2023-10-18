@@ -128,7 +128,7 @@
   </field>
   <field>
     <name>valid_countries</name>
-    <type>string</type>
+    <type>varchar</type>
     <length>255</length>
     <comment>Countries this geocoder is valid for</comment>
     <required>false</required>

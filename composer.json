@@ -30,6 +30,9 @@
     "geocoder-php/here-provider": "^0.6",
     "geocoder-php/common-http": "4.5.*"
   },
+  "require-dev": {
+    "php-http/mock-client": "^1"
+  },
   "config": {
     "allow-plugins": {
       "php-http/discovery": false

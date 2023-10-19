@@ -5,12 +5,7 @@ require_once __DIR__ . '/BaseTestClass.php';
 use Civi\Test\CiviEnvBuilder;
 use Civi\Api4\Address;
 use CRM_Geocoder_ExtensionUtil as E;
-use Civi\Test\HeadlessInterface;
-use Civi\Test\HookInterface;
-use Civi\Test\TransactionalInterface;
-use Http\Adapter\Guzzle6\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
+use Http\Mock\Client;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -125,7 +120,6 @@ class GeocoderTest extends BaseTestClass {
    * Test when open street maps fail we fall back on the next one (USZipGeoCoder).
    *
    * Note the lat long are slightly different between the 2 providers & we get timezone.
-   *
    * @throws \CRM_Core_Exception
    */
   public function testOpenStreetMapsFailsFallsBackToUSLookup(): void {
@@ -182,7 +176,7 @@ class GeocoderTest extends BaseTestClass {
     if (!CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE 'civicrm_geonames_lookup'")) {
       // set up headless doesn't seem to be called in wmf tests ...but I haven't
       // double checked if we can drop if when running tests in isolation.
-      CRM_Utils_File::sourceSQLFile(NULL, __DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
+      CRM_Utils_File::sourceSQLFile(NULL, __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
         . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'nz_sample_geoname_table.sql');
       $drop = TRUE;
     }
@@ -209,10 +203,10 @@ class GeocoderTest extends BaseTestClass {
       throw new \Exception("Failed to find uk_postcode geocoder");
     }
     $drop = FALSE;
-    if (!CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE 'civicrm_geonames_lookup'")) {
+    if (!CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE 'civicrm_open_postcode_geo_uk'")) {
       // set up headless doesn't seem to be called in wmf tests ...but I haven't
       // double checked if we can drop if when running tests in isolation.
-      CRM_Utils_File::sourceSQLFile(NULL, __DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
+      CRM_Utils_File::sourceSQLFile(NULL, __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'
         . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'open_postcode_geo-test.sql');
       $drop = TRUE;
     }
@@ -266,6 +260,7 @@ class GeocoderTest extends BaseTestClass {
       CRM_Core_DAO::executeQuery("DROP TABLE civicrm_open_postcode_geo_uk");
     }
   }
+
   /**
    * Configure geocoders for testing.
    *
@@ -275,32 +270,34 @@ class GeocoderTest extends BaseTestClass {
    * @throws \CRM_Core_Exception
    */
   protected function configureGeoCoders($coders): void {
-     foreach ($this->geocoders as $geoCoder) {
-       if (isset($coders[$geoCoder['name']])) {
-         $params = array_merge(['id' => $geoCoder['id']], $coders[$geoCoder['name']]);
-       }
-       else {
-         $params = ['id' => $geoCoder['id'], 'is_active' => 0];
-       }
-       // @todo api should handle these but for now we will.
-       $jsonFields = ['required_fields', 'retained_response_fields', 'datafill_response_fields', 'valid_countries'];
-       foreach ($jsonFields as $jsonField) {
-         if (!empty($params[$jsonField]) && is_string($jsonField)) {
-           $params[$jsonField] = json_decode($params[$jsonField]);
-         }
-       }
+    foreach ($this->geocoders as $geoCoder) {
+      if (isset($coders[$geoCoder['name']])) {
+        $params = array_merge(['id' => $geoCoder['id']], $coders[$geoCoder['name']]);
+      }
+      else {
+        $params = ['id' => $geoCoder['id'], 'is_active' => 0];
+      }
+      // @todo api should handle these but for now we will.
+      $jsonFields = ['required_fields', 'retained_response_fields', 'datafill_response_fields', 'valid_countries'];
+      foreach ($jsonFields as $jsonField) {
+        if (!empty($params[$jsonField]) && is_string($jsonField)) {
+          $params[$jsonField] = json_decode($params[$jsonField]);
+        }
+      }
 
-       $this->callAPISuccess('Geocoder', 'create', $params);
-     }
+      $this->callAPISuccess('Geocoder', 'create', $params);
+    }
   }
 
   /**
    * @param array $responses
    */
   protected function getClient($responses): void {
-    $mock = new MockHandler($responses);
-    $handler = HandlerStack::create($mock);
-    CRM_Utils_Geocode_Geocoder::setClient(Client::createWithConfig(['handler' => $handler]));
+    $client = new Client();
+    foreach ($responses as $response) {
+      $client->addResponse($response);
+    }
+    CRM_Utils_Geocode_Geocoder::setClient($client);
   }
 
   protected function setHttpClientToEmptyMock(): void {

@@ -67,6 +67,40 @@ class CRM_Utils_Geocode_Geocoder {
   protected static $geoCoders;
 
   /**
+   * Retrieve iso code by id and put both in an array.
+   * Useful for matching with provider valid countries.
+   * @param array $values address to be geocoded
+   * @return array country_id and country_isocode
+   */
+  protected static function retrieveCountryInfo($values) {
+    $res = [];
+    if (is_array($values) && array_key_exists('country_id', $values) && !empty($values['country_id'])) {
+      $countryId = $values['country_id'];
+      $res[] = $countryId;
+      if (is_numeric($countryId)) {
+        try {
+          $isoCode = civicrm_api3('Country', 'getvalue', ['return' => 'iso_code', 'id' => $countryId]);
+          $res[] = $isoCode;
+        }
+        catch (CiviCRM_API3_Exception $e) {
+          Civi::log()->error($e->getMessage() . ' - ' . $e->getTraceAsString());
+        }
+      }
+      //assume it is iso_code
+      elseif (is_string($countryId) && preg_match('/^[A-Z]{2}$/', $countryId)) {
+        try {
+          $realCountryId = civicrm_api3('Country', 'getvalue', ['return' => 'id', 'iso_code' => $countryId]);
+          $res[] = $realCountryId;
+        }
+        catch (CiviCRM_API3_Exception $e) {
+          Civi::log()->error($e->getMessage() . ' - ' . $e->getTraceAsString());
+        }
+      }
+    }
+    return $res;
+  }
+
+  /**
    * Function that takes an address object and gets the latitude / longitude for this
    * address. Note that at a later stage, we could make this function also clean up
    * the address into a more valid format
@@ -99,7 +133,9 @@ class CRM_Utils_Geocode_Geocoder {
           continue;
         }
         if (!empty($geocoder['valid_countries']) && $values['country_id']) {
-          if (!in_array($values['country_id'], json_decode($geocoder['valid_countries'], TRUE))) {
+          $addressCountryInfo = static::retrieveCountryInfo($values);
+          $providerCountryInfo = json_decode($geocoder['valid_countries'], TRUE);
+          if (empty(array_intersect($addressCountryInfo, $providerCountryInfo))) {
             continue;
           }
         }
@@ -124,9 +160,9 @@ class CRM_Utils_Geocode_Geocoder {
           }
         }
 
-      return TRUE;
-    }
-    catch (Geocoder\Exception\CollectionIsEmpty $e) {
+        return TRUE;
+      }
+      catch (Geocoder\Exception\CollectionIsEmpty $e) {
         $values['geo_code_1'] = 'null';
         $values['geo_code_2'] = 'null';
         $messageOnFail = ts('Failed to geocode address, no co-ordinates saved');
@@ -137,12 +173,12 @@ class CRM_Utils_Geocode_Geocoder {
         if (CRM_Core_Permission::check('access CiviCRM')) {
           CRM_Core_Session::setStatus(ts('Geocoder quota exceeded. No further geocoding attempts will be made for %1 seconds', array(
             $geocoder['threshold_standdown'],
-            'int'
+            'int',
           )));
         }
         civicrm_api3('Geocoder', 'create', [
           'id' => $geocoder['id'],
-          'threshold_last_hit' => 'now'
+          'threshold_last_hit' => 'now',
         ]);
         // Unset it so we reload next instance & recheck properly.
         self::$geoCoders = NULL;
@@ -261,7 +297,7 @@ class CRM_Utils_Geocode_Geocoder {
 
     $existingAddress = civicrm_api3('Address', 'getsingle', [
       'id' => $values['id'],
-      'return' => array_keys($missingFields)
+      'return' => array_keys($missingFields),
     ]);
     $inputValues = array_merge($existingAddress, $inputValues);
   }
@@ -361,7 +397,7 @@ class CRM_Utils_Geocode_Geocoder {
    * Get the value for the specified field.
    *
    * @param string $fieldName
-   * @param AddressCollection $result
+   * @param \Geocoder\Model\AddressCollection $result
    * @param array $values
    *   Address values to be saved
    *
@@ -411,13 +447,12 @@ class CRM_Utils_Geocode_Geocoder {
     }
   }
 
-
   /**
    * Get metadata about entities.
    *
    * @return array
    */
-  static protected function getEntitiesMetadata() {
+  protected static function getEntitiesMetadata() {
     $entities = array();
     geocoder_civicrm_geo_managed($entities);
     $rekeyed = [];
@@ -537,7 +572,7 @@ class CRM_Utils_Geocode_Geocoder {
     $arguments = (array) self::getProviderArgument($geocoder);
     $parameters = [];
     foreach ($arguments as $index => $argument) {
-       if (strpos($index, 'pass_through') === 0) {
+      if (strpos($index, 'pass_through') === 0) {
         $parameters[] = $argument;
         continue;
       }
@@ -596,12 +631,12 @@ class CRM_Utils_Geocode_Geocoder {
         if (CRM_Core_Permission::check('access CiviCRM')) {
           CRM_Core_Session::setStatus(ts('Geocoder quota exceeded. No further geocoding attempts will be made for %1 seconds', [
             $geocoder['threshold_standdown'],
-            'int'
+            'int',
           ]));
         }
         civicrm_api3('Geocoder', 'create', [
           'id' => $geocoder['id'],
-          'threshold_last_hit' => 'now'
+          'threshold_last_hit' => 'now',
         ]);
         // Unset it so we reload next instance & recheck properly.
         self::$geoCoders = NULL;

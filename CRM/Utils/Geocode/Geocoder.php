@@ -437,12 +437,7 @@ class CRM_Utils_Geocode_Geocoder {
    * @return string|array
    */
   protected static function getProviderArgument($geocoder) {
-    $argument = CRM_Utils_Array::value('argument', $geocoder);
-    if (is_string($argument) && substr($argument, 0, 9) === 'geocoder.') {
-      $split = explode('.', $argument);
-      return $geocoder[$split[1]];
-    }
-    return $argument;
+    return CRM_Utils_Array::value('argument', $geocoder);
   }
 
   /**
@@ -537,8 +532,12 @@ class CRM_Utils_Geocode_Geocoder {
     $arguments = (array) self::getProviderArgument($geocoder);
     $parameters = [];
     foreach ($arguments as $index => $argument) {
-       if (strpos($index, 'pass_through') === 0) {
+      if (strpos($index, 'pass_through') === 0) {
         $parameters[] = $argument;
+        continue;
+      }
+      if (is_null($argument)) {
+        $parameters[] = NULL;
         continue;
       }
       $parts = explode('.', $argument);

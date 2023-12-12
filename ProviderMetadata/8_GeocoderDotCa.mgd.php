@@ -17,9 +17,9 @@ return [
     'help_text' => ts('api key required - sign up https://geocoder.ca/?register=1'),
     'user_editable_fields' => ['api_key', 'threshold_standdown'],
     'metadata' => [
-      'argument' => ['geocoder.api_key', 'pass_through' => TRUE],
+      'argument' => ['geocoder.api_key', 'geocoder.url'],
       'required_config_fields' => ['api_key'],
-      'is_enabled_on_install' => TRUE,
+      'is_enabled_on_install' => FALSE,
     ],
   ]
 ];

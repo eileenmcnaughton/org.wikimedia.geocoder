@@ -205,7 +205,7 @@ class GeocoderTest extends BaseTestClass {
       throw new \Exception("Failed to find uk_postcode geocoder");
     }
     $drop = FALSE;
-    if (!CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE 'civicrm_geonames_lookup'")) {
+    if (!CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE 'civicrm_open_postcode_geo_uk'")) {
       // set up headless doesn't seem to be called in wmf tests ...but I haven't
       // double checked if we can drop if when running tests in isolation.
       CRM_Utils_File::sourceSQLFile(NULL, __DIR__  . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'

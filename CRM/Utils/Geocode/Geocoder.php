@@ -416,7 +416,7 @@ class CRM_Utils_Geocode_Geocoder {
    *
    * @return array
    */
-  static protected function getEntitiesMetadata() {
+  protected static function getEntitiesMetadata() {
     $entities = array();
     geocoder_civicrm_geo_managed($entities);
     $rekeyed = [];
@@ -553,7 +553,7 @@ class CRM_Utils_Geocode_Geocoder {
     $arguments = (array) self::getProviderArgument($geocoder);
     $parameters = [];
     foreach ($arguments as $index => $argument) {
-       if (strpos($index, 'pass_through') === 0) {
+      if (strpos($index, 'pass_through') === 0) {
         $parameters[] = $argument;
         continue;
       }
@@ -612,12 +612,12 @@ class CRM_Utils_Geocode_Geocoder {
         if (CRM_Core_Permission::check('access CiviCRM')) {
           CRM_Core_Session::setStatus(ts('Geocoder quota exceeded. No further geocoding attempts will be made for %1 seconds', [
             $geocoder['threshold_standdown'],
-            'int'
+            'int',
           ]));
         }
         civicrm_api3('Geocoder', 'create', [
           'id' => $geocoder['id'],
-          'threshold_last_hit' => 'now'
+          'threshold_last_hit' => 'now',
         ]);
         // Unset it so we reload next instance & recheck properly.
         self::$geoCoders = NULL;

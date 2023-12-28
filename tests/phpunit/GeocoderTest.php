@@ -2,12 +2,9 @@
 
 require_once __DIR__ . '/BaseTestClass.php';
 
+use Civi\Test\Api3TestTrait;
 use Civi\Test\CiviEnvBuilder;
 use Civi\Api4\Address;
-use CRM_Geocoder_ExtensionUtil as E;
-use Civi\Test\HeadlessInterface;
-use Civi\Test\HookInterface;
-use Civi\Test\TransactionalInterface;
 use Http\Adapter\Guzzle6\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -29,7 +26,7 @@ use GuzzleHttp\Psr7\Response;
  */
 class GeocoderTest extends BaseTestClass {
 
-  use \Civi\Test\Api3TestTrait;
+  use Api3TestTrait;
 
   protected $ids = [];
 
@@ -126,7 +123,6 @@ class GeocoderTest extends BaseTestClass {
    *
    * Note the lat long are slightly different between the 2 providers & we get timezone.
    *
-   * @throws \CRM_Core_Exception
    */
   public function testOpenStreetMapsFailsFallsBackToUSLookup(): void {
     $address = $this->callAPISuccess('Address', 'create', [

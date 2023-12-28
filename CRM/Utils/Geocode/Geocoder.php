@@ -99,7 +99,7 @@ class CRM_Utils_Geocode_Geocoder {
           continue;
         }
         if (!empty($geocoder['valid_countries']) && $values['country_id']) {
-          if (!in_array($values['country_id'], json_decode($geocoder['valid_countries'], TRUE))) {
+          if (!in_array($values['country_id'], $geocoder['valid_countries'])) {
             continue;
           }
         }
@@ -232,6 +232,9 @@ class CRM_Utils_Geocode_Geocoder {
    * @throws \CiviCRM_API3_Exception
    */
   public static function fillMissingAddressData(&$inputValues, $geocoder) {
+    if (empty($inputValues['id'])) {
+      return;
+    }
     foreach (['county', 'state_province', 'country'] as $locationField) {
       if (empty($inputValues[$locationField]) && !empty($inputValues[$locationField . '_id'])) {
         $inputValues[$locationField] = CRM_Core_PseudoConstant::getLabel(
@@ -240,10 +243,6 @@ class CRM_Utils_Geocode_Geocoder {
           $inputValues[$locationField . '_id']
         );
       }
-    }
-    // xxx this ALWAYS exits here since $values is not defined.
-    if (empty($values['id'])) {
-      return;
     }
     $addressFields = array_keys(self::getAddressFields());
 
@@ -254,13 +253,13 @@ class CRM_Utils_Geocode_Geocoder {
       $requiredFields = array_fill_keys($addressFields, 1);
     }
 
-    $missingFields = array_diff_key($requiredFields, $values);
+    $missingFields = array_diff_key($requiredFields, $inputValues);
     if (empty($missingFields)) {
       return;
     }
 
     $existingAddress = civicrm_api3('Address', 'getsingle', [
-      'id' => $values['id'],
+      'id' => $inputValues['id'],
       'return' => array_keys($missingFields)
     ]);
     $inputValues = array_merge($existingAddress, $inputValues);
@@ -512,6 +511,23 @@ class CRM_Utils_Geocode_Geocoder {
       $metadata = self::getEntitiesMetadata();
       foreach ($geocoders['values'] as $geocoder) {
         if (self::isGeocoderConfigured($metadata[$geocoder['name']], $geocoder)) {
+          // There is some historical mix up with iso vs id values
+          // This is likely in part because apiv3 can be a bit fast & loose
+          // & people adapted...
+          if (!empty($geocoder['valid_countries'])) {
+            $countries = json_decode($geocoder['valid_countries'], FALSE, 512, JSON_THROW_ON_ERROR);
+            $isoCodeMap = CRM_Core_PseudoConstant::countryIsoCode();
+            foreach ($countries as $country) {
+              if (isset($isoCodeMap[$country])) {
+                $countries[] = $isoCodeMap[$country];
+              }
+              elseif (in_array($country, $isoCodeMap, TRUE)) {
+                $countries[] = array_search($country, $isoCodeMap, TRUE);
+              }
+            }
+            $geocoder['valid_countries'] = $countries;
+          }
+
           self::$geoCoders[$geocoder['name']] = array_merge($geocoder, $metadata[$geocoder['name']]);
         }
       }

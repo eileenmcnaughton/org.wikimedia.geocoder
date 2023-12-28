@@ -178,6 +178,6 @@ The data came from https://www.getthedata.com/open-postcode-geo
    datafill_response_fields = '["city"]',
    threshold_standdown = 60,
    threshold_last_hit = NULL,
-   valid_countries = '[1082]';
+   valid_countries = '["DE"]';
    ```
    You may want to reassign weights for all geocoders registered in the `civicrm_geocoder` table.

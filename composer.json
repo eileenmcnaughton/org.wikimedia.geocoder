@@ -27,7 +27,8 @@
     "geo6/geocoder-php-addok-provider": "^1",
     "geocoder-php/here-provider": "^0.6",
     "nyholm/psr7": "^1.8@dev",
-    "geocoder-php/common-http": "4.5.*"
+    "geocoder-php/common-http": "4.5.*",
+    "ext-json": "*"
   },
   "replace": {
     "guzzlehttp/guzzle": "^6.0",

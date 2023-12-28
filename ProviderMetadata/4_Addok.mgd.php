@@ -14,7 +14,7 @@ return [
       'name' => 'addok',
       'title' => 'Addok',
       'class' => 'Addok\Addok',
-      'valid_countries' => [1076],
+      'valid_countries' => ["FR"],
       'url' => 'https://api-adresse.data.gouv.fr',
       'retained_response_fields' => ['geo_code_1', 'geo_code_2'],
       'is_active' => FALSE,

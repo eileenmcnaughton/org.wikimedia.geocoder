@@ -3,7 +3,7 @@
         'name' => 'civicrm/geocoder',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'a9105643682f7fb56b2133bd0c3e51530ad7dd6f',
+        'reference' => '996f84d3bfa2e048c893c15edd2c9e806bd10446',
         'type' => 'civicrm-ext',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'civicrm/geocoder' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'a9105643682f7fb56b2133bd0c3e51530ad7dd6f',
+            'reference' => '996f84d3bfa2e048c893c15edd2c9e806bd10446',
             'type' => 'civicrm-ext',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'clue/stream-filter' => array(
             'pretty_version' => '1.x-dev',
             'version' => '1.9999999.9999999.9999999-dev',
-            'reference' => 'f3a9eb951d112a8065ef3ea1fc485d8e84fc3ef1',
+            'reference' => '049509fef80032cb3f051595029ab75b49a3c2f7',
             'type' => 'library',
             'install_path' => __DIR__ . '/../clue/stream-filter',
             'aliases' => array(),
@@ -97,61 +97,25 @@
                 0 => '1.0',
             ),
         ),
-        'guzzlehttp/guzzle' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^6.0',
-            ),
-        ),
-        'guzzlehttp/psr7' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^1.6.1',
-            ),
-        ),
-        'nyholm/psr7' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '3cb4d163b58589e47b35103e8e5e6a6a475b47be',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../nyholm/psr7',
-            'aliases' => array(
-                0 => '1.8.x-dev',
-            ),
-            'dev_requirement' => false,
-        ),
         'php-http/async-client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
                 0 => '*',
-                1 => '1.0',
             ),
         ),
         'php-http/client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
                 0 => '*',
-                1 => '1.0',
             ),
         ),
         'php-http/discovery' => array(
             'pretty_version' => '1.x-dev',
             'version' => '1.9999999.9999999.9999999-dev',
-            'reference' => '57f3de01d32085fea20865f9b16fb0e69347c39e',
+            'reference' => '664ded67cc61abcaa5b77d27581777483d1c843d',
             'type' => 'composer-plugin',
             'install_path' => __DIR__ . '/../php-http/discovery',
             'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'php-http/guzzle6-adapter' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '9d1a45eb1c59f12574552e81fb295e9e53430a56',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../php-http/guzzle6-adapter',
-            'aliases' => array(
-                0 => '2.x-dev',
-            ),
             'dev_requirement' => false,
         ),
         'php-http/httplug' => array(
@@ -166,7 +130,7 @@
         'php-http/message' => array(
             'pretty_version' => '1.x-dev',
             'version' => '1.9999999.9999999.9999999-dev',
-            'reference' => '47a14338bf4ebd67d317bf1144253d7db4ab55fd',
+            'reference' => 'fb1298fb3891b897f25500cf50afe16b66e90079',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/message',
             'aliases' => array(),
@@ -190,20 +154,18 @@
             ),
         ),
         'php-http/promise' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'cac94eb65326fa1abbb17bab711884ef8753d0a3',
+            'pretty_version' => '1.x-dev',
+            'version' => '1.9999999.9999999.9999999-dev',
+            'reference' => '44a67cb59f708f826f3bec35f22030b3edb90119',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/promise',
-            'aliases' => array(
-                0 => '1.1.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'psr/http-client' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0955afe48220520692d2d09f7ab7e0f93ffd6a31',
+            'reference' => 'bb5906edc1c324c9a05aa0873d40117941e5fa90',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/http-client',
             'aliases' => array(
@@ -215,41 +177,27 @@
             'dev_requirement' => false,
             'provided' => array(
                 0 => '*',
-                1 => '1.0',
             ),
-        ),
-        'psr/http-factory' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '6d70f402f0eddb2b154b22950b5381bbf5b28469',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../psr/http-factory',
-            'aliases' => array(
-                0 => '1.0.x-dev',
-            ),
-            'dev_requirement' => false,
         ),
         'psr/http-factory-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
-                1 => '*',
+                0 => '*',
             ),
         ),
         'psr/http-message' => array(
+            'pretty_version' => '1.1',
+            'version' => '1.1.0.0',
+            'reference' => 'cb6ce4845ce34a8ad9e68117c10ee90a29919eba',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/http-message',
+            'aliases' => array(),
             'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^1.0.1',
-            ),
         ),
         'psr/http-message-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
-                1 => '*',
-            ),
-            'replaced' => array(
-                0 => '^1.0',
+                0 => '*',
             ),
         ),
         'wikimedia/civicrm-data-table-provider' => array(

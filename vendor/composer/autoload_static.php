@@ -17,17 +17,12 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
         ),
-        'N' => 
-        array (
-            'Nyholm\\Psr7\\' => 12,
-        ),
         'H' => 
         array (
             'Http\\Promise\\' => 13,
             'Http\\Message\\' => 13,
             'Http\\Discovery\\' => 15,
             'Http\\Client\\' => 12,
-            'Http\\Adapter\\Guzzle6\\' => 21,
         ),
         'G' => 
         array (
@@ -50,15 +45,11 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
     public static $prefixDirsPsr4 = array (
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
-        ),
-        'Nyholm\\Psr7\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/nyholm/psr7/src',
         ),
         'Http\\Promise\\' => 
         array (
@@ -66,8 +57,8 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
         ),
         'Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/php-http/message/src',
-            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
+            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
+            1 => __DIR__ . '/..' . '/php-http/message/src',
         ),
         'Http\\Discovery\\' => 
         array (
@@ -76,10 +67,6 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
         'Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-http/httplug/src',
-        ),
-        'Http\\Adapter\\Guzzle6\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/php-http/guzzle6-adapter/src',
         ),
         'Geocoder\\Provider\\Nominatim\\' => 
         array (

@@ -94,7 +94,8 @@ class CRM_Utils_Geocode_GeocoderCa {
       $values['geo_code_error'] = $coord['geo_code_error'];
     }
 
-    CRM_Utils_Hook::geocoderFormat('GeocoderCa', $values, $coord['request_xml']);
+    $geoCoder = array_pop(explode('_', __CLASS__));
+    CRM_Utils_Hook::geocoderFormat($geoCoder, $values, $coord['request_xml']);
 
     return isset($coord['geo_code_1'], $coord['geo_code_2']);
   }

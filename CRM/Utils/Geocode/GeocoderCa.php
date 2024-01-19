@@ -44,18 +44,10 @@ class CRM_Utils_Geocode_GeocoderCa {
       return FALSE;
     }
 
-    $add = '';
+    $add = [];
 
-    if (!empty($values['street_address'])) {
-      $add = urlencode(str_replace('', '+', $values['street_address']));
-      $add .= ',+';
-    }
 
     $city = $values['city'] ?? NULL;
-    if ($city) {
-      $add .= '+' . urlencode(str_replace('', '+', $city));
-      $add .= ',+';
-    }
 
     if (!empty($values['state_province']) || (!empty($values['state_province_id']) && $values['state_province_id'] != 'null')) {
       if (!empty($values['state_province_id'])) {
@@ -76,19 +68,22 @@ class CRM_Utils_Geocode_GeocoderCa {
 
       // dont add state twice if replicated in city (happens in NZ and other countries, CRM-2632)
       if ($stateProvince != $city) {
-        $add .= '+' . urlencode(str_replace('', '+', $stateProvince));
-        $add .= ',+';
+        $add[] = 'state=' . urlencode(str_replace('', '+', $stateProvince));
       }
     }
 
-    if (!empty($values['postal_code'])) {
-      $add .= '+' . urlencode(str_replace('', '+', $values['postal_code']));
-      $add .= ',+';
+    foreach ([
+      'country' => 'country',
+      'city' => 'city',
+      'postal' => 'postal_code',
+      'staddress' => 'street_address',
+    ] as $key => $addressFieldName) {
+      if (!empty($values[$addressFieldName])) {
+        $add[] = $key . '=' . urlencode(str_replace('', '+', $values[$addressFieldName]));
+      }
     }
 
-    if (!empty($values['country'])) {
-      $add .= '+' . urlencode(str_replace('', '+', $values['country']));
-    }
+    $add = implode('&', $add);
 
     $coord = self::makeRequest($add);
 
@@ -134,8 +129,7 @@ class CRM_Utils_Geocode_GeocoderCa {
       $add .= '&geoit=XML&auth=' . urlencode($config->geoAPIKey);
     }
 
-    $query = 'https://' . self::$_server . $add;
-
+    $query = 'https://' . self::$_server . '?' . $add;
     $client = new GuzzleHttp\Client();
     $request = $client->request('GET', $query, ['timeout' => \Civi::settings()->get('http_timeout')]);
     $string = $request->getBody();
@@ -143,31 +137,16 @@ class CRM_Utils_Geocode_GeocoderCa {
     libxml_use_internal_errors(TRUE);
     $xml = @simplexml_load_string($string);
     $coords['request_xml'] = $xml;
-    if ($xml === FALSE) {
-      // account blocked maybe?
+    if (isset($xml->error)) {
+      $string = sprintf('Error %s: %s', $xml->error->code, $xml->error->description);
       CRM_Core_Error::debug_var('Geocoding failed.  Message from Geocoder.ca:', $string);
       $coords['geo_code_error'] = $string;
     }
-
-    if (isset($xml->status)) {
-      if ($xml->status == 'OK' &&
-        is_a($xml->result->geometry->location,
-          'SimpleXMLElement'
-        )
-      ) {
-        $ret = $xml->result->geometry->location->children();
-        if ($ret->lat && $ret->lng) {
-          $coords['geo_code_1'] = (float) $ret->lat;
-          $coords['geo_code_2'] = (float) $ret->lng;
-        }
-      }
-      elseif ($xml->status != 'ZERO_RESULTS') {
-        // 'ZERO_RESULTS' is a valid status, in which case we'll change nothing in $ret;
-        // but if the status is anything else, we need to note the error.
-        CRM_Core_Error::debug_var("Geocoding failed. Message from Geocoder.ca: ({$xml->status})", (string ) $xml->error_message);
-        $coords['geo_code_error'] = $xml->status;
-      }
+    if (isset($xml->latt) && isset($xml->longt)) {
+      $coords['geo_code_1'] = (float) $xml->latt;
+      $coords['geo_code_2'] = (float) $xml->longt;
     }
+
     return $coords;
   }
 

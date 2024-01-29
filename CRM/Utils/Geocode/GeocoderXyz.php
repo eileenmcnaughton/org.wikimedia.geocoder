@@ -25,7 +25,16 @@ class CRM_Utils_Geocode_GeocoderXyz extends CRM_Utils_Geocode_GeocoderCa {
    *
    * @var string
    */
-  static protected $_server = 'geocoder.xyz';
+  static protected $_server = 'geocode.xyz';
+
+  public static function getMapper() {
+   return [
+      'region' => 'country',
+      'cityname' => 'city',
+      'postal' => 'postal_code',
+      'streetname' => 'street_address',
+    ];
+  }
 
   /**
    * @param string $add
@@ -44,10 +53,10 @@ class CRM_Utils_Geocode_GeocoderXyz extends CRM_Utils_Geocode_GeocoderCa {
     $coords = [];
     $config = CRM_Core_Config::singleton();
     if (!empty($config->geoAPIKey)) {
-      $add .= '&geoit=XML&auth=' . urlencode($config->geoAPIKey);
+      $add .= '?geoit=XML&auth=' . urlencode($config->geoAPIKey);
     }
 
-    $query = 'https://' . self::$_server . '?' . $add;
+    $query = 'https://' . self::$_server . '/' . $add;
     $client = new GuzzleHttp\Client();
     $request = $client->request('GET', $query, ['timeout' => \Civi::settings()->get('http_timeout')]);
     $string = $request->getBody();

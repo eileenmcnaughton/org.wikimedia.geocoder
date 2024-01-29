@@ -27,6 +27,15 @@ class CRM_Utils_Geocode_GeocoderCa {
    */
   static protected $_server = 'geocoder.ca';
 
+  public static function getMapper() {
+    return [
+      'country' => 'country',
+      'city' => 'city',
+      'postal' => 'postal_code',
+      'staddress' => 'street_address',
+    ];
+  }
+
   /**
    * Function that takes an address object and gets the latitude / longitude for this
    * address. Note that at a later stage, we could make this function also clean up
@@ -71,13 +80,7 @@ class CRM_Utils_Geocode_GeocoderCa {
         $add[] = 'state=' . urlencode(str_replace('', '+', $stateProvince));
       }
     }
-
-    foreach ([
-      'country' => 'country',
-      'city' => 'city',
-      'postal' => 'postal_code',
-      'staddress' => 'street_address',
-    ] as $key => $addressFieldName) {
+    foreach (self::getMapper() as $key => $addressFieldName) {
       if (!empty($values[$addressFieldName])) {
         $add[] = $key . '=' . urlencode(str_replace('', '+', $values[$addressFieldName]));
       }
@@ -127,10 +130,10 @@ class CRM_Utils_Geocode_GeocoderCa {
     $coords = [];
     $config = CRM_Core_Config::singleton();
     if (!empty($config->geoAPIKey)) {
-      $add .= '&geoit=XML&auth=' . urlencode($config->geoAPIKey);
+      $add .= '?geoit=XML&auth=' . urlencode($config->geoAPIKey);
     }
 
-    $query = 'https://' . self::$_server . '?' . $add;
+    $query = 'https://' . self::$_server . '/' . $add;
     $client = new GuzzleHttp\Client();
     $request = $client->request('GET', $query, ['timeout' => \Civi::settings()->get('http_timeout')]);
     $string = $request->getBody();

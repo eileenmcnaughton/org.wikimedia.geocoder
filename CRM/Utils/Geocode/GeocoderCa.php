@@ -143,7 +143,7 @@ class CRM_Utils_Geocode_GeocoderCa {
     $coords['request_xml'] = $xml;
     if (isset($xml->error)) {
       $string = sprintf('Error %s: %s', $xml->error->code, $xml->error->description);
-      CRM_Core_Error::debug_var('Geocoding failed.  Message from Geocoder.ca:', $string);
+      \Civi::log()->error('Geocoding failed.  Message from Geocoder.ca: ' . $string);
       $coords['geo_code_error'] = $string;
     }
     if (isset($xml->latt) && isset($xml->longt)) {

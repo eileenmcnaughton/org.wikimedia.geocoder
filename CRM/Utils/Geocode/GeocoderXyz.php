@@ -25,7 +25,26 @@ class CRM_Utils_Geocode_GeocoderXyz extends CRM_Utils_Geocode_GeocoderCa {
    *
    * @var string
    */
-  static protected $_server = 'geocoder.xyz';
+  static protected $_server = 'geocode.xyz';
+
+  public static function getMapper() {
+   return [
+      'region' => 'country',
+      'cityname' => 'city',
+      'postal' => 'postal_code',
+      'streetname' => 'street_address',
+    ];
+  }
+
+  /**
+   * @param string $address
+   *   Plain text address
+   * @return array
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public static function getCoordinates($address) {
+    return self::makeRequest(urlencode($address));
+  }
 
   /**
    * @param string $add
@@ -44,10 +63,10 @@ class CRM_Utils_Geocode_GeocoderXyz extends CRM_Utils_Geocode_GeocoderCa {
     $coords = [];
     $config = CRM_Core_Config::singleton();
     if (!empty($config->geoAPIKey)) {
-      $add .= '&geoit=XML&auth=' . urlencode($config->geoAPIKey);
+      $add .= '?geoit=XML&auth=' . urlencode($config->geoAPIKey);
     }
 
-    $query = 'https://' . self::$_server . '?' . $add;
+    $query = 'https://' . self::$_server . '/' . $add;
     $client = new GuzzleHttp\Client();
     $request = $client->request('GET', $query, ['timeout' => \Civi::settings()->get('http_timeout')]);
     $string = $request->getBody();
@@ -57,7 +76,7 @@ class CRM_Utils_Geocode_GeocoderXyz extends CRM_Utils_Geocode_GeocoderCa {
     $coords['request_xml'] = $xml;
     if (isset($xml->error)) {
       $string = sprintf('Error %s: %s', $xml->error->code, $xml->error->description);
-      CRM_Core_Error::debug_var('Geocoding failed.  Message from Geocoder.xyz:', $string);
+      \Civi::log()->error('Geocoding failed.  Message from Geocode.xyz: ' . $string);
       $coords['geo_code_error'] = $string;
     }
     if (isset($xml->latt) && isset($xml->longt)) {

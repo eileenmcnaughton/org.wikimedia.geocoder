@@ -29,9 +29,12 @@
     "geo6/geocoder-php-addok-provider": "^1",
     "geocoder-php/here-provider": "^0.6",
     "ext-json": "*",
-    "geocoder-php/common-http": "4.5.*"
+    "geocoder-php/common-http": "^4.5"
   },
   "config": {
+    "platform": {
+      "php": "7.4.33"
+    },
     "allow-plugins": {
       "php-http/discovery": false
     }

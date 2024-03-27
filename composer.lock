@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a0d13848ad6ee490ac84e6d80d7615f",
+    "content-hash": "63c02c7b0b827c2d3d5c8d55ded573cd",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -912,14 +912,14 @@
         },
         {
             "name": "wikimedia/civicrm-data-table-provider",
-            "version": "5.0.0",
+            "version": "5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eileenmcnaughton/civicrm-data-table-provider.git",
-                "reference": "82a68b389340b779779db59673bd6d0e83e8120c"
+                "reference": "c6b1b0d2ebcb27966d430d02845d890fe90e4fe2"
             },
             "require": {
-                "geocoder-php/common-http": "4.5.*",
+                "geocoder-php/common-http": "^4.5",
                 "php": ">=7.4",
                 "willdurand/geocoder": "^4"
             },
@@ -966,7 +966,7 @@
             ],
             "description": "CiviCRM datatable geocoder",
             "homepage": "http://geocoder-php.org/Geocoder/",
-            "time": "2023-09-14T05:36:56+00:00"
+            "time": "2024-03-27T21:44:21+00:00"
         },
         {
             "name": "willdurand/geocoder",
@@ -1041,5 +1041,8 @@
         "ext-json": "*"
     },
     "platform-dev": [],
+    "platform-overrides": {
+        "php": "7.4.33"
+    },
     "plugin-api-version": "2.3.0"
 }

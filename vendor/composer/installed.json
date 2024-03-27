@@ -951,15 +951,15 @@
         },
         {
             "name": "wikimedia/civicrm-data-table-provider",
-            "version": "5.0.0",
-            "version_normalized": "5.0.0.0",
+            "version": "5.0.1",
+            "version_normalized": "5.0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eileenmcnaughton/civicrm-data-table-provider.git",
-                "reference": "82a68b389340b779779db59673bd6d0e83e8120c"
+                "reference": "c6b1b0d2ebcb27966d430d02845d890fe90e4fe2"
             },
             "require": {
-                "geocoder-php/common-http": "4.5.*",
+                "geocoder-php/common-http": "^4.5",
                 "php": ">=7.4",
                 "willdurand/geocoder": "^4"
             },
@@ -973,7 +973,7 @@
                 "php-http/message": "^1.0",
                 "phpunit/phpunit": "^6.1"
             },
-            "time": "2023-09-14T05:36:56+00:00",
+            "time": "2024-03-27T21:44:21+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {

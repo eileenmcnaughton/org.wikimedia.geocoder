@@ -3,7 +3,7 @@
         'name' => 'civicrm/geocoder',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '3f2d8b94b5731ff3dc3ddd19c1548401b3d4867e',
+        'reference' => '1d5524fb663ca7c5e9ccfce665f099cbe9bbd2c3',
         'type' => 'civicrm-ext',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'civicrm/geocoder' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3f2d8b94b5731ff3dc3ddd19c1548401b3d4867e',
+            'reference' => '1d5524fb663ca7c5e9ccfce665f099cbe9bbd2c3',
             'type' => 'civicrm-ext',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -121,7 +121,7 @@
         'php-http/httplug' => array(
             'pretty_version' => '2.x-dev',
             'version' => '2.9999999.9999999.9999999-dev',
-            'reference' => '625ad742c360c8ac580fcc647a1541d29e257f67',
+            'reference' => '87779285e14780b0a85209bfed8abd9d5fe0322e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/httplug',
             'aliases' => array(),
@@ -130,7 +130,7 @@
         'php-http/message' => array(
             'pretty_version' => '1.x-dev',
             'version' => '1.9999999.9999999.9999999-dev',
-            'reference' => 'fb1298fb3891b897f25500cf50afe16b66e90079',
+            'reference' => '4cb00d6d316783d357a59ec94c234c50aca515f5',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/message',
             'aliases' => array(),
@@ -156,7 +156,7 @@
         'php-http/promise' => array(
             'pretty_version' => '1.x-dev',
             'version' => '1.9999999.9999999.9999999-dev',
-            'reference' => '44a67cb59f708f826f3bec35f22030b3edb90119',
+            'reference' => 'fc85b1fba37c169a69a07ef0d5a8075770cc1f83',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-http/promise',
             'aliases' => array(),

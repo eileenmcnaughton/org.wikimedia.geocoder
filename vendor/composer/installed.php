@@ -3,7 +3,7 @@
         'name' => 'civicrm/geocoder',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '1d5524fb663ca7c5e9ccfce665f099cbe9bbd2c3',
+        'reference' => '65f3af5e6d7894be3b0ff5baed6646476efb5f71',
         'type' => 'civicrm-ext',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'civicrm/geocoder' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '1d5524fb663ca7c5e9ccfce665f099cbe9bbd2c3',
+            'reference' => '65f3af5e6d7894be3b0ff5baed6646476efb5f71',
             'type' => 'civicrm-ext',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

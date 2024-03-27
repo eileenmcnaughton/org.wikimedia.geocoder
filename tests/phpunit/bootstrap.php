@@ -4,8 +4,17 @@ if (file_exists( __DIR__ . '/vendor/autoload.php')) {
   require_once __DIR__ . '/vendor/autoload.php';
 }
 ini_set('memory_limit', '2G');
-ini_set('safe_mode', 0);
+// phpcs:disable
 eval(cv('php:boot --level=classloader', 'phpcode'));
+// phpcs:enable
+// Allow autoloading of PHPUnit helper classes in this extension.
+$loader = new \Composer\Autoload\ClassLoader();
+$loader->add('CRM_', [__DIR__ . '/../..', __DIR__]);
+$loader->addPsr4('Civi\\', [__DIR__ . '/../../Civi', __DIR__ . '/Civi']);
+$loader->add('api_', [__DIR__ . '/../..', __DIR__]);
+$loader->addPsr4('api\\', [__DIR__ . '/../../api', __DIR__ . '/api']);
+
+$loader->register();
 
 /**
  * Call the "cv" command.

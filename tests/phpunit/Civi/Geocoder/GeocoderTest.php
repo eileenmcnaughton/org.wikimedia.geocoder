@@ -11,6 +11,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Http\Adapter\Guzzle6\Client;
+use Civi\Test\GuzzleTestTrait;
 
 /**
  * FIXME - Add test description.
@@ -31,6 +32,7 @@ use Http\Adapter\Guzzle6\Client;
 class GeocoderTest extends BaseTestClass {
 
   use Api3TestTrait;
+  use GuzzleTestTrait;
 
   protected $ids = [];
 
@@ -98,7 +100,7 @@ class GeocoderTest extends BaseTestClass {
    * @throws \Exception
    */
   public function testOpenStreetMaps(): void {
-    $responses = [new Response(200, [], file_get_contents(__DIR__ . '/Responses/OpenStreetMaps.json'))];
+    $responses = [file_get_contents(__DIR__ . '/Responses/OpenStreetMaps.json')];
     $this->getClient($responses);
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 90210,
@@ -296,9 +298,9 @@ class GeocoderTest extends BaseTestClass {
    * @param array $responses
    */
   protected function getClient(array $responses): void {
-    $mock = new MockHandler($responses);
-    $handler = HandlerStack::create($mock);
-    CRM_Utils_Geocode_Geocoder::setClient(Client::createWithConfig(['handler' => $handler]));
+    $this->createMockHandler($responses);
+    $this->setUpClientWithHistoryContainer();
+    CRM_Utils_Geocode_Geocoder::setClient($this->getGuzzleClient());
   }
 
   protected function setHttpClientToEmptyMock(): void {

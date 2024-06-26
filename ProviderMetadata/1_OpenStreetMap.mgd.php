@@ -14,7 +14,7 @@ return [
     'params' => [
       'version' => 3,
       'name' => 'open_street_maps',
-      'title' => 'Nominatim (Open street maps)',
+      'title' => 'Nominatim (OpenStreetMap)',
       'class' => 'Nominatim\Nominatim',
       'url' => 'https://nominatim.openstreetmap.org',
       'is_active' => FALSE,

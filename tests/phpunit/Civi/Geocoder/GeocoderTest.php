@@ -95,12 +95,12 @@ class GeocoderTest extends BaseTestClass {
   }
 
   /**
-   * Test open street maps geocodes address.
+   * Test OpenStreetMap geocodes address.
    *
    * @throws \Exception
    */
-  public function testOpenStreetMaps(): void {
-    $responses = [file_get_contents(__DIR__ . '/Responses/OpenStreetMaps.json')];
+  public function testOpenStreetMap(): void {
+    $responses = [file_get_contents(__DIR__ . '/Responses/OpenStreetMap.json')];
     $this->getClient($responses);
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 90210,
@@ -115,14 +115,14 @@ class GeocoderTest extends BaseTestClass {
   }
 
   /**
-   * Test when open street maps fail we fall back on the next one
+   * Test when OpenStreetMap fails we fall back on the next one
    * (USZipGeoCoder).
    *
    * Note the lat long are slightly different between the 2 providers & we get
    * timezone.
    *
    */
-  public function testOpenStreetMapsFailsFallsBackToUSLookup(): void {
+  public function testOpenStreetMapFailsFallsBackToUSLookup(): void {
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 90210,
       'location_type_id' => 'Home',

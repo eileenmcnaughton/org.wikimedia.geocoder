@@ -13,7 +13,7 @@ to understand and adhere to them.
 
 Currently enabled geocoders are
 
-- Open Street Maps - this is zero-config & is enabled as the default (lowest weight)on install if you have no existing mapping provider
+- OpenStreetMap - this is zero-config & is enabled as the default (lowest weight)on install if you have no existing mapping provider
 - USZipGeocoder - this is enabled on install & has no config. It will work as a fallback for US addresses only.
 - UK Postcodes - see below
 - MapQuest - requires an API key to be used
@@ -42,7 +42,7 @@ As of the 1.4 release there are some metadata & field use changes. These are
 best illustrated by examples.
 
  - the arguments that can be defined in the metadata (to instantiate the provider class) are expanded
-e.g in Open Street map the following
+e.g in OpenStreetMap the following
 ```
     'metadata' => [
       'argument' => ['geocoder.url', 'server.User-Agent:CiviCRM', 'server.Referrer'],

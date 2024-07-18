@@ -74,7 +74,6 @@ class GeocoderTest extends BaseTestClass {
       'last_name' => 'Rabbit',
     ]);
     $this->ids['contact'][] = $contact['id'];
-    $this->callAPISuccess('System', 'flush');
   }
 
   /**

@@ -3,7 +3,9 @@
 namespace Civi\Geocoder;
 
 use Civi\Api4\Address;
+use Civi\Api4\Contact;
 use Civi\Test\Api3TestTrait;
+use Civi\Test\EntityTrait;
 use CRM_Core_DAO;
 use CRM_Utils_File;
 use CRM_Utils_Geocode_Geocoder;
@@ -30,6 +32,7 @@ use Civi\Test\GuzzleTestTrait;
  * @group headless
  */
 class GeocoderTest extends BaseTestClass {
+  use EntityTrait;
 
   use Api3TestTrait;
   use GuzzleTestTrait;
@@ -39,13 +42,12 @@ class GeocoderTest extends BaseTestClass {
   protected $geocoders = [];
 
   /**
-   * @throws \CiviCRM_API3_Exception
    * @throws \CRM_Core_Exception
    */
   public function setUp(): void {
     parent::setUp();
     $this->setHttpClientToEmptyMock();
-    $geocoders = civicrm_api3('Geocoder', 'get')['values'];
+    $geocoders = $this->callAPISuccess('Geocoder', 'get')['values'];
     foreach ($geocoders as $geocoder) {
       $this->geocoders[$geocoder['name']] = $geocoder;
     }
@@ -68,12 +70,11 @@ class GeocoderTest extends BaseTestClass {
       ],
     ]);
 
-    $contact = $this->callAPISuccess('Contact', 'create', [
+    $this->createTestEntity('Contact', [
       'contact_type' => 'Individual',
       'first_name' => 'Brer',
       'last_name' => 'Rabbit',
     ]);
-    $this->ids['contact'][] = $contact['id'];
   }
 
   /**
@@ -81,14 +82,10 @@ class GeocoderTest extends BaseTestClass {
    *
    */
   public function tearDown(): void {
-    foreach ($this->ids as $entity => $entityIDs) {
-      foreach ($entityIDs as $id) {
-        $this->callAPISuccess($entity, 'delete', [
-          'id' => $id,
-          'skip_undelete' => TRUE,
-        ]);
-      }
-    }
+    Contact::delete(FALSE)
+      ->addWhere('id', 'IN', $this->ids['Contact'])
+      ->setUseTrash(FALSE)
+      ->execute();
     $this->configureGeoCoders($this->geocoders);
     parent::tearDown();
   }
@@ -104,7 +101,7 @@ class GeocoderTest extends BaseTestClass {
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 90210,
       'location_type_id' => 'Home',
-      'contact_id' => $this->ids['contact'][0],
+      'contact_id' => $this->ids['Contact']['default'],
       'country_id' => 'US',
     ]);
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
@@ -125,7 +122,7 @@ class GeocoderTest extends BaseTestClass {
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 90210,
       'location_type_id' => 'Home',
-      'contact_id' => $this->ids['contact'][0],
+      'contact_id' => $this->ids['Contact']['default'],
       'country_id' => 'US',
     ]);
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
@@ -155,7 +152,7 @@ class GeocoderTest extends BaseTestClass {
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 624,
       'location_type_id' => 'Home',
-      'contact_id' => $this->ids['contact'][0],
+      'contact_id' => $this->ids['Contact']['default'],
       'country_id' => 'US',
     ]);
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
@@ -179,7 +176,7 @@ class GeocoderTest extends BaseTestClass {
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => '0951',
       'location_type_id' => 'Home',
-      'contact_id' => $this->ids['contact'][0],
+      'contact_id' => $this->ids['Contact']['default'],
       'country_id' => 'NZ',
     ]);
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
@@ -225,7 +222,7 @@ class GeocoderTest extends BaseTestClass {
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 'SW1A 0AA',
       'location_type_id' => 'Home',
-      'contact_id' => $this->ids['contact'][0],
+      'contact_id' => $this->ids['Contact']['default'],
       'country_id' => 'GB',
     ]);
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
@@ -238,7 +235,7 @@ class GeocoderTest extends BaseTestClass {
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 'SW1A0AA',
       'location_type_id' => 'Home',
-      'contact_id' => $this->ids['contact'][0],
+      'contact_id' => $this->ids['Contact']['default'],
       'country_id' => 'GB',
     ]);
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
@@ -250,7 +247,7 @@ class GeocoderTest extends BaseTestClass {
     $address = $this->callAPISuccess('Address', 'create', [
       'postal_code' => 'ZEBRA678',
       'location_type_id' => 'Home',
-      'contact_id' => $this->ids['contact'][0],
+      'contact_id' => $this->ids['Contact']['default'],
       'country_id' => 'GB',
     ]);
     $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);

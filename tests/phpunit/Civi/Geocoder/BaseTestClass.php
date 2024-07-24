@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @group headless
  */
-class BaseTestClass extends TestCase implements HeadlessInterface, HookInterface, TransactionalInterface {
+class BaseTestClass extends TestCase implements HeadlessInterface, HookInterface {
 
   /**
    * @throws \CRM_Extension_Exception_ParseException

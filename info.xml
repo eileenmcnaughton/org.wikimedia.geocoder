@@ -14,11 +14,11 @@
     <url desc="Support">https://github.com/eileenmcnaughton/org.wikimedia.geocoder</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
-  <releaseDate>2024-03-28</releaseDate>
-  <version>1.12</version>
+  <releaseDate>2024-08-09</releaseDate>
+  <version>1.13</version>
   <develStage>stable</develStage>
   <compatibility>
-    <ver>5.69</ver>
+    <ver>5.74</ver>
   </compatibility>
   <comments>Implementation of geocoder library (which itself supports multiple providers). Please be aware that CiviCRM will store data from these providers to the CiviCRM database as addresses are edited (the fields to be stored are somewhat configurable) and when searching by geocode. You are responsible for understanding the geocoder terms of service and ensuring you are working within them.
 

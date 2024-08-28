@@ -97,7 +97,7 @@ class CRM_Utils_Geocode_Geocoder {
         if (!self::hasRequiredFieldsForGeocoder($values, $geocoder)) {
           continue;
         }
-        if (!empty($geocoder['valid_countries']) && $values['country_id']) {
+        if (!empty($geocoder['valid_countries']) && !empty($values['country_id'])) {
           if (!in_array($values['country_id'], $geocoder['valid_countries'])) {
             continue;
           }

@@ -15,6 +15,7 @@ return [
       'name' => 'google_maps',
       'title' => 'Google Maps',
       'class' => 'GoogleMaps\GoogleMaps',
+      'datafill_response_fields' => ["city", "state_province_id", "county_id"],
       'api_key' =>  \Civi::settings()->get('geoAPIKey'),
       'is_active' => FALSE,
       'weight' => 5,

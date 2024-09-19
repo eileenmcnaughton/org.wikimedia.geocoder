@@ -18,7 +18,7 @@ function _civicrm_api3_geocoder_create_spec(&$spec) {
  *
  * @param array $params
  * @return array API result descriptor
- * @throws API_Exception
+ * @throws \CRM_Core_Exception
  */
 function civicrm_api3_geocoder_create($params) {
   $result = _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params, 'Geocoder');
@@ -32,8 +32,7 @@ function civicrm_api3_geocoder_create($params) {
  * @param array $params
  *
  * @return array API result descriptor
- * @throws \API_Exception
- * @throws \CiviCRM_API3_Exception
+ * @throws \CRM_Core_Exception
  * @throws \Civi\API\Exception\UnauthorizedException
  */
 function civicrm_api3_geocoder_delete($params) {

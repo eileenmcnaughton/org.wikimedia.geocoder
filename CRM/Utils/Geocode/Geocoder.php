@@ -75,7 +75,7 @@ class CRM_Utils_Geocode_Geocoder {
    *
    * @return bool
    *   true if we modified the address, false otherwise
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    * @throws \Geocoder\Exception\Exception
    */
   public static function format(&$values, $stateName = FALSE) {
@@ -228,7 +228,7 @@ class CRM_Utils_Geocode_Geocoder {
    * @param array $inputValues
    * @param array $geocoder
    *
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   public static function fillMissingAddressData(&$inputValues, $geocoder) {
     if (empty($inputValues['id'])) {
@@ -317,7 +317,7 @@ class CRM_Utils_Geocode_Geocoder {
    * @param $geocoder
    *
    * @return string
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   protected static function getGeocodableAddress($addressValues, $geocoder) {
     $addressFields = self::getSendableFields($geocoder);
@@ -343,7 +343,7 @@ class CRM_Utils_Geocode_Geocoder {
    * @param int|string $state the id
    *
    * @return string the state name
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   protected static function getStateName($state) {
     if (!is_numeric($state)) {
@@ -399,7 +399,7 @@ class CRM_Utils_Geocode_Geocoder {
               'country_id' => $values['country_id'],
             ]);
           }
-          catch (CiviCRM_API3_Exception $e) {
+          catch (CRM_Core_Exception $e) {
             // We just won't worry about the state.
             return 'null';
           }

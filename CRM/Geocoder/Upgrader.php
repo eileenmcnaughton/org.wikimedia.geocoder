@@ -58,7 +58,7 @@ class CRM_Geocoder_Upgrader extends CRM_Extension_Upgrader_Base {
    * Activate a geocoder by its name
    * @param $geoCoderName string name of the GeoCoder to activate
    * @return void
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   protected static function activateGeocoder($geoCoderName) {
     /*api3 does error checking itself, so there is less need to do checking*/
@@ -104,7 +104,7 @@ class CRM_Geocoder_Upgrader extends CRM_Extension_Upgrader_Base {
   /**
    *  Add parameter column in DB
    *
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   public function upgrade_1100() {
     $this->ctx->log->info('Applying update 1100');
@@ -115,7 +115,7 @@ class CRM_Geocoder_Upgrader extends CRM_Extension_Upgrader_Base {
   /**
    *  Update the URL for OpenStreetMap end point
    *
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   public function upgrade_1200() {
     $this->ctx->log->info('Applying update 1200: Update the URL for OpenStreetMap end point');
@@ -129,7 +129,7 @@ class CRM_Geocoder_Upgrader extends CRM_Extension_Upgrader_Base {
    *
    * @return bool
    *
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   private function update_providers() {
     $geoCoders = [];

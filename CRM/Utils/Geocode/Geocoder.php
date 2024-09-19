@@ -262,6 +262,11 @@ class CRM_Utils_Geocode_Geocoder {
       'return' => array_keys($missingFields)
     ]);
     $inputValues = array_merge($existingAddress, $inputValues);
+
+    // clear an orphaned county
+    if (empty($inputValues['county']) || empty($inputValues['state_province'])) {
+      unset($inputValues['county'], $inputValues['county_id']);
+    }
   }
 
   /**
@@ -406,7 +411,47 @@ class CRM_Utils_Geocode_Geocoder {
         }
         return \Civi::$statics[__CLASS__]['country_id'][$state];
 
+      case 'county_id':
+        $state = self::getValueFromResult('state_province_id', $result, $values);
+        $county = self::getAdminLevelByType($firstResult, 'county', 2);
+
+        if ($state && $county) {
+          $id = CRM_Core_DAO::singleValueQuery('SELECT id FROM civicrm_county WHERE state_province_id=%1 AND name=%2 AND is_active=1', [
+            1 => [$state, 'Integer'],
+            2 => [$county, 'String']
+          ]);
+          return $id ?: NULL;
+        }
+        return NULL;
     }
+  }
+
+  /**
+   * Get an admin level name by type.
+   * The name will end with the $type, e.g. "Lake County"...
+   * ...and the $type will be removed on return, e.g. "Lake".
+   * Can optionally return a name for a $defaultLevel if $type is not found in this way.
+   *
+   * @param Address $address Address to get admin level from.
+   * @param string $type The type of admin level to get, e.g. "County".
+   * @param integer $defaultLevel If $type is not found, use this level. 0 for no default level.
+   * @return mixed The requested value, or NULL.
+   */
+  protected static function getAdminLevelByType($address, $type, $defaultLevel = 0) {
+    $levels = $address->getAdminLevels();
+    $ew = strtolower(" $type");
+
+    foreach ($levels->all() as $level) {
+      $name = $level->getName();
+
+      if (str_ends_with(strtolower($name), $ew)) {
+        return substr($name, 0, -strlen($ew));
+      }
+    }
+    if ($defaultLevel > 0 && $levels->has($defaultLevel)) {
+      return $levels->get($defaultLevel)->getName();
+    }
+    return NULL;
   }
 
 

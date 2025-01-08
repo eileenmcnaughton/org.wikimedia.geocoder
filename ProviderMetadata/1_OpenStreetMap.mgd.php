@@ -16,6 +16,7 @@ return [
       'name' => 'open_street_maps',
       'title' => 'Nominatim (OpenStreetMap)',
       'class' => 'Nominatim\Nominatim',
+      'datafill_response_fields' => ["city", "state_province_id", "county_id"],
       'url' => 'https://nominatim.openstreetmap.org',
       'is_active' => FALSE,
       'weight' => 1,

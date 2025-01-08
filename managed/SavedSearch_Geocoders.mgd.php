@@ -1,7 +1,5 @@
 <?php
-
 use CRM_Geocoder_ExtensionUtil as E;
-
 return [
   [
     'name' => 'SavedSearch_Geocoders',
@@ -13,9 +11,6 @@ return [
       'values' => [
         'name' => 'Geocoders',
         'label' => E::ts('Geocoders'),
-        'form_values' => NULL,
-        'mapping_id' => NULL,
-        'search_custom_id' => NULL,
         'api_entity' => 'Geocoder',
         'api_params' => [
           'version' => 4,
@@ -41,12 +36,8 @@ return [
           'join' => [],
           'having' => [],
         ],
-        'expires_date' => NULL,
-        'description' => NULL,
       ],
-      'match' => [
-        'name',
-      ],
+      'match' => ['name'],
     ],
   ],
   [
@@ -62,17 +53,8 @@ return [
         'saved_search_id.name' => 'Geocoders',
         'type' => 'table',
         'settings' => [
-          'description' => NULL,
-          'sort' => [
-            [
-              'is_active',
-              'DESC',
-            ],
-            [
-              'weight',
-              'ASC',
-            ],
-          ],
+          'description' => E::ts(NULL),
+          'sort' => [],
           'limit' => 50,
           'pager' => [
             'hide_single' => TRUE,
@@ -118,15 +100,8 @@ return [
             ],
             [
               'type' => 'field',
-              'key' => 'weight',
-              'dataType' => 'Integer',
-              'label' => E::ts('Weight'),
-              'sortable' => TRUE,
-              'editable' => TRUE,
-            ],
-            [
-              'type' => 'field',
               'key' => 'api_key',
+              'dataType' => 'String',
               'label' => E::ts('API Key'),
             ],
             [
@@ -182,16 +157,14 @@ return [
             ],
           ],
           'actions' => FALSE,
-          'classes' => [
-            'table',
-            'table-striped',
-          ],
+          'classes' => ['table', 'table-striped'],
+          'draggable' => 'weight',
+          'cssRules' => [],
         ],
-        'acl_bypass' => FALSE,
       ],
       'match' => [
-        'name',
         'saved_search_id',
+        'name',
       ],
     ],
   ],

@@ -156,7 +156,7 @@ class CRM_Geocoder_Upgrader extends CRM_Extension_Upgrader_Base {
    * Example: Run an external SQL script when the module is uninstalled.
    */
   public function uninstall() {
-    $this->executeSqlFile('sql/uninstall.sql');
+    CRM_Core_BAO_SchemaHandler::dropTable('civicrm_geocoder_zip_dataset');
     civicrm_api3('Setting', 'create', ['geoProvider' => 'null']);
   }
 

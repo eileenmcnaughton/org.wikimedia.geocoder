@@ -25,6 +25,7 @@
   +--------------------------------------------------------------------+
  */
 
+use Civi\Api4\StateProvince;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Model\AddressCollection;
 use CRM_Geocoder_ExtensionUtil as E;
@@ -394,30 +395,54 @@ class CRM_Utils_Geocode_Geocoder {
           // not possible to determine state without the country.
           return 'null';
         }
-        $state = $firstResult->getAdminLevels()->get(1)->getCode();
-        if (!isset(\Civi::$statics[__CLASS__]['country_id'][$state])) {
-          try {
-            // Build our own static array as the core pseudoconstant does country limiting in a weird way.
-            \Civi::$statics[__CLASS__]['country_id'][$state] = civicrm_api3('StateProvince', 'getvalue', [
-              'return' => 'id',
-              'abbreviation' => $state,
-              'country_id' => $values['country_id'],
-            ]);
-          }
-          catch (CRM_Core_Exception $e) {
-            // We just won't worry about the state.
+        // Some providers return the code (abbreviation), others (eg nominatim/osm) return the name
+        $stateAbbreviation = $firstResult->getAdminLevels()->get(1)->getCode();
+        if (empty($stateAbbreviation) && !empty($firstResult->getAdminLevels()->get(1)->getName())) {
+          // Try to get Abbreviation from State Name.
+          $stateName = $firstResult->getAdminLevels()->get(1)->getName();
+          $stateProvince = StateProvince::get(FALSE)
+            ->addSelect('abbreviation', 'id')
+            ->addWhere('name', '=', $stateName)
+            ->addWhere('country_id', '=', $values['country_id'])
+            ->addWhere('is_active', '=', TRUE)
+            ->execute()
+            ->first();
+          if (empty($stateProvince['abbreviation'])) {
+            // We need the abbreviation to get the ID.
             return 'null';
           }
+          $stateAbbreviation = $stateProvince['abbreviation'];
+          $stateProvinceID = $stateProvince['id'];
         }
-        return \Civi::$statics[__CLASS__]['country_id'][$state];
+        // Now we have the state Abbreviation we can check the cache (and fill it if required)
+        if (!isset(\Civi::$statics[__CLASS__]['country_id'][$stateAbbreviation])) {
+          if (empty($stateProvinceID)) {
+            // We didn't already look up the ID, get it now
+            $stateProvince = StateProvince::get(FALSE)
+              ->addSelect('id')
+              ->addWhere('abbreviation', '=', $stateAbbreviation)
+              ->addWhere('country_id', '=', $values['country_id'])
+              ->addWhere('is_active', '=', TRUE)
+              ->execute()
+              ->first();
+            if (empty($stateProvince['id'])) {
+              // Not found. Abbreviation doesn't exist for this Country.
+              return 'null';
+            }
+            $stateProvinceID = $stateProvince['id'];
+          }
+          // Build our own static array as the core pseudoconstant does country limiting in a weird way.
+          \Civi::$statics[__CLASS__]['country_id'][$stateAbbreviation] = $stateProvinceID;
+        }
+        return \Civi::$statics[__CLASS__]['country_id'][$stateAbbreviation];
 
       case 'county_id':
-        $state = self::getValueFromResult('state_province_id', $result, $values);
+        $stateAbbreviation = self::getValueFromResult('state_province_id', $result, $values);
         $county = self::getAdminLevelByType($firstResult, 'county', 2);
 
-        if ($state && $county) {
+        if ($stateAbbreviation && $county) {
           $id = CRM_Core_DAO::singleValueQuery('SELECT id FROM civicrm_county WHERE state_province_id=%1 AND name=%2 AND is_active=1', [
-            1 => [$state, 'Integer'],
+            1 => [$stateAbbreviation, 'Integer'],
             2 => [$county, 'String']
           ]);
           return $id ?: NULL;

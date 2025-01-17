@@ -20,6 +20,15 @@
   <compatibility>
     <ver>5.78</ver>
   </compatibility>
+    <smarty_compatibility>
+    <ver>5</ver>
+  </smarty_compatibility>
+  <php_compatibility>
+    <ver>8.1</ver>
+    <ver>8.2</ver>
+    <ver>8.3</ver>
+    <ver>8.4</ver>
+  </php_compatibility>
   <comments>Implementation of geocoder library (which itself supports multiple providers). Please be aware that CiviCRM will store data from these providers to the CiviCRM database as addresses are edited (the fields to be stored are somewhat configurable) and when searching by geocode. You are responsible for understanding the geocoder terms of service and ensuring you are working within them.
 
       This extension ships with a US based postal code to geocode lookup table which you can use for fast but less precise lookups in the US. Similar tables are available for other countries but you will need to download the data -eg from http://download.geonames.org/export/zip/ and upload it. Depending on the data some additional config will be needed.

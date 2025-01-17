@@ -13,7 +13,6 @@ class CRM_Geocoder_Upgrader extends CRM_Extension_Upgrader_Base {
    * Example: Run an external SQL script when the module is installed.
    */
   public function install() {
-    $this->executeSqlFile('sql/install.sql');
     $this->executeSqlFile('sql/install_zip_data_set.sql');
     civicrm_api3('Setting', 'create', ['geoProvider' => 'Geocoder']);
   }

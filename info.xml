@@ -20,8 +20,8 @@
   <compatibility>
     <ver>5.78</ver>
   </compatibility>
-    <smarty_compatibility>
-    <ver>5</ver>
+  <smarty_compatibility>
+    <ver>5.0</ver>
   </smarty_compatibility>
   <php_compatibility>
     <ver>8.1</ver>

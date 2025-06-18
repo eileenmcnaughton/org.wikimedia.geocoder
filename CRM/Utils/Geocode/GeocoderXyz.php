@@ -17,6 +17,9 @@
 
 /**
  * Class that uses Geocoder.xyz geocoder
+ *
+ * @deprecated - this is not a supported way to add geocoders to this extension.
+ * Add files to ProviderMetadata.
  */
 class CRM_Utils_Geocode_GeocoderXyz extends CRM_Utils_Geocode_GeocoderCa {
 

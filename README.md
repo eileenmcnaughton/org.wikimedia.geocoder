@@ -2,6 +2,8 @@
 
 Documentation is moving to https://docs.civicrm.org/geocoder/en/latest/
 
+**You will not see all the documentation if you are viewing the readme page directly**
+
 Implementation of geocoder library (which itself supports multiple providers) https://github.com/geocoder-php/mapquest-provider. Only those that have been tested are enabled so far.
 
 When an address is edited CiviCRM will obtain additional data from the geocoding provider

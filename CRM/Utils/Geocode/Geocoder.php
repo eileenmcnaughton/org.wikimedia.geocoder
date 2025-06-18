@@ -445,7 +445,7 @@ class CRM_Utils_Geocode_Geocoder {
         $county = self::getAdminLevelByType($firstResult, 'county', 2);
 
         if ($stateAbbreviation && $county) {
-          $id = CRM_Core_DAO::singleValueQuery('SELECT id FROM civicrm_county WHERE state_province_id=%1 AND name=%2 AND is_active=1', [
+          $id = CRM_Core_DAO::singleValueQuery('SELECT id FROM civicrm_county WHERE state_province_id = %1 AND name = %2 AND is_active=1', [
             1 => [$stateAbbreviation, 'Integer'],
             2 => [$county, 'String']
           ]);

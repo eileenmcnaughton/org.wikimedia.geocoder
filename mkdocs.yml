@@ -10,6 +10,7 @@ nav:
   - Set up: configuration.md
   - UK Postal Code Geocoder: uk-postal-code-provider.md
   - German Postal Code Geocoder: german-postal-code-provider.md
+  - Developer Notes: developer-notes.md
 
 markdown_extensions:
   - attr_list

@@ -670,7 +670,9 @@ class CRM_Utils_Geocode_Geocoder {
       try {
         $provider = self::getProviderClass($geocoder);
         $geocoderObj = new \Geocoder\StatefulGeocoder($provider, $locale);
-        $result = $geocoderObj->geocodeQuery(GeocodeQuery::create(urlencode($geocodableAddress)));
+        // Not do not url_encode as it breaks OpenStreetMap
+        // https://github.com/eileenmcnaughton/org.wikimedia.geocoder/issues/61
+        $result = $geocoderObj->geocodeQuery(GeocodeQuery::create($geocodableAddress));
         return [
           'geo_code_1' => $result->first()->getCoordinates()->getLatitude(),
           'geo_code_2' => $result->first()->getCoordinates()->getLongitude(),

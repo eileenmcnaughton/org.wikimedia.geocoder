@@ -119,7 +119,11 @@ class CRM_Utils_Geocode_Geocoder {
         if (!empty($geocoder['datafill_response_fields'])) {
           foreach (json_decode($geocoder['datafill_response_fields'], TRUE) as $fieldName) {
             if (empty($values[$fieldName]) || $values[$fieldName] === 'null') {
-              $values[$fieldName] = self::getValueFromResult($fieldName, $result, $values);
+              $filledValue = self::getValueFromResult($fieldName, $result, $values);
+              // Do not overwrite fill fields if value not found.
+              if ($filledValue) {
+                $values[$fieldName] = $filledValue;
+              }
             }
           }
         }
@@ -393,7 +397,7 @@ class CRM_Utils_Geocode_Geocoder {
       case 'state_province_id':
         if (empty($values['country_id'])) {
           // not possible to determine state without the country.
-          return 'null';
+          return '';
         }
         // Some providers return the code (abbreviation), others (eg nominatim/osm) return the name
         $stateAbbreviation = $firstResult->getAdminLevels()->get(1)->getCode();
@@ -409,7 +413,7 @@ class CRM_Utils_Geocode_Geocoder {
             ->first();
           if (empty($stateProvince['abbreviation'])) {
             // We need the abbreviation to get the ID.
-            return 'null';
+            return '';
           }
           $stateAbbreviation = $stateProvince['abbreviation'];
           $stateProvinceID = $stateProvince['id'];
@@ -427,7 +431,7 @@ class CRM_Utils_Geocode_Geocoder {
               ->first();
             if (empty($stateProvince['id'])) {
               // Not found. Abbreviation doesn't exist for this Country.
-              return 'null';
+              return '';
             }
             $stateProvinceID = $stateProvince['id'];
           }

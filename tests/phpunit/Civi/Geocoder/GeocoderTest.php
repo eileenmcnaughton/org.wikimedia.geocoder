@@ -117,6 +117,25 @@ class GeocoderTest extends BaseTestClass {
     $this->assertEquals('California', $address['state_province_id:name']);
   }
 
+  public function testUSDoesNotOverwriteStateNull(): void {
+    $this->configureGeoCoders(['us_zip_geocoder' => [
+      'name' => 'us_zip_geocoder',
+      'is_active' => 1,
+      'weight' => 2,
+    ]]);
+    $address = $this->createAddress();
+    $this->assertEquals('California', $address['state_province_id:name']);
+    Address::update(FALSE)
+      ->addWhere('id', '=', $address['id'])
+      ->addValue('contact_id', \CRM_Core_Config::domainID())
+      ->execute();
+    $addressAfter = Address::get(FALSE)
+      ->addSelect('state_province_id:name')
+      ->addWhere('id', '=', $address['id'])
+      ->execute()->single();
+    $this->assertEquals('California', $addressAfter['state_province_id:name']);
+  }
+
   /**
    * Test that postal codes are suitably formatted for the locale
    * (ex. left-pad with 0s)

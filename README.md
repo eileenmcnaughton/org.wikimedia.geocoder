@@ -1,6 +1,5 @@
-Geocoding for CiviCRM based on geocoder library
+# Geocoding for CiviCRM based on geocoder library
 
-Requires - CiviCRM 5.28, php 7.1
 
 Implementation of geocoder library (which itself supports multiple providers) https://github.com/geocoder-php/mapquest-provider. Only those that have been tested are enabled so far.
 
@@ -8,23 +7,28 @@ When an address is edited CiviCRM will obtain additional data from the geocoding
 and save it to the `civicrm_address` database with the address. It will also geocode addresses
 to be used as the focal point of proximity searches or for event maps.
 
-Note that the terms of data use by geocoding providers varies and it is your responsibility
+Note that the terms of data use by geocoding providers variesand it is your responsibility
 to understand and adhere to them.
 
-Currently enabled geocoders are
+## Available geocoders
 
-- OpenStreetMap - this is zero-config & is enabled as the default (lowest weight)on install if you have no existing mapping provider
+- OpenStreetMap - this is zero-config & is enabled as the default (lowest weight) on install if you have no existing mapping provider
 - USZipGeocoder - this is enabled on install & has no config. It will work as a fallback for US addresses only.
 - UK Postcodes - see below
 - MapQuest - requires an API key to be used
 - GoogleMaps - requires an API key to be used - this is enabled on install as the default if you
-already have google configured as your provider. However the Terms of service suggest it may not be a good choose https://support.google.com/code/answer/55180?hl=en
+already have google configured as your provider. However, the Terms of service suggest it may not be a good choose https://support.google.com/code/answer/55180?hl=en
 - GeoName DB geocoder - this requires that you get a sample dataset from geonames. I will require a developer or similar to tweak the download into an sql table. There is a sample dataset for New Zealand in the install directory & if loaded it will work for New Zealand.
 - Here (not enabled by default)
 - Addok (not enabled by default)
-- German Postalcode - see below
+- German Postal code - see below
 
-Features
+### Requires
+  - CiviCRM 6.3
+  - php 8.1
+  - Smarty 5
+
+### Features
 
 - Threshold standdown period. If the geocoding quota is hit for a provider it is not used
 again until the standdown has expired. By default the standdown is 1 minute but it is configurable per geocoder instance.
@@ -37,6 +41,14 @@ a US zip table lookup is available (from CiviSpace). It is possible to download 
   'data fill fields' - these are added to the existing fields if the existing field is not set.
 - other providers from https://github.com/geocoder-php/Geocoder#providers can be added easily
 
+### Installation
+
+After installing the extension Geocoding will be enabled with the OpenStreetMap geocoder.
+You can enable or disable geocoders and undertake minor edits to the geocoders
+under Administer->Localization->Geocoders. Depending on the geocoder
+this might involve editing a url or api key but several of the geocoders
+require you to load data directly in mysql, which you may not be able to do
+without server admin help.
 
 As of the 1.4 release there are some metadata & field use changes. These are
 best illustrated by examples.
@@ -78,18 +90,12 @@ api_key = xyz
 or multipart user data - ie
 api_key = {'app_id' : 'xy', 'app_code' : 'z'}
 
-Next steps
+### Future development
 
-1) make geocoders configurable - the form at /civicrm/a/#/geocoders
-currently only gives view access. I'm committed to extending the form based on the metadata rather than hard-coding & have added 'help_text' & 'user_editable_fields' to the entity specs. The plan is to expose these via getfields & then use them to drive the form. I'd like a cool way to manage weight.
-
-2) consider caching - for https providers - https://github.com/geocoder-php/Geocoder/blob/master/docs/cookbook/cache.md
+1) consider caching - for https providers - https://github.com/geocoder-php/Geocoder/blob/master/docs/cookbook/cache.md
 For DB providers we could cache the result of each query. The downside is potential
 large memory usage for little query gain if there is a big spread of postal codes.
-
-
-Also of interest
-- library supports ip address geocoding
+2) consider the library support of ip address geocoding
 
 ## UK Postcode geocoder
 
@@ -159,7 +165,7 @@ The data came from https://www.getthedata.com/open-postcode-geo
 
 - This Geocoding provider is not installed by default.
 
-### Installation
+### Installation for German dataset.
 
 1. The postcode-geo data is located in: org.wikimedia.geocoder/sql/PLZ.de.sql
 2. Import that file with the data into your CiviCRM database. This will create a new table named "civicrm_geocoder_plzde_dataset". If that table existed before, it will be dropped.

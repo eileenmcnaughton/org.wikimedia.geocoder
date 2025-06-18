@@ -4,6 +4,7 @@ namespace Civi\Geocoder;
 
 use Civi\Api4\Address;
 use Civi\Api4\Contact;
+use Civi\Api4\Geocoder;
 use Civi\Test\Api3TestTrait;
 use Civi\Test\EntityTrait;
 use CRM_Core_DAO;
@@ -33,13 +34,9 @@ use Civi\Test\GuzzleTestTrait;
  */
 class GeocoderTest extends BaseTestClass {
   use EntityTrait;
-
-  use Api3TestTrait;
   use GuzzleTestTrait;
 
-  protected $ids = [];
-
-  protected $geocoders = [];
+  protected array $geocoders = [];
 
   /**
    * @throws \CRM_Core_Exception
@@ -47,8 +44,7 @@ class GeocoderTest extends BaseTestClass {
   public function setUp(): void {
     parent::setUp();
     $this->setHttpClientToEmptyMock();
-    $geocoders = $this->callAPISuccess('Geocoder', 'get')['values'];
-    foreach ($geocoders as $geocoder) {
+    foreach (Geocoder::get(FALSE)->execute() as $geocoder) {
       $this->geocoders[$geocoder['name']] = $geocoder;
     }
 
@@ -98,13 +94,7 @@ class GeocoderTest extends BaseTestClass {
   public function testOpenStreetMap(): void {
     $responses = [file_get_contents(__DIR__ . '/Responses/OpenStreetMap.json')];
     $this->getClient($responses);
-    $address = $this->callAPISuccess('Address', 'create', [
-      'postal_code' => 90210,
-      'location_type_id' => 'Home',
-      'contact_id' => $this->ids['Contact']['default'],
-      'country_id' => 'US',
-    ]);
-    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+    $address = $this->createAddress();
     // Different systems seem to vary in their precision so let's round.
     $this->assertEquals('34.0781172375', round($address['geo_code_1'], 10));
     $this->assertEquals('-118.35299997', round($address['geo_code_2'], 8));
@@ -112,31 +102,19 @@ class GeocoderTest extends BaseTestClass {
 
   /**
    * Test when OpenStreetMap fails we fall back on the next one
-   * (USZipGeoCoder).
+   * (USZipGeoCoder). It fails as no guzzle response has been set up.
    *
    * Note the lat long are slightly different between the 2 providers & we get
    * timezone.
    *
    */
   public function testOpenStreetMapFailsFallsBackToUSLookup(): void {
-    $address = $this->callAPISuccess('Address', 'create', [
-      'postal_code' => 90210,
-      'location_type_id' => 'Home',
-      'contact_id' => $this->ids['Contact']['default'],
-      'country_id' => 'US',
-    ]);
-    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+    $address = $this->createAddress();
     $this->assertEquals('34.088808', $address['geo_code_1']);
     $this->assertEquals('-118.40612', $address['geo_code_2']);
     $this->assertEquals('UTC-8', $address['timezone']);
     $this->assertEquals('Beverly Hills', $address['city']);
-    $this->assertEquals(
-      $this->callAPISuccessGetValue('StateProvince', [
-        'return' => 'id',
-        'name' => 'California',
-      ]),
-      $address['state_province_id']
-    );
+    $this->assertEquals('California', $address['state_province_id:name']);
   }
 
   /**
@@ -149,13 +127,9 @@ class GeocoderTest extends BaseTestClass {
    */
   public function testShortPostalCode(): void {
     $this->setHttpClientToEmptyMock();
-    $address = $this->callAPISuccess('Address', 'create', [
+    $address = $this->createAddress([
       'postal_code' => 624,
-      'location_type_id' => 'Home',
-      'contact_id' => $this->ids['Contact']['default'],
-      'country_id' => 'US',
     ]);
-    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
     $this->assertEquals('18.055399', $address['geo_code_1']);
   }
 
@@ -166,26 +140,18 @@ class GeocoderTest extends BaseTestClass {
    */
   public function testGeoName(): void {
     $this->setHttpClientToEmptyMock();
-    $drop = FALSE;
     if (!CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE 'civicrm_geonames_lookup'")) {
       // set up headless doesn't seem to be called in wmf tests ...but I haven't
       // double checked if we can drop if when running tests in isolation.
       CRM_Utils_File::sourceSQLFile(NULL, $this->getSqlFolder() . 'nz_sample_geoname_table.sql');
-      $drop = TRUE;
     }
-    $address = $this->callAPISuccess('Address', 'create', [
+    $address = $this->createAddress([
       'postal_code' => '0951',
-      'location_type_id' => 'Home',
-      'contact_id' => $this->ids['Contact']['default'],
-      'country_id' => 'NZ',
+      'country_id:abbr' => 'NZ',
     ]);
-    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
     $this->assertEquals('-36.5121', $address['geo_code_1']);
     $this->assertEquals('174.661', $address['geo_code_2']);
     $this->assertEquals('Puhoi', $address['city']);
-    if ($drop) {
-      CRM_Core_DAO::executeQuery("DROP TABLE civicrm_geonames_lookup");
-    }
   }
 
   /**
@@ -194,21 +160,11 @@ class GeocoderTest extends BaseTestClass {
    */
   public function testUK(): void {
     // We need to enable the uk_postcode geocoder
-    $id = (int) civicrm_api3('Geocoder', 'getvalue', [
-      'name' => 'uk_postcode',
-      'return' => 'id',
-    ]);
-    if (!$id) {
-      throw new \CRM_Core_Exception("Failed to find uk_postcode geocoder");
-    }
-    $drop = FALSE;
     if (!CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE 'civicrm_open_postcode_geo_uk'")) {
       // set up headless doesn't seem to be called in wmf tests ...but I haven't
       // double checked if we can drop if when running tests in isolation.
-      CRM_Utils_File::sourceSQLFile(NULL, $this->getSqlFolder(). 'open_postcode_geo-test.sql');
-      $drop = TRUE;
+      CRM_Utils_File::sourceSQLFile(NULL, $this->getSqlFolder() . 'open_postcode_geo-test.sql');
     }
-    civicrm_api3('Geocoder', 'create', ['is_active' => 1, 'id' => $id]);
 
     $this->configureGeoCoders([
       'uk_postcode' => [
@@ -219,44 +175,34 @@ class GeocoderTest extends BaseTestClass {
     ]);
 
     // Check that passing in a valid, known postcode yields the correct latitude.
-    $address = $this->callAPISuccess('Address', 'create', [
+    $address = $this->createAddress([
       'postal_code' => 'SW1A 0AA',
-      'location_type_id' => 'Home',
-      'contact_id' => $this->ids['Contact']['default'],
-      'country_id' => 'GB',
+      'country_id:abbr' => 'GB',
     ]);
-    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
     $this->assertEquals('51.49984', $address['geo_code_1'] ?? NULL);
     $this->assertEquals('SW1A 0AA', $address['postal_code'] ?? NULL);
     Address::delete(FALSE)->addWhere('id', '=', $address['id']);
 
     // Check that passing in a malformed but correct postcode without spaces
     // (a) gets latitude and (b) gets corrected.
-    $address = $this->callAPISuccess('Address', 'create', [
+    $address = $this->createAddress([
       'postal_code' => 'SW1A0AA',
-      'location_type_id' => 'Home',
-      'contact_id' => $this->ids['Contact']['default'],
-      'country_id' => 'GB',
+      'country_id:abbr' => 'GB',
     ]);
-    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+
     $this->assertEquals('51.49984', $address['geo_code_1'] ?? NULL);
     $this->assertEquals('SW1A 0AA', $address['postal_code'] ?? NULL);
     Address::delete(FALSE)->addWhere('id', '=', $address['id']);
 
     // Check that passing in bad postcode/one we don't know does no damage.
-    $address = $this->callAPISuccess('Address', 'create', [
+    $address = $this->createAddress([
       'postal_code' => 'ZEBRA678',
-      'location_type_id' => 'Home',
-      'contact_id' => $this->ids['Contact']['default'],
-      'country_id' => 'GB',
+      'country_id:abbr' => 'GB',
     ]);
-    $address = $this->callAPISuccessGetSingle('Address', ['id' => $address['id']]);
+
     // Check the postcode wasn't changed.
     $this->assertEquals('ZEBRA678', $address['postal_code'] ?? NULL);
     Address::delete(FALSE)->addWhere('id', '=', $address['id']);
-    if ($drop) {
-      CRM_Core_DAO::executeQuery("DROP TABLE civicrm_open_postcode_geo_uk");
-    }
   }
 
   /**
@@ -280,13 +226,17 @@ class GeocoderTest extends BaseTestClass {
         'datafill_response_fields',
         'valid_countries',
       ];
-      foreach ($jsonFields as $jsonField) {
-        if (!empty($params[$jsonField]) && is_string($jsonField)) {
-          $params[$jsonField] = json_decode($params[$jsonField]);
-        }
-      }
 
-      $this->callAPISuccess('Geocoder', 'create', $params);
+      Geocoder::update(FALSE)
+        ->setValues($params)
+        ->execute();
+    }
+    foreach ($coders as $coder) {
+      if (!isset($this->geocoders[$coder['name']])) {
+        Geocoder::create(FALSE)
+          ->setValues($coder)
+          ->execute();
+      }
     }
   }
 
@@ -302,6 +252,31 @@ class GeocoderTest extends BaseTestClass {
   protected function setHttpClientToEmptyMock(): void {
     $responses = [];
     $this->getClient($responses);
+  }
+
+  /**
+   * Create the relevant address.
+   *
+   * @param array $address
+   *
+   * @return array
+   */
+  public function createAddress(array $address = []): array {
+    $address = $this->createTestEntity('Address', $address + [
+      'postal_code' => 90210,
+      'location_type_id:name' => 'Home',
+      'contact_id' => $this->ids['Contact']['default'],
+      'country_id:abbr' => 'US',
+    ]);
+    try {
+      return Address::get(FALSE)
+        ->addWhere('id', '=', $address['id'])
+        ->addSelect('*', 'state_province_id:name')
+        ->execute()->single();
+    }
+    catch (\CRM_Core_Exception $e) {
+      $this->fail($e->getMessage());
+    }
   }
 
 }

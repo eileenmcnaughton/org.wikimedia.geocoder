@@ -27,6 +27,8 @@ use PHPUnit\Framework\TestCase;
  */
 class BaseTestClass extends TestCase implements HeadlessInterface, HookInterface {
 
+  protected array $tablesToDrop = [];
+
   /**
    * @throws \CRM_Extension_Exception_ParseException
    */
@@ -36,6 +38,22 @@ class BaseTestClass extends TestCase implements HeadlessInterface, HookInterface
     return Test::headless()
       ->installMe(__DIR__)
       ->apply();
+  }
+
+  public function setUp(): void {
+    foreach (['civicrm_geonames_lookup', 'civicrm_open_postcode_geo_uk'] as $dataTable) {
+      if (!\CRM_Core_DAO::singleValueQuery("SHOW TABLES LIKE %1", [1 => [$dataTable, 'String']])) {
+        $this->tablesToDrop[] = $dataTable;
+      }
+    }
+    parent::setUp();
+  }
+
+  public function tearDown(): void {
+    foreach ($this->tablesToDrop as $dataTable) {
+      \CRM_Core_DAO::singleValueQuery("DROP TABLE IF EXISTS " . $dataTable);
+    }
+    parent::tearDown();
   }
 
   /**

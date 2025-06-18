@@ -2,6 +2,8 @@ site_name: Geocoder
 repo_url: https://github.com/eileenmcnaughton/org.wikimedia.geocoder
 site_description: 'A guide for the Geocoder extension.'
 site_author: 'Eileen'
+theme: 
+  name: material
 
 nav:
   - Home: index.md

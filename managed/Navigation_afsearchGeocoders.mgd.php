@@ -27,11 +27,12 @@ $navigationItems = [
   ],
 ];
 $params['values']['parent_id.name'] = 'System Settings';
-$params['values']['weight'] = 9;
+$params['values']['weight'] = 10;
+$params['values']['name'] .= '_system_settings';
 
 $navigationItems = [
   [
-    'name' => 'Navigation_afsearchGeocoders_main',
+    'name' => 'Navigation_afsearchGeocoders_system_settings',
     'entity' => 'Navigation',
     'cleanup' => 'unused',
     'update' => 'unmodified',

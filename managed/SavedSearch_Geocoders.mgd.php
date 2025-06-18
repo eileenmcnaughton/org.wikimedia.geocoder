@@ -77,6 +77,14 @@ return [
             ],
             [
               'type' => 'field',
+              'key' => 'is_active',
+              'dataType' => 'Boolean',
+              'label' => E::ts('Enabled'),
+              'sortable' => TRUE,
+              'editable' => TRUE,
+            ],
+            [
+              'type' => 'field',
               'key' => 'title',
               'dataType' => 'String',
               'label' => E::ts('Title'),
@@ -92,17 +100,10 @@ return [
             ],
             [
               'type' => 'field',
-              'key' => 'is_active',
-              'dataType' => 'Boolean',
-              'label' => E::ts('Enabled'),
-              'sortable' => TRUE,
-              'editable' => TRUE,
-            ],
-            [
-              'type' => 'field',
               'key' => 'api_key',
               'dataType' => 'String',
               'label' => E::ts('API Key'),
+              'editable' => TRUE,
             ],
             [
               'type' => 'field',

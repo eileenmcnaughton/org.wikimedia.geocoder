@@ -63,6 +63,29 @@ function geocoder_civicrm_geo_managed(&$entities) {
 }
 
 /**
+ * @param string $formName
+ * @param CRM_Admin_Form_Setting_Mapping $form
+ *
+ * @return void
+ */
+function geocoder_civicrm_buildForm($formName, $form): void {
+  if ($formName === 'CRM_Admin_Form_Setting_Mapping') {
+    $form->setTitle(E::ts('Mapping provider'));
+    $warning = '<p>' . E::ts('You have the geocoder extension installed, which is not configured on this page. You need to <a href="%1">configure geocoding at the extension page</a> or disable the extension',
+      [1 => CRM_Utils_System::url('civicrm/admin/geocoders')]
+    ) . '</p>';
+    $warning .= '<p>' . E::ts('<a href="https://docs.civicrm.org/geocoder/en/latest/"> Read more') . '</p>';
+    $markup = '<div class="help">' . $warning . ' </div>';
+    $geocoder = $form->getElementValue('geoProvider');
+    if ($geocoder === ['Geocoder']) {
+      $form->getElement('geoProvider')->freeze();
+      $form->getElement('geoAPIKey')->freeze();
+      CRM_Core_Region::instance('page-header')->addMarkup($markup);
+    }
+  }
+}
+
+/**
  * Implements hook_alterLogTables().
  *
  * @param array $logTableSpec

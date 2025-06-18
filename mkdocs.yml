@@ -2,11 +2,13 @@ site_name: Geocoder
 repo_url: https://github.com/eileenmcnaughton/org.wikimedia.geocoder
 site_description: 'A guide for the Geocoder extension.'
 site_author: 'Eileen'
-theme: 
+theme:
   name: material
 
 nav:
   - Home: index.md
+  - UK Postal Code Geocoder: uk-postal-code-provider.md
+  - German Postal Code Geocoder german-postal-code-provider.md
 
 markdown_extensions:
   - attr_list

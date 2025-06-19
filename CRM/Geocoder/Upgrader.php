@@ -127,7 +127,7 @@ class CRM_Geocoder_Upgrader extends CRM_Extension_Upgrader_Base {
    *  Add additional data to the US zip dataset.
    *
    */
-  public function upgrade_1300(): true {
+  public function upgrade_1300(): bool {
     $this->ctx->log->info('Applying update 1300: Adding additional data to the US zip dataset');
     $this->executeSqlFile('sql/add_2025_zip_data_set.sql');
 

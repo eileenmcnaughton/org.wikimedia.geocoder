@@ -22,7 +22,6 @@ function _civicrm_api3_geocoder_create_spec(&$spec) {
  */
 function civicrm_api3_geocoder_create($params) {
   $result = _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params, 'Geocoder');
-  CRM_Utils_Geocode_Geocoder::resetGeoCoders();
   return $result;
 }
 

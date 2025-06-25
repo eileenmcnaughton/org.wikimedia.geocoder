@@ -269,7 +269,7 @@ class CRM_Utils_Geocode_Geocoder {
     $inputValues = array_merge($existingAddress, $inputValues);
 
     // clear an orphaned county
-    if (empty($inputValues['county']) || empty($inputValues['state_province'])) {
+    if (empty($inputValues['county']) && !empty($inputValues['state_province'])) {
       unset($inputValues['county'], $inputValues['county_id']);
     }
   }

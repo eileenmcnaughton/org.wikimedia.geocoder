@@ -14,7 +14,7 @@ class CRM_Geocoder_BAO_Geocoder extends CRM_Geocoder_DAO_Geocoder implements \Ci
     $entityName = 'Geocoder';
     $hook = empty($params['id']) ? 'create' : 'edit';
 
-    CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
+    CRM_Utils_Hook::pre($hook, $entityName, $params['id'] ?? NULL, $params);
     $instance = new $className();
     $instance->copyValues($params);
     $instance->save();

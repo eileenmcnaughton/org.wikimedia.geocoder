@@ -35,12 +35,12 @@ final class HereAddress extends Address
     private $locationName;
 
     /**
-     * @var array|null
+     * @var array<string, mixed>|null
      */
     private $additionalData;
 
     /**
-     * @var array|null
+     * @var array<string, mixed>|null
      */
     private $shape;
 
@@ -52,12 +52,7 @@ final class HereAddress extends Address
         return $this->locationId;
     }
 
-    /**
-     * @param string|null $LocationId
-     *
-     * @return HereAddress
-     */
-    public function withLocationId(string $locationId = null): self
+    public function withLocationId(?string $locationId = null): self
     {
         $new = clone $this;
         $new->locationId = $locationId;
@@ -73,12 +68,7 @@ final class HereAddress extends Address
         return $this->locationType;
     }
 
-    /**
-     * @param string|null $LocationType
-     *
-     * @return HereAddress
-     */
-    public function withLocationType(string $locationType = null): self
+    public function withLocationType(?string $locationType = null): self
     {
         $new = clone $this;
         $new->locationType = $locationType;
@@ -94,12 +84,7 @@ final class HereAddress extends Address
         return $this->locationName;
     }
 
-    /**
-     * @param string|null $LocationName
-     *
-     * @return HereAddress
-     */
-    public function withLocationName(string $locationName = null): self
+    public function withLocationName(?string $locationName = null): self
     {
         $new = clone $this;
         $new->locationName = $locationName;
@@ -108,7 +93,7 @@ final class HereAddress extends Address
     }
 
     /**
-     * @return array|null
+     * @return array<string, mixed>|null
      */
     public function getAdditionalData()
     {
@@ -116,11 +101,9 @@ final class HereAddress extends Address
     }
 
     /**
-     * @param array|null $additionalData
-     *
-     * @return HereAddress
+     * @param array<string, mixed>|null $additionalData
      */
-    public function withAdditionalData(array $additionalData = null): self
+    public function withAdditionalData(?array $additionalData = null): self
     {
         $new = clone $this;
 
@@ -132,10 +115,7 @@ final class HereAddress extends Address
     }
 
     /**
-     * @param string     $name
      * @param mixed|null $value
-     *
-     * @return HereAddress
      */
     public function addAdditionalData(string $name, $value = null): self
     {
@@ -145,13 +125,7 @@ final class HereAddress extends Address
         return $new;
     }
 
-    /**
-     * @param string     $name
-     * @param mixed|null $default
-     *
-     * @return mixed
-     */
-    public function getAdditionalDataValue(string $name, $default = null)
+    public function getAdditionalDataValue(string $name, mixed $default = null): mixed
     {
         if ($this->hasAdditionalDataValue($name)) {
             return $this->additionalData[$name];
@@ -160,22 +134,15 @@ final class HereAddress extends Address
         return $default;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
     public function hasAdditionalDataValue(string $name): bool
     {
         return array_key_exists($name, $this->additionalData);
     }
 
     /**
-     * @param array|null $shape
-     *
-     * @return HereAddress
+     * @param array<string, mixed>|null $shape
      */
-    public function withShape(array $shape = null): self
+    public function withShape(?array $shape = null): self
     {
         $new = clone $this;
 
@@ -188,13 +155,7 @@ final class HereAddress extends Address
         return $new;
     }
 
-    /**
-     * @param string     $name
-     * @param mixed|null $value
-     *
-     * @return HereAddress
-     */
-    public function addShape(string $name, $value = null): self
+    public function addShape(string $name, mixed $value = null): self
     {
         $new = clone $this;
         $new->shape[$name] = $value;
@@ -202,7 +163,7 @@ final class HereAddress extends Address
         return $new;
     }
 
-    public function getShapeValue(string $name, $default = null)
+    public function getShapeValue(string $name, mixed $default = null): mixed
     {
         if ($this->hasShapeValue($name)) {
             return $this->shape[$name];
@@ -211,11 +172,6 @@ final class HereAddress extends Address
         return $default;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
     public function hasShapeValue(string $name): bool
     {
         return array_key_exists($name, $this->shape);

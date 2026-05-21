@@ -16,11 +16,7 @@ use Geocoder\Exception\InvalidArgument;
 
 class Assert
 {
-    /**
-     * @param float  $value
-     * @param string $message
-     */
-    public static function latitude($value, string $message = '')
+    public static function latitude(mixed $value, string $message = ''): void
     {
         self::float($value, $message);
         if ($value < -90 || $value > 90) {
@@ -28,11 +24,7 @@ class Assert
         }
     }
 
-    /**
-     * @param float  $value
-     * @param string $message
-     */
-    public static function longitude($value, string $message = '')
+    public static function longitude(mixed $value, string $message = ''): void
     {
         self::float($value, $message);
         if ($value < -180 || $value > 180) {
@@ -40,27 +32,19 @@ class Assert
         }
     }
 
-    /**
-     * @param mixed  $value
-     * @param string $message
-     */
-    public static function notNull($value, string $message = '')
+    public static function notNull(mixed $value, string $message = ''): void
     {
         if (null === $value) {
             throw new InvalidArgument(sprintf($message ?: 'Value cannot be null'));
         }
     }
 
-    private static function typeToString($value): string
+    private static function typeToString(mixed $value): string
     {
         return is_object($value) ? get_class($value) : gettype($value);
     }
 
-    /**
-     * @param $value
-     * @param $message
-     */
-    private static function float($value, string $message)
+    private static function float(mixed $value, string $message): void
     {
         if (!is_float($value)) {
             throw new InvalidArgument(sprintf($message ?: 'Expected a float. Got: %s', self::typeToString($value)));

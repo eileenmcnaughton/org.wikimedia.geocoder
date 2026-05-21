@@ -50,8 +50,6 @@ final class Coordinates
 
     /**
      * Returns the latitude.
-     *
-     * @return float
      */
     public function getLatitude(): float
     {
@@ -60,8 +58,6 @@ final class Coordinates
 
     /**
      * Returns the longitude.
-     *
-     * @return float
      */
     public function getLongitude(): float
     {
@@ -71,7 +67,7 @@ final class Coordinates
     /**
      * Returns the coordinates as a tuple.
      *
-     * @return array
+     * @return array{float, float}
      */
     public function toArray(): array
     {

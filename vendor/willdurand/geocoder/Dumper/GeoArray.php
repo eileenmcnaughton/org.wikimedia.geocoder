@@ -20,7 +20,7 @@ use Geocoder\Location;
 final class GeoArray extends AbstractArrayDumper implements Dumper
 {
     /**
-     * {@inheritdoc}
+     * @return array{type: 'Feature', geometry: array{type: 'Point', coordinates: array{0: float, 1: float}}, properties: array<string, mixed>, bounds?: array{south: float, west: float, north: float, east: float}}
      */
     public function dump(Location $location): array
     {

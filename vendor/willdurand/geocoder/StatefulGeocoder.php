@@ -13,9 +13,9 @@ declare(strict_types=1);
 namespace Geocoder;
 
 use Geocoder\Model\Bounds;
+use Geocoder\Provider\Provider;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
-use Geocoder\Provider\Provider;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -42,20 +42,13 @@ final class StatefulGeocoder implements Geocoder
      */
     private $provider;
 
-    /**
-     * @param Provider $provider
-     * @param string   $locale
-     */
-    public function __construct(Provider $provider, string $locale = null)
+    public function __construct(Provider $provider, ?string $locale = null)
     {
         $this->provider = $provider;
         $this->locale = $locale;
         $this->limit = Geocoder::DEFAULT_RESULT_LIMIT;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function geocode(string $value): Collection
     {
         $query = GeocodeQuery::create($value)
@@ -65,16 +58,13 @@ final class StatefulGeocoder implements Geocoder
             $query = $query->withLocale($this->locale);
         }
 
-        if (!empty($this->bounds)) {
+        if (null !== $this->bounds) {
             $query = $query->withBounds($this->bounds);
         }
 
         return $this->provider->geocodeQuery($query);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reverse(float $latitude, float $longitude): Collection
     {
         $query = ReverseQuery::fromCoordinates($latitude, $longitude)
@@ -87,9 +77,6 @@ final class StatefulGeocoder implements Geocoder
         return $this->provider->reverseQuery($query);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function geocodeQuery(GeocodeQuery $query): Collection
     {
         $locale = $query->getLocale();
@@ -105,9 +92,6 @@ final class StatefulGeocoder implements Geocoder
         return $this->provider->geocodeQuery($query);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reverseQuery(ReverseQuery $query): Collection
     {
         $locale = $query->getLocale();
@@ -118,11 +102,6 @@ final class StatefulGeocoder implements Geocoder
         return $this->provider->reverseQuery($query);
     }
 
-    /**
-     * @param string $locale
-     *
-     * @return StatefulGeocoder
-     */
     public function setLocale(string $locale): self
     {
         $this->locale = $locale;
@@ -130,11 +109,6 @@ final class StatefulGeocoder implements Geocoder
         return $this;
     }
 
-    /**
-     * @param Bounds $bounds
-     *
-     * @return StatefulGeocoder
-     */
     public function setBounds(Bounds $bounds): self
     {
         $this->bounds = $bounds;
@@ -142,11 +116,6 @@ final class StatefulGeocoder implements Geocoder
         return $this;
     }
 
-    /**
-     * @param int $limit
-     *
-     * @return StatefulGeocoder
-     */
     public function setLimit(int $limit): self
     {
         $this->limit = $limit;
@@ -154,9 +123,6 @@ final class StatefulGeocoder implements Geocoder
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'stateful_geocoder';

@@ -74,31 +74,18 @@ class Address implements Location
      */
     private $providedBy;
 
-    /**
-     * @param string               $providedBy
-     * @param AdminLevelCollection $adminLevels
-     * @param Coordinates|null     $coordinates
-     * @param Bounds|null          $bounds
-     * @param string|null          $streetNumber
-     * @param string|null          $streetName
-     * @param string|null          $postalCode
-     * @param string|null          $locality
-     * @param string|null          $subLocality
-     * @param Country|null         $country
-     * @param string|null          $timezone
-     */
-    public function __construct(
+    final public function __construct(
         string $providedBy,
         AdminLevelCollection $adminLevels,
-        Coordinates $coordinates = null,
-        Bounds $bounds = null,
-        string $streetNumber = null,
-        string $streetName = null,
-        string $postalCode = null,
-        string $locality = null,
-        string $subLocality = null,
-        Country $country = null,
-        string $timezone = null
+        ?Coordinates $coordinates = null,
+        ?Bounds $bounds = null,
+        ?string $streetNumber = null,
+        ?string $streetName = null,
+        ?string $postalCode = null,
+        ?string $locality = null,
+        ?string $subLocality = null,
+        ?Country $country = null,
+        ?string $timezone = null,
     ) {
         $this->providedBy = $providedBy;
         $this->adminLevels = $adminLevels;
@@ -113,90 +100,57 @@ class Address implements Location
         $this->timezone = $timezone;
     }
 
-    /**
-     * @return string
-     */
     public function getProvidedBy(): string
     {
         return $this->providedBy;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getCoordinates()
+    public function getCoordinates(): ?Coordinates
     {
         return $this->coordinates;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBounds()
+    public function getBounds(): ?Bounds
     {
         return $this->bounds;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getStreetNumber()
+    public function getStreetNumber(): ?string
     {
         return $this->streetNumber;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getStreetName()
+    public function getStreetName(): ?string
     {
         return $this->streetName;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getLocality()
+    public function getLocality(): ?string
     {
         return $this->locality;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getPostalCode()
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getSubLocality()
+    public function getSubLocality(): ?string
     {
         return $this->subLocality;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAdminLevels(): AdminLevelCollection
     {
         return $this->adminLevels;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getCountry()
+    public function getCountry(): ?Country
     {
         return $this->country;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getTimezone()
+    public function getTimezone(): ?string
     {
         return $this->timezone;
     }
@@ -204,7 +158,7 @@ class Address implements Location
     /**
      * Create an Address with an array. Useful for testing.
      *
-     * @param array $data
+     * @param array<string, mixed> $data
      *
      * @return static
      */
@@ -301,13 +255,9 @@ class Address implements Location
     }
 
     /**
-     * @param float $south
-     * @param float $west
-     * @param float $north
-     *
      * @return Bounds|null
      */
-    private static function createBounds($south, $west, $north, $east)
+    private static function createBounds(?float $south, ?float $west, ?float $north, ?float $east)
     {
         if (null === $south || null === $west || null === $north || null === $east) {
             return null;
@@ -316,9 +266,6 @@ class Address implements Location
         return new Bounds($south, $west, $north, $east);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(): array
     {
         $adminLevels = [];

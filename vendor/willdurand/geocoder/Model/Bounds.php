@@ -70,8 +70,6 @@ final class Bounds
 
     /**
      * Returns the south bound.
-     *
-     * @return float
      */
     public function getSouth(): float
     {
@@ -80,8 +78,6 @@ final class Bounds
 
     /**
      * Returns the west bound.
-     *
-     * @return float
      */
     public function getWest(): float
     {
@@ -90,8 +86,6 @@ final class Bounds
 
     /**
      * Returns the north bound.
-     *
-     * @return float
      */
     public function getNorth(): float
     {
@@ -100,8 +94,6 @@ final class Bounds
 
     /**
      * Returns the east bound.
-     *
-     * @return float
      */
     public function getEast(): float
     {
@@ -111,7 +103,7 @@ final class Bounds
     /**
      * Returns an array with bounds.
      *
-     * @return array
+     * @return array{south: float, west: float, north: float, east: float}
      */
     public function toArray(): array
     {

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
+class ComposerStaticInit076d832a423d4f72a77f0fe225320a59
 {
     public static $files = array (
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
@@ -12,19 +12,16 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
     );
 
     public static $prefixLengthsPsr4 = array (
-        'P' => 
+        'P' =>
         array (
             'Psr\\Http\\Message\\' => 17,
-            'Psr\\Http\\Client\\' => 16,
         ),
-        'H' => 
+        'H' =>
         array (
-            'Http\\Promise\\' => 13,
             'Http\\Message\\' => 13,
             'Http\\Discovery\\' => 15,
-            'Http\\Client\\' => 12,
         ),
-        'G' => 
+        'G' =>
         array (
             'Geocoder\\Provider\\Nominatim\\' => 28,
             'Geocoder\\Provider\\MapQuest\\' => 27,
@@ -36,75 +33,62 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
             'Geocoder\\Http\\' => 14,
             'Geocoder\\' => 9,
         ),
-        'C' => 
+        'C' =>
         array (
             'Clue\\StreamFilter\\' => 18,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Psr\\Http\\Message\\' => 
+        'Psr\\Http\\Message\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-client/src',
-        ),
-        'Http\\Promise\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/php-http/promise/src',
-        ),
-        'Http\\Message\\' => 
+        'Http\\Message\\' =>
         array (
             0 => __DIR__ . '/..' . '/php-http/message/src',
-            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
         ),
-        'Http\\Discovery\\' => 
+        'Http\\Discovery\\' =>
         array (
             0 => __DIR__ . '/..' . '/php-http/discovery/src',
         ),
-        'Http\\Client\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/php-http/httplug/src',
-        ),
-        'Geocoder\\Provider\\Nominatim\\' => 
+        'Geocoder\\Provider\\Nominatim\\' =>
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/nominatim-provider',
         ),
-        'Geocoder\\Provider\\MapQuest\\' => 
+        'Geocoder\\Provider\\MapQuest\\' =>
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/mapquest-provider',
         ),
-        'Geocoder\\Provider\\Here\\' => 
+        'Geocoder\\Provider\\Here\\' =>
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/here-provider',
         ),
-        'Geocoder\\Provider\\GoogleMaps\\' => 
+        'Geocoder\\Provider\\GoogleMaps\\' =>
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/google-maps-provider',
         ),
-        'Geocoder\\Provider\\FreeGeoIp\\' => 
+        'Geocoder\\Provider\\FreeGeoIp\\' =>
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/free-geoip-provider',
         ),
-        'Geocoder\\Provider\\DataTable\\' => 
+        'Geocoder\\Provider\\DataTable\\' =>
         array (
             0 => __DIR__ . '/..' . '/wikimedia/civicrm-data-table-provider',
         ),
-        'Geocoder\\Provider\\Addok\\' => 
+        'Geocoder\\Provider\\Addok\\' =>
         array (
             0 => __DIR__ . '/..' . '/geo6/geocoder-php-addok-provider',
         ),
-        'Geocoder\\Http\\' => 
+        'Geocoder\\Http\\' =>
         array (
             0 => __DIR__ . '/..' . '/geocoder-php/common-http',
         ),
-        'Geocoder\\' => 
+        'Geocoder\\' =>
         array (
             0 => __DIR__ . '/..' . '/willdurand/geocoder',
         ),
-        'Clue\\StreamFilter\\' => 
+        'Clue\\StreamFilter\\' =>
         array (
             0 => __DIR__ . '/..' . '/clue/stream-filter/src',
         ),
@@ -117,9 +101,9 @@ class ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit028dbade44ba9a9c4c7eb74c2f9f757a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit076d832a423d4f72a77f0fe225320a59::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit076d832a423d4f72a77f0fe225320a59::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit076d832a423d4f72a77f0fe225320a59::$classMap;
 
         }, null, ClassLoader::class);
     }

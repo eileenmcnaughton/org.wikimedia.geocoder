@@ -16,15 +16,16 @@ use Geocoder\Collection;
 use Geocoder\Exception\InvalidArgument;
 use Geocoder\Exception\InvalidServerResponse;
 use Geocoder\Exception\UnsupportedOperation;
+use Geocoder\Http\Provider\AbstractHttpProvider;
 use Geocoder\Location;
 use Geocoder\Model\AddressBuilder;
 use Geocoder\Model\AddressCollection;
+use Geocoder\Provider\Nominatim\Model\NominatimAddress;
+use Geocoder\Provider\Provider;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
-use Geocoder\Http\Provider\AbstractHttpProvider;
-use Geocoder\Provider\Provider;
-use Geocoder\Provider\Nominatim\Model\NominatimAddress;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @author Niklas Närhinen <niklas@narhinen.net>
@@ -51,8 +52,6 @@ final class Nominatim extends AbstractHttpProvider implements Provider
      * @param ClientInterface $client    an HTTP client
      * @param string          $userAgent Value of the User-Agent header
      * @param string          $referer   Value of the Referer header
-     *
-     * @return Nominatim
      */
     public static function withOpenStreetMapServer(ClientInterface $client, string $userAgent, string $referer = ''): self
     {
@@ -78,9 +77,6 @@ final class Nominatim extends AbstractHttpProvider implements Provider
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function geocodeQuery(GeocodeQuery $query): Collection
     {
         $address = $query->getText();
@@ -148,9 +144,6 @@ final class Nominatim extends AbstractHttpProvider implements Provider
         return new AddressCollection($results);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reverseQuery(ReverseQuery $query): Collection
     {
         $coordinates = $query->getCoordinates();
@@ -181,12 +174,6 @@ final class Nominatim extends AbstractHttpProvider implements Provider
         return new AddressCollection([$this->jsonResultToLocation($json, true)]);
     }
 
-    /**
-     * @param \stdClass $place
-     * @param bool      $reverse
-     *
-     * @return Location
-     */
     private function jsonResultToLocation(\stdClass $place, bool $reverse): Location
     {
         $builder = new AddressBuilder($this->getName());
@@ -244,6 +231,9 @@ final class Nominatim extends AbstractHttpProvider implements Provider
         if (isset($place->address->quarter)) {
             $location = $location->withQuarter($place->address->quarter);
         }
+        if (isset($place->address->neighbourhood)) {
+            $location = $location->withNeighbourhood($place->address->neighbourhood);
+        }
         if (isset($place->osm_id)) {
             $location = $location->withOSMId(intval($place->osm_id));
         }
@@ -259,21 +249,12 @@ final class Nominatim extends AbstractHttpProvider implements Provider
         return $location;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'nominatim';
     }
 
-    /**
-     * @param string      $url
-     * @param string|null $locale
-     *
-     * @return string
-     */
-    private function executeQuery(string $url, string $locale = null): string
+    private function executeQuery(string $url, ?string $locale = null): string
     {
         if (null !== $locale) {
             $url .= '&'.http_build_query([
@@ -282,9 +263,11 @@ final class Nominatim extends AbstractHttpProvider implements Provider
         }
 
         $request = $this->getRequest($url);
+        /** @var RequestInterface $request */
         $request = $request->withHeader('User-Agent', $this->userAgent);
 
         if (!empty($this->referer)) {
+            /** @var RequestInterface $request */
             $request = $request->withHeader('Referer', $this->referer);
         }
 

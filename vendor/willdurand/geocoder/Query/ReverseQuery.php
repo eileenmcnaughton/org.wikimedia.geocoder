@@ -36,21 +36,16 @@ final class ReverseQuery implements Query
     private $limit = Geocoder::DEFAULT_RESULT_LIMIT;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $data = [];
 
-    /**
-     * @param Coordinates $coordinates
-     */
     private function __construct(Coordinates $coordinates)
     {
         $this->coordinates = $coordinates;
     }
 
     /**
-     * @param Coordinates $coordinates
-     *
      * @return ReverseQuery
      */
     public static function create(Coordinates $coordinates)
@@ -61,19 +56,12 @@ final class ReverseQuery implements Query
     /**
      * @param float $latitude
      * @param float $longitude
-     *
-     * @return ReverseQuery
      */
     public static function fromCoordinates($latitude, $longitude): self
     {
         return new self(new Coordinates($latitude, $longitude));
     }
 
-    /**
-     * @param Coordinates $coordinates
-     *
-     * @return ReverseQuery
-     */
     public function withCoordinates(Coordinates $coordinates): self
     {
         $new = clone $this;
@@ -82,11 +70,6 @@ final class ReverseQuery implements Query
         return $new;
     }
 
-    /**
-     * @param int $limit
-     *
-     * @return ReverseQuery
-     */
     public function withLimit(int $limit): self
     {
         $new = clone $this;
@@ -95,11 +78,6 @@ final class ReverseQuery implements Query
         return $new;
     }
 
-    /**
-     * @param string $locale
-     *
-     * @return ReverseQuery
-     */
     public function withLocale(string $locale): self
     {
         $new = clone $this;
@@ -108,13 +86,7 @@ final class ReverseQuery implements Query
         return $new;
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $value
-     *
-     * @return ReverseQuery
-     */
-    public function withData(string $name, $value): self
+    public function withData(string $name, mixed $value): self
     {
         $new = clone $this;
         $new->data[$name] = $value;
@@ -122,37 +94,22 @@ final class ReverseQuery implements Query
         return $new;
     }
 
-    /**
-     * @return Coordinates
-     */
     public function getCoordinates(): Coordinates
     {
         return $this->coordinates;
     }
 
-    /**
-     * @return int
-     */
     public function getLimit(): int
     {
         return $this->limit;
     }
 
-    /**
-     * @return string
-     */
-    public function getLocale()
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
 
-    /**
-     * @param string     $name
-     * @param mixed|null $default
-     *
-     * @return mixed
-     */
-    public function getData(string $name, $default = null)
+    public function getData(string $name, mixed $default = null): mixed
     {
         if (!array_key_exists($name, $this->data)) {
             return $default;
@@ -162,7 +119,7 @@ final class ReverseQuery implements Query
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAllData(): array
     {
@@ -171,10 +128,8 @@ final class ReverseQuery implements Query
 
     /**
      * String for logging. This is also a unique key for the query.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf('ReverseQuery: %s', json_encode([
             'lat' => $this->getCoordinates()->getLatitude(),

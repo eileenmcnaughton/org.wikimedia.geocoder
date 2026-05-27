@@ -17,23 +17,23 @@
     }
   ],
   "require": {
-    "php-http/discovery":"^1.17",
+    "php-http/discovery":"^1",
     "psr/http-client-implementation":"*",
     "psr/http-message-implementation":"*",
-    "geocoder-php/free-geoip-provider": "^4.1",
+    "geocoder-php/free-geoip-provider": "^4.6",
     "php-http/message": "^1.6",
-    "geocoder-php/nominatim-provider": "5.6.*",
-    "geocoder-php/mapquest-provider": "^4",
-    "geocoder-php/google-maps-provider": "^4.4",
+    "geocoder-php/nominatim-provider": "^5.8",
+    "geocoder-php/mapquest-provider": "^4.4",
+    "geocoder-php/google-maps-provider": "^4.8",
     "wikimedia/civicrm-data-table-provider": "^5",
-    "geo6/geocoder-php-addok-provider": "^1",
-    "geocoder-php/here-provider": "^0.6",
+    "geo6/geocoder-php-addok-provider": "^1.6",
+    "geocoder-php/here-provider": "^0.8",
     "ext-json": "*",
-    "geocoder-php/common-http": "^4.5"
+    "geocoder-php/common-http": "^4.7"
   },
   "config": {
     "platform": {
-      "php": "8.1.32"
+      "php": "8.2.26"
     },
     "allow-plugins": {
       "php-http/discovery": false

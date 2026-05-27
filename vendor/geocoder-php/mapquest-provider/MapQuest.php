@@ -25,9 +25,9 @@ use Geocoder\Model\AddressCollection;
 use Geocoder\Model\AdminLevel;
 use Geocoder\Model\Bounds;
 use Geocoder\Model\Country;
+use Geocoder\Provider\Provider;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
-use Geocoder\Provider\Provider;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -36,50 +36,50 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class MapQuest extends AbstractHttpProvider implements Provider
 {
-    const DATA_KEY_ADDRESS = 'address';
+    public const DATA_KEY_ADDRESS = 'address';
 
-    const KEY_API_KEY = 'key';
+    public const KEY_API_KEY = 'key';
 
-    const KEY_LOCATION = 'location';
+    public const KEY_LOCATION = 'location';
 
-    const KEY_OUT_FORMAT = 'outFormat';
+    public const KEY_OUT_FORMAT = 'outFormat';
 
-    const KEY_MAX_RESULTS = 'maxResults';
+    public const KEY_MAX_RESULTS = 'maxResults';
 
-    const KEY_THUMB_MAPS = 'thumbMaps';
+    public const KEY_THUMB_MAPS = 'thumbMaps';
 
-    const KEY_INTL_MODE = 'intlMode';
+    public const KEY_INTL_MODE = 'intlMode';
 
-    const KEY_BOUNDING_BOX = 'boundingBox';
+    public const KEY_BOUNDING_BOX = 'boundingBox';
 
-    const KEY_LAT = 'lat';
+    public const KEY_LAT = 'lat';
 
-    const KEY_LNG = 'lng';
+    public const KEY_LNG = 'lng';
 
-    const MODE_5BOX = '5BOX';
+    public const MODE_5BOX = '5BOX';
 
-    const OPEN_BASE_URL = 'https://open.mapquestapi.com/geocoding/v1/';
+    public const OPEN_BASE_URL = 'https://open.mapquestapi.com/geocoding/v1/';
 
-    const LICENSED_BASE_URL = 'https://www.mapquestapi.com/geocoding/v1/';
+    public const LICENSED_BASE_URL = 'https://www.mapquestapi.com/geocoding/v1/';
 
-    const GEOCODE_ENDPOINT = 'address';
+    public const GEOCODE_ENDPOINT = 'address';
 
-    const DEFAULT_GEOCODE_PARAMS = [
+    public const DEFAULT_GEOCODE_PARAMS = [
         self::KEY_LOCATION => '',
         self::KEY_OUT_FORMAT => 'json',
         self::KEY_API_KEY => '',
     ];
 
-    const DEFAULT_GEOCODE_OPTIONS = [
+    public const DEFAULT_GEOCODE_OPTIONS = [
         self::KEY_MAX_RESULTS => 3,
         self::KEY_THUMB_MAPS => false,
     ];
 
-    const REVERSE_ENDPOINT = 'reverse';
+    public const REVERSE_ENDPOINT = 'reverse';
 
-    const ADMIN_LEVEL_STATE = 1;
+    public const ADMIN_LEVEL_STATE = 1;
 
-    const ADMIN_LEVEL_COUNTY = 2;
+    public const ADMIN_LEVEL_COUNTY = 2;
 
     /**
      * MapQuest offers two geocoding endpoints one commercial (true) and one open (false)
@@ -117,9 +117,6 @@ final class MapQuest extends AbstractHttpProvider implements Provider
         parent::__construct($client);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function geocodeQuery(GeocodeQuery $query): Collection
     {
         $params = static::DEFAULT_GEOCODE_PARAMS;
@@ -167,9 +164,6 @@ final class MapQuest extends AbstractHttpProvider implements Provider
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reverseQuery(ReverseQuery $query): Collection
     {
         $coordinates = $query->getCoordinates();
@@ -185,20 +179,17 @@ final class MapQuest extends AbstractHttpProvider implements Provider
         return $this->executeGetQuery(static::REVERSE_ENDPOINT, $params);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'map_quest';
     }
 
-    private function extractAddressFromQuery(GeocodeQuery $query)
+    private function extractAddressFromQuery(GeocodeQuery $query): mixed
     {
         return $query->getData(static::DATA_KEY_ADDRESS);
     }
 
-    private function getUrl($endpoint): string
+    private function getUrl(string $endpoint): string
     {
         if ($this->licensed) {
             $baseUrl = static::LICENSED_BASE_URL;
@@ -209,11 +200,20 @@ final class MapQuest extends AbstractHttpProvider implements Provider
         return $baseUrl.$endpoint;
     }
 
+    /**
+     * @param array<string, mixed> $params
+     */
     private function addGetQuery(string $url, array $params): string
     {
         return $url.'?'.http_build_query($params, '', '&', PHP_QUERY_RFC3986);
     }
 
+    /**
+     * @param array<string, mixed> $params
+     * @param array<string, mixed> $options
+     *
+     * @return array<string, mixed>
+     */
     private function addOptionsForGetQuery(array $params, array $options): array
     {
         foreach ($options as $key => $value) {
@@ -228,6 +228,12 @@ final class MapQuest extends AbstractHttpProvider implements Provider
         return $params;
     }
 
+    /**
+     * @param array<string, mixed> $params
+     * @param array<string, mixed> $options
+     *
+     * @return array<string, mixed>
+     */
     private function addOptionsForPostQuery(array $params, array $options): array
     {
         $params['options'] = $options;
@@ -235,7 +241,10 @@ final class MapQuest extends AbstractHttpProvider implements Provider
         return $params;
     }
 
-    private function executePostQuery(string $endpoint, array $params)
+    /**
+     * @param array<string, mixed> $params
+     */
+    private function executePostQuery(string $endpoint, array $params): AddressCollection
     {
         $url = $this->getUrl($endpoint);
 
@@ -244,7 +253,7 @@ final class MapQuest extends AbstractHttpProvider implements Provider
         $url .= '?key='.$appKey;
 
         $requestBody = json_encode($params);
-        $request = $this->getMessageFactory()->createRequest('POST', $url, [], $requestBody);
+        $request = $this->createRequest('POST', $url, [], $requestBody);
 
         $response = $this->getHttpClient()->sendRequest($request);
         $content = $this->parseHttpResponse($response, $url);
@@ -253,9 +262,7 @@ final class MapQuest extends AbstractHttpProvider implements Provider
     }
 
     /**
-     * @param string $url
-     *
-     * @return AddressCollection
+     * @param array<string, mixed> $params
      */
     private function executeGetQuery(string $endpoint, array $params): AddressCollection
     {
@@ -328,6 +335,9 @@ final class MapQuest extends AbstractHttpProvider implements Provider
         return new AddressCollection($results);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function mapAddressToArray(Location $address): array
     {
         $location = [];
@@ -388,7 +398,10 @@ final class MapQuest extends AbstractHttpProvider implements Provider
         return $location;
     }
 
-    private function mapBoundsToArray(Bounds $bounds)
+    /**
+     * @return array<string, array<string,float>>
+     */
+    private function mapBoundsToArray(Bounds $bounds): array
     {
         return [
             'ul' => [static::KEY_LAT => $bounds->getNorth(), static::KEY_LNG => $bounds->getWest()],

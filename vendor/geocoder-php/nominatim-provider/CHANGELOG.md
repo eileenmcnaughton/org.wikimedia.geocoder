@@ -2,6 +2,19 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
 
+## 5.8.0
+
+### Added
+
+- Add support for PHP Geocoder 5
+
+## 5.7.0
+
+### Added
+
+- Add support for PHP 8.2
+- Add support for address neighbourhood property
+
 ## 5.6.0
 
 ### Added

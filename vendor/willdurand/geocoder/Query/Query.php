@@ -17,53 +17,22 @@ namespace Geocoder\Query;
  */
 interface Query
 {
-    /**
-     * @param string $locale
-     *
-     * @return Query
-     */
-    public function withLocale(string $locale);
+    public function withLocale(string $locale): Query;
 
-    /**
-     * @param int $limit
-     *
-     * @return Query
-     */
-    public function withLimit(int $limit);
+    public function withLimit(int $limit): Query;
 
-    /**
-     * @param string $name
-     * @param mixed  $value
-     *
-     * @return Query
-     */
-    public function withData(string $name, $value);
+    public function withData(string $name, mixed $value): Query;
 
-    /**
-     * @return string|null
-     */
-    public function getLocale();
+    public function getLocale(): ?string;
 
-    /**
-     * @return int
-     */
     public function getLimit(): int;
 
-    /**
-     * @param string     $name
-     * @param mixed|null $default
-     *
-     * @return mixed
-     */
-    public function getData(string $name, $default = null);
+    public function getData(string $name, mixed $default = null): mixed;
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAllData(): array;
 
-    /**
-     * @return string
-     */
-    public function __toString();
+    public function __toString(): string;
 }

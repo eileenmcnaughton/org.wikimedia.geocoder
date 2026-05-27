@@ -14,13 +14,14 @@ namespace Geocoder\Provider\FreeGeoIp;
 
 use Geocoder\Collection;
 use Geocoder\Exception\UnsupportedOperation;
+use Geocoder\Http\Provider\AbstractHttpProvider;
 use Geocoder\Model\AddressBuilder;
 use Geocoder\Model\AddressCollection;
+use Geocoder\Provider\Provider;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
-use Geocoder\Http\Provider\AbstractHttpProvider;
-use Geocoder\Provider\Provider;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @author William Durand <william.durand1@gmail.com>
@@ -32,10 +33,6 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
      */
     private $baseUrl;
 
-    /**
-     * @param ClientInterface $client
-     * @param string          $baseUrl
-     */
     public function __construct(ClientInterface $client, string $baseUrl = 'https://freegeoip.app/json/%s')
     {
         parent::__construct($client);
@@ -43,9 +40,6 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
         $this->baseUrl = $baseUrl;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function geocodeQuery(GeocodeQuery $query): Collection
     {
         $address = $query->getText();
@@ -61,6 +55,7 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
         $request = $this->getRequest(sprintf($this->baseUrl, $address));
 
         if (null !== $query->getLocale()) {
+            /** @var RequestInterface $request */
             $request = $request->withHeader('Accept-Language', $query->getLocale());
         }
 
@@ -98,17 +93,11 @@ final class FreeGeoIp extends AbstractHttpProvider implements Provider
         return new AddressCollection([$builder->build()]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reverseQuery(ReverseQuery $query): Collection
     {
         throw new UnsupportedOperation('The FreeGeoIp provider is not able to do reverse geocoding.');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'free_geo_ip';

@@ -63,7 +63,7 @@ final class AddressBuilder
     private $subLocality;
 
     /**
-     * @var array
+     * @var AdminLevel[]
      */
     private $adminLevels = [];
 
@@ -85,23 +85,15 @@ final class AddressBuilder
     /**
      * A storage for extra parameters.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     private $data = [];
 
-    /**
-     * @param string $providedBy
-     */
     public function __construct(string $providedBy)
     {
         $this->providedBy = $providedBy;
     }
 
-    /**
-     * @param string $class
-     *
-     * @return Address
-     */
     public function build(string $class = Address::class): Address
     {
         if (!is_a($class, Address::class, true)) {
@@ -133,8 +125,6 @@ final class AddressBuilder
      * @param float $west
      * @param float $north
      * @param float $east
-     *
-     * @return AddressBuilder
      */
     public function setBounds($south, $west, $north, $east): self
     {
@@ -150,8 +140,6 @@ final class AddressBuilder
     /**
      * @param float $latitude
      * @param float $longitude
-     *
-     * @return AddressBuilder
      */
     public function setCoordinates($latitude, $longitude): self
     {
@@ -164,14 +152,7 @@ final class AddressBuilder
         return $this;
     }
 
-    /**
-     * @param int         $level
-     * @param string      $name
-     * @param string|null $code
-     *
-     * @return AddressBuilder
-     */
-    public function addAdminLevel(int $level, string $name, string $code = null): self
+    public function addAdminLevel(int $level, string $name, ?string $code = null): self
     {
         $this->adminLevels[] = new AdminLevel($level, $name, $code);
 
@@ -180,8 +161,6 @@ final class AddressBuilder
 
     /**
      * @param string|null $streetNumber
-     *
-     * @return AddressBuilder
      */
     public function setStreetNumber($streetNumber): self
     {
@@ -192,8 +171,6 @@ final class AddressBuilder
 
     /**
      * @param string|null $streetName
-     *
-     * @return AddressBuilder
      */
     public function setStreetName($streetName): self
     {
@@ -204,8 +181,6 @@ final class AddressBuilder
 
     /**
      * @param string|null $locality
-     *
-     * @return AddressBuilder
      */
     public function setLocality($locality): self
     {
@@ -216,8 +191,6 @@ final class AddressBuilder
 
     /**
      * @param string|null $postalCode
-     *
-     * @return AddressBuilder
      */
     public function setPostalCode($postalCode): self
     {
@@ -228,8 +201,6 @@ final class AddressBuilder
 
     /**
      * @param string|null $subLocality
-     *
-     * @return AddressBuilder
      */
     public function setSubLocality($subLocality): self
     {
@@ -239,9 +210,7 @@ final class AddressBuilder
     }
 
     /**
-     * @param array $adminLevels
-     *
-     * @return AddressBuilder
+     * @param AdminLevel[] $adminLevels
      */
     public function setAdminLevels($adminLevels): self
     {
@@ -252,8 +221,6 @@ final class AddressBuilder
 
     /**
      * @param string|null $country
-     *
-     * @return AddressBuilder
      */
     public function setCountry($country): self
     {
@@ -264,8 +231,6 @@ final class AddressBuilder
 
     /**
      * @param string|null $countryCode
-     *
-     * @return AddressBuilder
      */
     public function setCountryCode($countryCode): self
     {
@@ -276,8 +241,6 @@ final class AddressBuilder
 
     /**
      * @param string|null $timezone
-     *
-     * @return AddressBuilder
      */
     public function setTimezone($timezone): self
     {
@@ -286,26 +249,14 @@ final class AddressBuilder
         return $this;
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $value
-     *
-     * @return AddressBuilder
-     */
-    public function setValue(string $name, $value): self
+    public function setValue(string $name, mixed $value): self
     {
         $this->data[$name] = $value;
 
         return $this;
     }
 
-    /**
-     * @param string     $name
-     * @param mixed|null $default
-     *
-     * @return mixed
-     */
-    public function getValue(string $name, $default = null)
+    public function getValue(string $name, mixed $default = null): mixed
     {
         if ($this->hasValue($name)) {
             return $this->data[$name];
@@ -314,11 +265,6 @@ final class AddressBuilder
         return $default;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
     public function hasValue(string $name): bool
     {
         return array_key_exists($name, $this->data);

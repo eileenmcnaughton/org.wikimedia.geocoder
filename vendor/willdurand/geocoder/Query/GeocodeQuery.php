@@ -44,13 +44,10 @@ final class GeocodeQuery implements Query
     private $limit = Geocoder::DEFAULT_RESULT_LIMIT;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $data = [];
 
-    /**
-     * @param string $text
-     */
     private function __construct(string $text)
     {
         if ('' === $text) {
@@ -60,21 +57,11 @@ final class GeocodeQuery implements Query
         $this->text = $text;
     }
 
-    /**
-     * @param string $text
-     *
-     * @return GeocodeQuery
-     */
     public static function create(string $text): self
     {
         return new self($text);
     }
 
-    /**
-     * @param string $text
-     *
-     * @return GeocodeQuery
-     */
     public function withText(string $text): self
     {
         $new = clone $this;
@@ -83,11 +70,6 @@ final class GeocodeQuery implements Query
         return $new;
     }
 
-    /**
-     * @param Bounds $bounds
-     *
-     * @return GeocodeQuery
-     */
     public function withBounds(Bounds $bounds): self
     {
         $new = clone $this;
@@ -96,11 +78,6 @@ final class GeocodeQuery implements Query
         return $new;
     }
 
-    /**
-     * @param string $locale
-     *
-     * @return GeocodeQuery
-     */
     public function withLocale(string $locale): self
     {
         $new = clone $this;
@@ -109,11 +86,6 @@ final class GeocodeQuery implements Query
         return $new;
     }
 
-    /**
-     * @param int $limit
-     *
-     * @return GeocodeQuery
-     */
     public function withLimit(int $limit): self
     {
         $new = clone $this;
@@ -122,13 +94,7 @@ final class GeocodeQuery implements Query
         return $new;
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $value
-     *
-     * @return GeocodeQuery
-     */
-    public function withData(string $name, $value): self
+    public function withData(string $name, mixed $value): self
     {
         $new = clone $this;
         $new->data[$name] = $value;
@@ -136,45 +102,27 @@ final class GeocodeQuery implements Query
         return $new;
     }
 
-    /**
-     * @return string
-     */
     public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * @return Bounds|null
-     */
-    public function getBounds()
+    public function getBounds(): ?Bounds
     {
         return $this->bounds;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getLocale()
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
 
-    /**
-     * @return int
-     */
     public function getLimit(): int
     {
         return $this->limit;
     }
 
-    /**
-     * @param string     $name
-     * @param mixed|null $default
-     *
-     * @return mixed
-     */
-    public function getData(string $name, $default = null)
+    public function getData(string $name, mixed $default = null): mixed
     {
         if (!array_key_exists($name, $this->data)) {
             return $default;
@@ -184,7 +132,7 @@ final class GeocodeQuery implements Query
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAllData(): array
     {
@@ -193,10 +141,8 @@ final class GeocodeQuery implements Query
 
     /**
      * String for logging. This is also a unique key for the query.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf('GeocodeQuery: %s', json_encode([
             'text' => $this->getText(),

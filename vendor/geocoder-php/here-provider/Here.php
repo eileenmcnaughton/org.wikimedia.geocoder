@@ -22,10 +22,10 @@ use Geocoder\Model\AddressBuilder;
 use Geocoder\Model\AddressCollection;
 use Geocoder\Provider\Here\Model\HereAddress;
 use Geocoder\Provider\Provider;
-use Geocoder\Query\Query;
 use Geocoder\Query\GeocodeQuery;
+use Geocoder\Query\Query;
 use Geocoder\Query\ReverseQuery;
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * @author Sébastien Barré <sebastien@sheub.eu>
@@ -35,47 +35,47 @@ final class Here extends AbstractHttpProvider implements Provider
     /**
      * @var string
      */
-    const GEOCODE_ENDPOINT_URL_API_KEY = 'https://geocoder.ls.hereapi.com/6.2/geocode.json';
+    public const GEOCODE_ENDPOINT_URL_API_KEY = 'https://geocoder.ls.hereapi.com/6.2/geocode.json';
 
     /**
      * @var string
      */
-    const GEOCODE_ENDPOINT_URL_APP_CODE = 'https://geocoder.api.here.com/6.2/geocode.json';
+    public const GEOCODE_ENDPOINT_URL_APP_CODE = 'https://geocoder.api.here.com/6.2/geocode.json';
 
     /**
      * @var string
      */
-    const GEOCODE_CIT_ENDPOINT_API_KEY = 'https:/geocoder.sit.ls.hereapi.com/6.2/geocode.json';
+    public const GEOCODE_CIT_ENDPOINT_API_KEY = 'https:/geocoder.sit.ls.hereapi.com/6.2/geocode.json';
 
     /**
      * @var string
      */
-    const GEOCODE_CIT_ENDPOINT_APP_CODE = 'https://geocoder.cit.api.here.com/6.2/geocode.json';
+    public const GEOCODE_CIT_ENDPOINT_APP_CODE = 'https://geocoder.cit.api.here.com/6.2/geocode.json';
 
     /**
      * @var string
      */
-    const REVERSE_ENDPOINT_URL_API_KEY = 'https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json';
+    public const REVERSE_ENDPOINT_URL_API_KEY = 'https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json';
 
     /**
      * @var string
      */
-    const REVERSE_ENDPOINT_URL_APP_CODE = 'https://reverse.geocoder.api.here.com/6.2/reversegeocode.json';
+    public const REVERSE_ENDPOINT_URL_APP_CODE = 'https://reverse.geocoder.api.here.com/6.2/reversegeocode.json';
 
     /**
      * @var string
      */
-    const REVERSE_CIT_ENDPOINT_URL_API_KEY = 'https://reverse.geocoder.sit.ls.hereapi.com/6.2/reversegeocode.json';
+    public const REVERSE_CIT_ENDPOINT_URL_API_KEY = 'https://reverse.geocoder.sit.ls.hereapi.com/6.2/reversegeocode.json';
 
     /**
      * @var string
      */
-    const REVERSE_CIT_ENDPOINT_URL_APP_CODE = 'https://reverse.geocoder.cit.api.here.com/6.2/reversegeocode.json';
+    public const REVERSE_CIT_ENDPOINT_URL_APP_CODE = 'https://reverse.geocoder.cit.api.here.com/6.2/reversegeocode.json';
 
     /**
-     * @var array
+     * @var string[]
      */
-    const GEOCODE_ADDITIONAL_DATA_PARAMS = [
+    public const GEOCODE_ADDITIONAL_DATA_PARAMS = [
         'CrossingStreets',
         'PreserveUnitDesignators',
         'Country2',
@@ -116,12 +116,12 @@ final class Here extends AbstractHttpProvider implements Provider
     private $apiKey;
 
     /**
-     * @param HttpClient $client  an HTTP adapter
-     * @param string     $appId   an App ID
-     * @param string     $appCode an App code
-     * @param bool       $useCIT  use Customer Integration Testing environment (CIT) instead of production
+     * @param ClientInterface $client  an HTTP adapter
+     * @param string          $appId   an App ID
+     * @param string          $appCode an App code
+     * @param bool            $useCIT  use Customer Integration Testing environment (CIT) instead of production
      */
-    public function __construct(HttpClient $client, string $appId = null, string $appCode = null, bool $useCIT = false)
+    public function __construct(ClientInterface $client, ?string $appId = null, ?string $appCode = null, bool $useCIT = false)
     {
         $this->appId = $appId;
         $this->appCode = $appCode;
@@ -130,7 +130,7 @@ final class Here extends AbstractHttpProvider implements Provider
         parent::__construct($client);
     }
 
-    public static function createUsingApiKey(HttpClient $client, string $apiKey, bool $useCIT = false): self
+    public static function createUsingApiKey(ClientInterface $client, string $apiKey, bool $useCIT = false): self
     {
         $client = new self($client, null, null, $useCIT);
         $client->apiKey = $apiKey;
@@ -138,9 +138,6 @@ final class Here extends AbstractHttpProvider implements Provider
         return $client;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function geocodeQuery(GeocodeQuery $query): Collection
     {
         // This API doesn't handle IPs
@@ -177,9 +174,6 @@ final class Here extends AbstractHttpProvider implements Provider
         return $this->executeQuery(sprintf('%s?%s', $this->getBaseUrl($query), http_build_query($queryParams)), $query->getLimit());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reverseQuery(ReverseQuery $query): Collection
     {
         $coordinates = $query->getCoordinates();
@@ -194,12 +188,6 @@ final class Here extends AbstractHttpProvider implements Provider
         return $this->executeQuery(sprintf('%s?%s', $this->getBaseUrl($query), http_build_query($queryParams)), $query->getLimit());
     }
 
-    /**
-     * @param string $url
-     * @param int    $limit
-     *
-     * @return Collection
-     */
     private function executeQuery(string $url, int $limit): Collection
     {
         $content = $this->getUrlContents($url);
@@ -255,7 +243,7 @@ final class Here extends AbstractHttpProvider implements Provider
 
             /** @var HereAddress $address */
             $address = $builder->build(HereAddress::class);
-            $address = $address->withLocationId($location['LocationId']);
+            $address = $address->withLocationId($location['LocationId'] ?? null);
             $address = $address->withLocationType($location['LocationType']);
             $address = $address->withAdditionalData(array_merge($additionalData, $extraAdditionalData));
             $address = $address->withShape($location['Shape'] ?? null);
@@ -269,9 +257,6 @@ final class Here extends AbstractHttpProvider implements Provider
         return new AddressCollection($results);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'Here';
@@ -279,10 +264,6 @@ final class Here extends AbstractHttpProvider implements Provider
 
     /**
      * Get serialized additional data param.
-     *
-     * @param GeocodeQuery $query
-     *
-     * @return string
      */
     private function getAdditionalDataParam(GeocodeQuery $query): string
     {
@@ -302,15 +283,15 @@ final class Here extends AbstractHttpProvider implements Provider
     /**
      * Add API credentials to query params.
      *
-     * @param array $queryParams
+     * @param array<string, string> $queryParams
      *
-     * @return array
+     * @return array<string, string>
      */
     private function withApiCredentials(array $queryParams): array
     {
         if (
-            empty($this->apiKey) &&
-            (empty($this->appId) || empty($this->appCode))
+            empty($this->apiKey)
+            && (empty($this->appId) || empty($this->appCode))
         ) {
             throw new InvalidCredentials('Invalid or missing api key.');
         }
@@ -347,9 +328,7 @@ final class Here extends AbstractHttpProvider implements Provider
     /**
      * Serialize the component query parameter.
      *
-     * @param array $components
-     *
-     * @return string
+     * @param array<string, string> $components
      */
     private function serializeComponents(array $components): string
     {

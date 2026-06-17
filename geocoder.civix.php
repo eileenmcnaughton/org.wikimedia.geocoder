@@ -89,6 +89,7 @@ class CRM_Geocoder_ExtensionUtil {
 
 use CRM_Geocoder_ExtensionUtil as E;
 
+pathload()->addSearchDir(__DIR__ . '/mixin/lib');
 spl_autoload_register('_geocoder_civix_class_loader', TRUE, TRUE);
 
 function _geocoder_civix_class_loader($class) {

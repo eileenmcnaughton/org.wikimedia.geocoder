@@ -19,7 +19,7 @@
  * Class that uses Geocoder.ca geocoder
  *
  * @deprecated - this is not a supported way to add geocoders to this extension.
- * * Add files to ProviderMetadata.
+ * * Add files to managed/ProviderMetadata.
  */
 class CRM_Utils_Geocode_GeocoderCa {
 

@@ -24,7 +24,6 @@
     <ver>5.0</ver>
   </smarty_compatibility>
   <php_compatibility>
-    <ver>8.1</ver>
     <ver>8.2</ver>
     <ver>8.3</ver>
     <ver>8.4</ver>

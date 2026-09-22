@@ -139,10 +139,10 @@ class CRM_Utils_Geocode_Geocoder {
       catch (Geocoder\Exception\QuotaExceeded $e) {
 
         if (CRM_Core_Permission::check('access CiviCRM')) {
-          CRM_Core_Session::setStatus(ts('Geocoder quota exceeded. No further geocoding attempts will be made for %1 seconds', array(
+          CRM_Core_Session::setStatus(ts('Geocoder quota exceeded. No further geocoding attempts will be made for %1 seconds', [
             $geocoder['threshold_standdown'],
             'int'
-          )));
+          ]));
         }
         civicrm_api3('Geocoder', 'create', [
           'id' => $geocoder['id'],
@@ -490,7 +490,7 @@ class CRM_Utils_Geocode_Geocoder {
    * @return array
    */
   protected static function getEntitiesMetadata() {
-    $entities = array();
+    $entities = [];
     geocoder_civicrm_geo_managed($entities);
     $rekeyed = [];
     foreach ($entities as $entity) {
@@ -554,7 +554,7 @@ class CRM_Utils_Geocode_Geocoder {
     if (empty($values['country_id'])) {
       return;
     }
-    $postalCodeLengths = array('NZ' => 4, 'US' => 5);
+    $postalCodeLengths = ['NZ' => 4, 'US' => 5];
     $countryCode = CRM_Core_PseudoConstant::countryIsoCode($values['country_id']);
     if (!isset($postalCodeLengths[$countryCode])) {
       return;
